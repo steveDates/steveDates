@@ -32,12 +32,8 @@ module.exports = {
         //IF THEY DON’T EXIST CONTINUE//
         const salt = bcrypt.genSaltSync(10);
         const hash = bcrypt.hashSync(password, salt);
-        console.log(hash)
         let newUser = await db.auth.register_user([users_email, hash]).then(result => {
-            newUser = newUser[0];
-            console.log('we done it');
-            session.user = newUser;
-            console.log('we made it');
+            session.user = result[0]
             res.status(200).send(session.user)
         }).catch(err => {
             res.status(500).send({message: 'FAILED TO REGISTER'})
