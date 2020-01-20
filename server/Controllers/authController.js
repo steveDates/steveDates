@@ -1,19 +1,17 @@
-const bcrypt = require('bcryptjs')
-
+const bcrypt = require('bcrypt')
 module.exports = {
     login: async(req,res) => {
         const {users_email, password} = req.body;
         const {session} = req;
         const db = req.app.get('db')
-        //UPDATE DB.FIND EMAIL AND HASH//
-        let user = await db.check_user(users_email);
+        let user = await db.auth.check_user(users_email);
         user = user[0];
         if(!user){
-            return res.status(400).send(`EMAIL DOESN'T EXIST YO!`)
+            return res.status(400).send('EMAIL DOESN’T EXIST YO!')
         }
-        const authenticated = bcrypt.compareSync(password, user.hash);
+        const authenticated = bcrypt.compareSync(password, user.password);
         if(authenticated){
-            delete user.hash;
+            delete user.password;
             session.user = user;
             res.status(202).send(session.user);
         } else {
@@ -25,23 +23,28 @@ module.exports = {
         const {session} = req;
         const db = req.app.get('db')
         //CHECK TO SEE IF USER EXISTS//
-        let user = await db.check_user(users_email);
+        let user = await db.auth.check_user(users_email);
         user = user[0]
+        console.log(`user: ${user}`)
         if(user){
             return res.status(400).send('USER ALREADY EXISTS')
         }
-        //IF THEY DON'T EXIST CONTINUE//
+        //IF THEY DON’T EXIST CONTINUE//
         const salt = bcrypt.genSaltSync(10);
         const hash = bcrypt.hashSync(password, salt);
-        let newUser = await db.register_user({users_email});
-        db.insert_hash({hash, users_id: newUser[0].users_id}).then(result => {
-            session.user = result[0]
+        console.log(hash)
+        let newUser = await db.auth.register_user([users_email, hash]).then(result => {
+            newUser = newUser[0];
+            console.log('we done it');
+            session.user = newUser;
+            console.log('we made it');
             res.status(200).send(session.user)
         }).catch(err => {
             res.status(500).send({message: 'FAILED TO REGISTER'})
         })
     },
     logout: (req,res) => {
-
+        req.session.destroy();
+        res.sendStatus(200);
     }
 }

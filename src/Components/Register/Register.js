@@ -12,9 +12,9 @@ const Register = () => {
     const register = () => {
         axios
             .post('/api/register', {users_email, password})
-            .then(()=>{
-                this.PaymentResponse.history.push('/swipe');
-            })
+            // .then(()=>{
+            //     this.history.push('/swipe');
+            // })
             .catch(()=>console.log('Register Axios request did not work'))
     };
 
