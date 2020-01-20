@@ -22,6 +22,7 @@ console.log(gradient.summer('db connected'))})
 // ===== ===== AUTH ===== =====
 
 app.post('/api/register', authCtrl.register);
+app.post('/api/login', authCtrl.login);
  
 // const port = 4040;
 app.listen(SERVER_PORT, () => console.log(gradient.fruit(`Server running on ${SERVER_PORT}`)));
