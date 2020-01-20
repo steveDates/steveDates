@@ -1,0 +1,109 @@
+@import '../../App'
+.SignUpSettings 
+    position: relative
+    height: 100vh
+
+    .upper-line 
+        position: relative
+        align-items: center
+
+
+        
+        a 
+            top: 50%
+            transform: translate(0, -50%)
+
+            position: absolute
+            color: $primary-color
+            font-size: 2.5rem
+
+        h1 
+            padding: 20px 0
+            font-size: 1.3rem
+            text-align: center
+            
+    
+    &-container
+        display: flex
+        flex-direction: column
+        justify-content: center
+        align-items: center
+        padding: 50px 0
+
+        .pic-container 
+            position: relative
+            margin-bottom: 50px
+
+            .camera-icon
+                cursor: pointer
+                top: 25px
+                right: 10px
+                position: absolute
+
+                font-size: 2rem
+                color: white
+                background: $primary-color
+                padding: 15px
+                border-radius: 50%
+
+            img
+                border: 10px solid $primary-color
+                object-fit: cover
+                height: 280px
+                width: 280px
+                border-radius: 50%
+        label 
+            margin-left: 10px
+            span 
+                color: $primary-color
+                font-size: .8rem
+        .next-btn 
+            margin-top: 20px
+    .radio-container
+        display: flex 
+        justify-content: space-around
+        
+        .radio-input 
+            display: flex
+            align-items: center
+           
+            input 
+                margin-right: 10px
+                padding: 50px
+            
+        
+    .input-container-2
+        position: relative
+        input
+            border-style: none
+            background: $input-bg
+            padding: 12px 20px
+            border-radius: 30px
+            width: 100%
+            margin: 15px 0
+            font-size: 1rem
+        i 
+            color: $grey-icon
+            position: absolute 
+            top: 30px 
+            right: 15px
+            font-size: .9rem
+    
+    select 
+        border-style: none
+        background: $input-bg
+        padding: 10px 10px 
+        border-radius: 50px
+        margin: 10px 10px 10px 0
+        option 
+            border-radius: 40px
+            &:first-child
+                margin-top: 5px
+
+    h2 
+        margin: 25px 0 15px 10px
+        font-size: 1rem
+        i 
+            opacity: .7
+            padding: 10px 
+            font-size: 1.5rem
