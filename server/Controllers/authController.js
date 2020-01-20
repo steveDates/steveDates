@@ -25,7 +25,6 @@ module.exports = {
         //CHECK TO SEE IF USER EXISTS//
         let user = await db.auth.check_user(users_email);
         user = user[0]
-        console.log(`user: ${user}`)
         if(user){
             return res.status(400).send('USER ALREADY EXISTS')
         }
