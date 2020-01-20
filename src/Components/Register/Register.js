@@ -1,9 +1,10 @@
+
 import React, {useState} from 'react';
 import './Register.sass'
 import google_logo from '../../img/google.png'
-import {Link} from 'react-router-dom'
+import {Link, withRouter} from 'react-router-dom'
 import axios from 'axios';
-const Register = () => {
+const Register = (props) => {
     // THIS IS HOW TO DO STATE WITH HOOKS //
     const [users_email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -16,11 +17,14 @@ const Register = () => {
             //     this.props.history.push('/swipe');
             // })
             .catch(()=>console.log('Register Axios request did not work'))
+            props.history.push('/signup-settings')
     };
 
 	return (
 		<div className='Register'>
-            <Link to='/'><i className="back-arrow fas fa-angle-left"></i></Link>
+			<Link to='/'>
+				<i className='back-arrow fas fa-angle-left'></i>
+			</Link>
 			<div className='container Register-container'>
                 <h1 className='Register-title'>Register</h1>
                 <div className='input-container'>
@@ -37,9 +41,23 @@ const Register = () => {
 					<div className='social-btn google-btn'><img src={google_logo} alt="google logo"/></div>
 					<div className='social-btn fb-btn'><i className="fab fa-facebook-f"></i></div>
 				</div>
-            </div>
+				<div className='input-container'>
+					<i className='fas fa-unlock-alt'></i>
+					<input type='password' placeholder='Password...' />
+				</div>
+				<button className='Register-btn primary-btn'>Register</button>
+				<p>Or register with</p>
+				<div className='button-container'>
+					<div className='social-btn google-btn'>
+						<img src={google_logo} alt='google logo' />
+					</div>
+					<div className='social-btn fb-btn'>
+						<i className='fab fa-facebook-f'></i>
+					</div>
+				</div>
+			</div>
 		</div>
 	);
 };
 
-export default Register;
+export default withRouter(Register);
