@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css?family=Comfortaa&display=swap')
+* 
+  margin: 0
+  outline: none
+  box-sizing: border-box
+  font-family: 'Comfortaa', cursive
+
+$primary-color: #E81E63
+$grey-icon: #6A696E
+$input-bg: #EFEFF7
+
+@mixin container($max-width)
+  margin: 0 auto 
+  max-width: $max-width
+  width: 80% 
+
+.container  
+  @include container(600px)
+  
+    
+.input-container
+  width: 100%
+  position: relative
+  i
+    color: $grey-icon
+    position: absolute
+    top: 15px
+    left: 19px
+
+  input
+    font-size: 1rem
+    background: $input-bg
+    padding: 15px  10px 15px 45px 
+    border-style: none
+    border-radius: 40px
+    margin-bottom: 20px
+    width: 100%
+
+.primary-btn
+  font-size: 1.1rem
+  font-weight: 700
+  letter-spacing: 1px
+  cursor: pointer
+  padding: 13px 25px
+  background: $primary-color
+  color: white 
+  border-radius: 50px
+  border-style: none 
+  width: 100%
+  box-shadow: 2px 2px 5px $primary-color , 3px 3px 6px#00000036
+      
+
+  
+    
