@@ -4,6 +4,7 @@ const express = require('express'),
     massive = require('massive'),
     gradient = require('gradient-string'),
     session = require('express-session'),
+    authController = require('./Controllers/authController'),
     {SERVER_PORT, CONNECTION_STRING, SESSION_SECRET} = process.env,
     app = express();
  
@@ -20,3 +21,8 @@ console.log(gradient.summer('db connected'))})
  
 // const port = 4040;
 app.listen(SERVER_PORT, () => console.log(gradient.fruit(`Server running on ${SERVER_PORT}`)));
+
+//AUTH ENDPOINTS//
+app.post('/api/login', authController.login)
+app.post('/api/register', authController.register)
+app.post('/api/logout', authController.logout)
