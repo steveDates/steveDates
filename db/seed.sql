@@ -4,14 +4,18 @@ users_email varchar(100),
 password varchar(250)
 );
 
-
 create table users_profile (
 users_profile_id serial primary key,
 users_id int references users(users_id),
 users_image text,
 users_age int,
-users_location_city varchar(50),
-users_gender varchar(20),
+users_age_preference_min int,
+users_age_preference_max int,
+users_zipcode int,
+users_zipcode_ext int,
+users_preference_proximity_max int,
+users_gender_male boolean,
+users_gender_preference_standard boolean,
 users_bio varchar(500),
 users_first_name varchar(50)
 );
@@ -22,7 +26,6 @@ activity_name varchar(40)
 )
 
 create table users_activities (
-users_activites_id serial primary key,
 users_id int references users(users_id),
 activity_id int references activity(activity_id)
 )
@@ -46,7 +49,6 @@ users_messages_id int references messages(users_messages_id)
 )
 
 create table match_options(
-match_id serial primary key,
 users_id int references users(users_id),
 users_id2 int,
 match boolean
