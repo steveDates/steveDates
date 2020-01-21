@@ -1,8 +1,31 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './SignUpSettings.sass';
 import { Link } from 'react-router-dom';
 import pic_placeholder from '../../img/profile-placeholder.jpg';
 const SignUpSettings = () => {
+	const [firstName, setFirstName] = useState('');
+	const [gender, setGender] = useState(true);
+	const [email, setEmail] = useState('');
+	const [phoneNumber, setPhoneNumber] = useState(0);
+	const [birthDay, setBirthDay] = useState(0);
+	const [birthMonth, setBirthMonth] = useState(0);
+	const [birthYear, setBirthYear] = useState(0);
+	const [working, setWorking] = useState(true);
+	const [cityState, setCityState] = useState('');
+	const [bio, setBio] = useState('');
+
+	const getBirthDay = (e) => {
+		setBirthDay(e.target.value)
+	}
+
+	const getBirthMonth = (e) => {
+		setBirthMonth(e.target.value)
+	}
+
+	const getBirthYear = (e) => {
+		setBirthYear(e.target.value)
+	}
+
 	return (
 		<div className='SignUpSettings'>
 			<div className=' container upper-line'>
@@ -20,15 +43,15 @@ const SignUpSettings = () => {
 				<form action=''>
 					<label htmlFor=''>First Name</label>
 					<div className='input-container-2'>
-						<input type='text' placeholder='Steve Date' />
+						<input type='text' placeholder='Steve' onChange={(event)=>{setFirstName(event.target.value)}}/>
 						<i className='fas fa-pen'></i>
 					</div>
 
 					<label htmlFor=''>Gender</label><br/>
 					<select className='genre'name='' id=''>
 						<option value=''>Select</option>
-						<option value=''>Female</option>
-						<option value=''>Male</option>
+						<option value='' onChange={(event)=>{setGender(false)}}>Female</option>
+						<option value='' onChange={(event)=>{setGender(true)}}>Male</option>
 					</select>
                     <br/>
 
@@ -37,7 +60,8 @@ const SignUpSettings = () => {
 					</label>
 
 					<div className='input-container-2'>
-						<input type='email' placeholder='hi@steveDate.com' />
+						<input type='email' placeholder='hi@steveDate.com' 
+						onChange={(event)=>{setEmail(event.target.value)}}/>
 						<i className='fas fa-pen'></i>
 					</div>
 
@@ -46,13 +70,13 @@ const SignUpSettings = () => {
 					</label>
 
 					<div className='input-container-2'>
-						<input type='tel' placeholder='(123) 600-7000' />
+						<input type='number' placeholder='(123) 600-7000' onChange={(event)=>{setPhoneNumber(event.target.value)}}/>
 						<i className='fas fa-pen'></i>
 					</div>
 
 					<h2>Optional<i className="fas fa-sort-down"></i></h2>
 					<label htmlFor=''>Date Of Birth</label><br/>
-					<select name='DD'>
+					<select name='DD' onChange={(e)=>getBirthDay(e)}>
 						<option>DD</option>
 						<option value='1'>1</option>
 						<option value='2'>2</option>
@@ -86,7 +110,7 @@ const SignUpSettings = () => {
 						<option value='30'>30</option>
 						<option value='31'>31</option>
 					</select>
-					<select name='MM'>
+					<select name='MM' onChange={(e)=>getBirthMonth(e)}>
 						<option>MM</option>
 						<option value='January'>January</option>
 						<option value='Febuary'>Febuary</option>
@@ -101,7 +125,7 @@ const SignUpSettings = () => {
 						<option value='November'>November</option>
 						<option value='December'>December</option>
 					</select>
-					<select name='YY'>
+					<select name='YY' onChange={(e)=>getBirthYear(e)}>
 						<option>YY</option>
 						<option value='2020'>2020</option>
 						<option value='2019'>2019</option>
@@ -198,22 +222,22 @@ const SignUpSettings = () => {
 					<label htmlFor=''>What are you doing?</label>
 					<div className='radio-container'>
                         <div className='radio-input'>
-                            <input type='radio' name='genre' checked="checked"/>
+                            <input type='radio' name='genre' checked="checked"  onChange={(e)=>{setWorking(true)}}/>
                             <p>Working</p>
                         </div>
                         <div className='radio-input'>
-                            <input type='radio' name='genre'/>
+                            <input type='radio' name='genre'  onChange={(e)=>{setWorking(false)}}/>
                             <p>Studying</p>
                         </div>
                     </div>
 					<label htmlFor=''>Where?</label>
 					<div className='input-container-2'>
-						<input type='text' placeholder='City, State' />
+						<input type='text' placeholder='City, State' onChange={(e)=>{setCityState(e)}}/>
 						<i className='fas fa-pen'></i>
 					</div>
 					<label htmlFor=''>Bio</label>
 					<div className='input-container-2'>
-						<input type='text' placeholder='Something About You' />
+						<input type='text' placeholder='Something About You' onChange={(e)=>setBio(e)}/>
 						<i className='fas fa-pen'></i>
 					</div>
 					<button type='submit ' className='primary-btn next-btn'>

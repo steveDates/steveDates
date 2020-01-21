@@ -9,8 +9,8 @@ import SignUpSettings from './Components/SignUpSettings/SignUpSettings'
 export default (
 <Switch>
     <Route component={Login} exact path='/'/>
-    <Route component={Register} exact path='/register'/>
-    <Route component={SignUpSettings} exact path='/signup-settings'/>
+    <Route component={Register} path='/register'/>
+    <Route component={SignUpSettings} path='/signup-settings'/>
     {/* <Route component={Login} exact path='/'/>
     <Route component={Login} exact path='/'/>
     <Route component={Login} exact path='/'/>
