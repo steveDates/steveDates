@@ -5,11 +5,8 @@ const express = require('express'),
     gradient = require('gradient-string'),
     session = require('express-session'),
     authCtrl = require('./Controllers/authController'),
-<<<<<<< HEAD
     userCtrl = require('./Controllers/userController'),
-=======
-    profileCtrl = require('./Conrollers/profileController')
->>>>>>> master
+    profileCtrl = require('./Controllers/profileController')
     {SERVER_PORT, CONNECTION_STRING, SESSION_SECRET} = process.env,
     app = express();
  
