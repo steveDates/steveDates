@@ -6,7 +6,7 @@ const express = require('express'),
     session = require('express-session'),
     authCtrl = require('./Controllers/authController'),
     userCtrl = require('./Controllers/userController'),
-    profileCtrl = require('./Controllers/profileController')
+    profileCtrl = require('./Controllers/profileController'),
     {SERVER_PORT, CONNECTION_STRING, SESSION_SECRET} = process.env,
     app = express();
  
