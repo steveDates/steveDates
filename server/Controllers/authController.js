@@ -34,6 +34,7 @@ module.exports = {
         let newUser = await db.auth.register_user([users_email, hash]).then(result => {
             session.user = result[0]
             res.status(200).send(session.user)
+            console.log(session.user)
         }).catch(err => {
             res.status(500).send({message: 'FAILED TO REGISTER'})
         })
