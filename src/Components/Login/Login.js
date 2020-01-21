@@ -4,19 +4,18 @@ import logo from '../../img/logo.png';
 import { Link } from 'react-router-dom';
 import google_logo from '../../img/google.png';
 import axios from 'axios';
-const Login = () => {
+const Login = (props) => {
 
     // THIS IS HOW TO DO STATE WITH HOOKS //
     const [users_email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
     // FUNCTION THAT MAKES AXIOS REQUEST TO REGISTER NEW USER. CURRENTLY PUSHES TO THE SWIPE PAGE, BUT IT SHOULD PUSH THEM TO THE "INSERT USER INFO" PAGE SO THEY CAN SETUP THEIR PROFILE //
-    const login = (props) => {
+    const login = () => {
         axios
             .post('/api/login', {users_email, password})
             .then(()=>{
-                // this.props.history.push('/swipe');
-                console.log('login worked')
+                props.history.push('/signup-settings');
             })
             .catch(()=>console.log('Login Axios request did not work'))
     };

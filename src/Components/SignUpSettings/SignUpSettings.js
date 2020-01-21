@@ -1,18 +1,29 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import './SignUpSettings.sass';
 import { Link } from 'react-router-dom';
 import pic_placeholder from '../../img/profile-placeholder.jpg';
-const SignUpSettings = () => {
+import axios from 'axios';
+
+const SignUpSettings = (props) => {
+	// const [profilePic, setProfilePic] = useState('')
 	const [firstName, setFirstName] = useState('');
 	const [gender, setGender] = useState(true);
-	const [email, setEmail] = useState('');
-	const [phoneNumber, setPhoneNumber] = useState(0);
+	const [phoneNumber, setPhoneNumber] = useState('');
 	const [birthDay, setBirthDay] = useState(0);
 	const [birthMonth, setBirthMonth] = useState(0);
 	const [birthYear, setBirthYear] = useState(0);
+	const [age, setAge] = useState(0)
 	const [working, setWorking] = useState(true);
-	const [cityState, setCityState] = useState('');
+	const [zipCode, setZipCode] = useState(0);
 	const [bio, setBio] = useState('');
+
+	const handleInfoSubmit = () => {
+		console.log(age, 'age')
+		axios.post('/api/profileInfo', {firstName, gender, phoneNumber, age, working, zipCode, bio}).then(()=>{
+			//CHANGE ROUTE TO SWIPE VIEW WHEN READY//
+			props.history.push('/');
+		}).catch(()=> console.log('Shits Broke'))
+	}
 
 	const getBirthDay = (e) => {
 		setBirthDay(e.target.value)
@@ -25,6 +36,45 @@ const SignUpSettings = () => {
 	const getBirthYear = (e) => {
 		setBirthYear(e.target.value)
 	}
+
+	const getGenderBoolean = (e) => {
+		setGender(e.target.value)
+	}
+
+	const today_date = new Date();
+	const today_year = today_date.getFullYear();
+	const today_month = today_date.getMonth();
+	const today_day = today_date.getDate();
+	
+	useEffect(() => {
+		calculate_age()})
+
+	function calculate_age(){
+		let newAge = today_year - +birthYear;
+		if(today_month < (+birthMonth - 1)){
+			newAge--;
+		}if (((+birthMonth - 1) === today_month) && (today_day < +birthDay)){
+			newAge--;
+		}
+		setAge(+newAge)
+		return +newAge;
+	}
+
+
+	console.log(age)
+
+	console.log(
+		`first name: ${firstName}
+		gender: ${gender}
+		phone: ${phoneNumber}
+		birth day: ${birthDay}
+		birth month: ${birthMonth}
+		birth year: ${birthYear}
+		age: ${age}
+		occupation: ${working}
+		city: ${zipCode}
+		bio: ${bio}`
+	)
 
 	return (
 		<div className='SignUpSettings'>
@@ -48,14 +98,14 @@ const SignUpSettings = () => {
 					</div>
 
 					<label htmlFor=''>Gender</label><br/>
-					<select className='genre'name='' id=''>
+					<select className='genre' name='' id='' onChange={(e)=>getGenderBoolean(e)}>
 						<option value=''>Select</option>
-						<option value='' onChange={(event)=>{setGender(false)}}>Female</option>
-						<option value='' onChange={(event)=>{setGender(true)}}>Male</option>
+						<option value={false}>Female</option>
+						<option value={true}>Male</option>
 					</select>
                     <br/>
 
-					<label htmlFor=''>
+					{/* <label htmlFor=''>
 						Email Address <span>(Not visible to anyone)</span>
 					</label>
 
@@ -63,7 +113,7 @@ const SignUpSettings = () => {
 						<input type='email' placeholder='hi@steveDate.com' 
 						onChange={(event)=>{setEmail(event.target.value)}}/>
 						<i className='fas fa-pen'></i>
-					</div>
+					</div> */}
 
 					<label htmlFor=''>
 						Phone number <span>(Not visible to anyone)</span>
@@ -112,18 +162,18 @@ const SignUpSettings = () => {
 					</select>
 					<select name='MM' onChange={(e)=>getBirthMonth(e)}>
 						<option>MM</option>
-						<option value='January'>January</option>
-						<option value='Febuary'>Febuary</option>
-						<option value='March'>March</option>
-						<option value='April'>April</option>
-						<option value='May'>May</option>
-						<option value='June'>June</option>
-						<option value='July'>July</option>
-						<option value='August'>August</option>
-						<option value='September'>September</option>
-						<option value='October'>October</option>
-						<option value='November'>November</option>
-						<option value='December'>December</option>
+						<option value={0}>January</option>
+						<option value={1}>Febuary</option>
+						<option value={2}>March</option>
+						<option value={3}>April</option>
+						<option value={4}>May</option>
+						<option value={5}>June</option>
+						<option value={6}>July</option>
+						<option value={7}>August</option>
+						<option value={8}>September</option>
+						<option value={9}>October</option>
+						<option value={10}>November</option>
+						<option value={11}>December</option>
 					</select>
 					<select name='YY' onChange={(e)=>getBirthYear(e)}>
 						<option>YY</option>
@@ -232,15 +282,15 @@ const SignUpSettings = () => {
                     </div>
 					<label htmlFor=''>Where?</label>
 					<div className='input-container-2'>
-						<input type='text' placeholder='City, State' onChange={(e)=>{setCityState(e)}}/>
+						<input type='number' placeholder='Zip Code' onChange={(e)=>{setZipCode(e.target.value)}}/>
 						<i className='fas fa-pen'></i>
 					</div>
 					<label htmlFor=''>Bio</label>
 					<div className='input-container-2'>
-						<input type='text' placeholder='Something About You' onChange={(e)=>setBio(e)}/>
+						<input type='text' placeholder='Something About You' onChange={(e)=>setBio(e.target.value)}/>
 						<i className='fas fa-pen'></i>
 					</div>
-					<button type='submit ' className='primary-btn next-btn'>
+					<button type='button' className='primary-btn next-btn' onClick={()=>{calculate_age(); handleInfoSubmit()}}>
 						Next
 					</button>
 				</form>
