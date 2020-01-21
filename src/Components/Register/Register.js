@@ -39,7 +39,7 @@ const Register = (props) => {
 					<div className='social-btn google-btn'><img src={google_logo} alt="google logo"/></div>
 					<div className='social-btn fb-btn'><i className="fab fa-facebook-f"></i></div>
 				</div>
-				<div className='input-container'>
+				{/* <div className='input-container'>
 					<i className='fas fa-unlock-alt'></i>
 					<input type='password' placeholder='Password...' />
 				</div>
@@ -52,7 +52,7 @@ const Register = (props) => {
 					<div className='social-btn fb-btn'>
 						<i className='fab fa-facebook-f'></i>
 					</div>
-				</div>
+				</div> */}
 			</div>
 		</div>
 	);
