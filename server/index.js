@@ -32,7 +32,7 @@ app.post('/api/logout', authCtrl.logout)
 app.post('/api/profileInfo', userCtrl.addUserInfo)
 
 // Profile Endpoints
-app.get('/api/potentials', profileCtrl.getPotentials)
+app.get('/api/potentials', profileCtrl.getPotentialsByZip)
 
 // const port = 4040;
 app.listen(SERVER_PORT, () => console.log(gradient.fruit(`Server running on ${SERVER_PORT}`)));
