@@ -22,9 +22,11 @@ const Register = (props) => {
 
 	return (
 		<div className='Register'>
-			<Link to='/'>
-				<i className='back-arrow fas fa-angle-left'></i>
-			</Link>
+			{/* <div className='arrow-container container'> */}
+				<Link to='/'>
+					<i className='back-arrow fas fa-angle-left'></i>
+				</Link>
+			{/* </div> */}
 			<div className='container Register-container'>
                 <h1 className='Register-title'>Register</h1>
                 <div className='input-container'>
@@ -41,20 +43,8 @@ const Register = (props) => {
 					<div className='social-btn google-btn'><img src={google_logo} alt="google logo"/></div>
 					<div className='social-btn fb-btn'><i className="fab fa-facebook-f"></i></div>
 				</div>
-				<div className='input-container'>
-					<i className='fas fa-unlock-alt'></i>
-					<input type='password' placeholder='Password...' />
-				</div>
-				<button className='Register-btn primary-btn'>Register</button>
-				<p>Or register with</p>
-				<div className='button-container'>
-					<div className='social-btn google-btn'>
-						<img src={google_logo} alt='google logo' />
-					</div>
-					<div className='social-btn fb-btn'>
-						<i className='fab fa-facebook-f'></i>
-					</div>
-				</div>
+				
+				
 			</div>
 		</div>
 	);
