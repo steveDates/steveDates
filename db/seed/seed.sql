@@ -32,6 +32,11 @@ users_id int references users(users_id),
 activity_id int references activity(activity_id)
 );
 
+--creat one that looks like this except zipcode
+--when users profile gets saved, query db and populate table based on users preferred zip codes. 
+--look at query to get users matches, just like i included the user activites, include user zipceds
+--where their zipcodes in select zipcode from user pref zipcodes = my zipcode
+
 create table messages (
 users_messages_id serial primary key,
 users_message varchar(500),
