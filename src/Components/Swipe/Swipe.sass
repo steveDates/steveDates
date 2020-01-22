@@ -1,0 +1,51 @@
+@import '../../App'
+.Swipe
+    position: relative
+    &-container 
+        background: red
+        margin: 0 auto
+        max-height: 100vh
+        width: 100% 
+        max-width: 600px
+        overflow: hidden
+
+    img 
+        height: 100vh
+        width: 100% 
+        object-fit: cover
+        position: center
+
+    .top-nav 
+        position: absolute
+        display: flex 
+        justify-content: space-between
+        align-items: center
+        width: 100%
+        padding: 5px 15px
+        background: linear-gradient(to bottom, black, transparent)
+        z-index: 90
+        img 
+            height: 50px
+            width: 50px
+        
+        i 
+            color: white
+            font-size: 2rem
+
+    .user-info 
+        position: absolute 
+        bottom: 0
+        background: linear-gradient(to top, black 2%, transparent)
+        width: 100%
+        height: 100px
+        padding: 20px 0 0 15px
+        z-index: 90
+        h1 
+            color: white
+            margin-bottom: 5px
+            span
+                margin-left: 5px
+                font-size: 2rem
+        p 
+            margin-left: 10px
+            color: $primary-color
