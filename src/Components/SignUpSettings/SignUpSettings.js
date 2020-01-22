@@ -1,8 +1,81 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import './SignUpSettings.sass';
 import { Link } from 'react-router-dom';
 import pic_placeholder from '../../img/profile-placeholder.jpg';
-const SignUpSettings = () => {
+import axios from 'axios';
+
+const SignUpSettings = (props) => {
+	// const [profilePic, setProfilePic] = useState('')
+	const [firstName, setFirstName] = useState('');
+	const [gender, setGender] = useState(true);
+	const [phoneNumber, setPhoneNumber] = useState('');
+	const [birthDay, setBirthDay] = useState(0);
+	const [birthMonth, setBirthMonth] = useState(0);
+	const [birthYear, setBirthYear] = useState(0);
+	const [age, setAge] = useState(0)
+	const [working, setWorking] = useState(true);
+	const [zipCode, setZipCode] = useState(0);
+	const [bio, setBio] = useState('');
+
+	const handleInfoSubmit = () => {
+		console.log(age, 'age')
+		axios.post('/api/profileInfo', {firstName, gender, phoneNumber, age, working, zipCode, bio}).then(()=>{
+			//CHANGE ROUTE TO SWIPE VIEW WHEN READY//
+			props.history.push('/');
+		}).catch(()=> console.log('Shits Broke'))
+	}
+
+	const getBirthDay = (e) => {
+		setBirthDay(e.target.value)
+	}
+
+	const getBirthMonth = (e) => {
+		setBirthMonth(e.target.value)
+	}
+
+	const getBirthYear = (e) => {
+		setBirthYear(e.target.value)
+	}
+
+	const getGenderBoolean = (e) => {
+		setGender(e.target.value)
+	}
+
+	const today_date = new Date();
+	const today_year = today_date.getFullYear();
+	const today_month = today_date.getMonth();
+	const today_day = today_date.getDate();
+	
+	useEffect(() => {
+		calculate_age()})
+
+	function calculate_age(){
+		let newAge = today_year - +birthYear;
+		if(today_month < (+birthMonth - 1)){
+			newAge--;
+		}if (((+birthMonth - 1) === today_month) && (today_day < +birthDay)){
+			newAge--;
+		}
+		setAge(+newAge)
+		return +newAge;
+	}
+
+
+	console.log(age)
+
+	console.log(
+		`first name: ${firstName}
+		gender: ${gender}
+		phone: ${phoneNumber}
+		birth day: ${birthDay}
+		birth month: ${birthMonth}
+		birth year: ${birthYear}
+		age: ${age}
+		occupation: ${working}
+		city: ${zipCode}
+		bio: ${bio}`
+	)
+
 	return (
 		<div className='SignUpSettings'>
 			<div className=' container upper-line'>
@@ -20,39 +93,40 @@ const SignUpSettings = () => {
 				<form action=''>
 					<label htmlFor=''>First Name</label>
 					<div className='input-container-2'>
-						<input type='text' placeholder='Steve Date' />
+						<input type='text' placeholder='Steve' onChange={(event)=>{setFirstName(event.target.value)}}/>
 						<i className='fas fa-pen'></i>
 					</div>
 
 					<label htmlFor=''>Gender</label><br/>
-					<select className='genre'name='' id=''>
+					<select className='genre' name='' id='' onChange={(e)=>getGenderBoolean(e)}>
 						<option value=''>Select</option>
-						<option value=''>Female</option>
-						<option value=''>Male</option>
+						<option value={false}>Female</option>
+						<option value={true}>Male</option>
 					</select>
                     <br/>
 
-					<label htmlFor=''>
+					{/* <label htmlFor=''>
 						Email Address <span>(Not visible to anyone)</span>
 					</label>
 
 					<div className='input-container-2'>
-						<input type='email' placeholder='hi@steveDate.com' />
+						<input type='email' placeholder='hi@steveDate.com' 
+						onChange={(event)=>{setEmail(event.target.value)}}/>
 						<i className='fas fa-pen'></i>
-					</div>
+					</div> */}
 
 					<label htmlFor=''>
 						Phone number <span>(Not visible to anyone)</span>
 					</label>
 
 					<div className='input-container-2'>
-						<input type='tel' placeholder='(123) 600-7000' />
+						<input type='number' placeholder='(123) 600-7000' onChange={(event)=>{setPhoneNumber(event.target.value)}}/>
 						<i className='fas fa-pen'></i>
 					</div>
 
 					<h2>Optional<i className="fas fa-sort-down"></i></h2>
 					<label htmlFor=''>Date Of Birth</label><br/>
-					<select name='DD'>
+					<select name='DD' onChange={(e)=>getBirthDay(e)}>
 						<option>DD</option>
 						<option value='1'>1</option>
 						<option value='2'>2</option>
@@ -86,22 +160,22 @@ const SignUpSettings = () => {
 						<option value='30'>30</option>
 						<option value='31'>31</option>
 					</select>
-					<select name='MM'>
+					<select name='MM' onChange={(e)=>getBirthMonth(e)}>
 						<option>MM</option>
-						<option value='January'>January</option>
-						<option value='Febuary'>Febuary</option>
-						<option value='March'>March</option>
-						<option value='April'>April</option>
-						<option value='May'>May</option>
-						<option value='June'>June</option>
-						<option value='July'>July</option>
-						<option value='August'>August</option>
-						<option value='September'>September</option>
-						<option value='October'>October</option>
-						<option value='November'>November</option>
-						<option value='December'>December</option>
+						<option value={0}>January</option>
+						<option value={1}>Febuary</option>
+						<option value={2}>March</option>
+						<option value={3}>April</option>
+						<option value={4}>May</option>
+						<option value={5}>June</option>
+						<option value={6}>July</option>
+						<option value={7}>August</option>
+						<option value={8}>September</option>
+						<option value={9}>October</option>
+						<option value={10}>November</option>
+						<option value={11}>December</option>
 					</select>
-					<select name='YY'>
+					<select name='YY' onChange={(e)=>getBirthYear(e)}>
 						<option>YY</option>
 						<option value='2020'>2020</option>
 						<option value='2019'>2019</option>
@@ -198,25 +272,25 @@ const SignUpSettings = () => {
 					<label htmlFor=''>What are you doing?</label>
 					<div className='radio-container'>
                         <div className='radio-input'>
-                            <input type='radio' name='genre' checked="checked"/>
+                            <input type='radio' name='genre' checked="checked"  onChange={(e)=>{setWorking(true)}}/>
                             <p>Working</p>
                         </div>
                         <div className='radio-input'>
-                            <input type='radio' name='genre'/>
+                            <input type='radio' name='genre'  onChange={(e)=>{setWorking(false)}}/>
                             <p>Studying</p>
                         </div>
                     </div>
 					<label htmlFor=''>Where?</label>
 					<div className='input-container-2'>
-						<input type='text' placeholder='City, State' />
+						<input type='number' placeholder='Zip Code' onChange={(e)=>{setZipCode(e.target.value)}}/>
 						<i className='fas fa-pen'></i>
 					</div>
 					<label htmlFor=''>Bio</label>
 					<div className='input-container-2'>
-						<input type='text' placeholder='Something About You' />
+						<input type='text' placeholder='Something About You' onChange={(e)=>setBio(e.target.value)}/>
 						<i className='fas fa-pen'></i>
 					</div>
-					<button type='submit ' className='primary-btn next-btn'>
+					<button type='button' className='primary-btn next-btn' onClick={()=>{calculate_age(); handleInfoSubmit()}}>
 						Next
 					</button>
 				</form>

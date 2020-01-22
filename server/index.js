@@ -5,6 +5,8 @@ const express = require('express'),
     gradient = require('gradient-string'),
     session = require('express-session'),
     authCtrl = require('./Controllers/authController'),
+    userCtrl = require('./Controllers/userController'),
+    profileCtrl = require('./Controllers/profileController'),
     {SERVER_PORT, CONNECTION_STRING, SESSION_SECRET} = process.env,
     app = express();
  
@@ -21,13 +23,16 @@ console.log(gradient.summer('db connected'))})
 
 // ===== ===== AUTH ===== =====
 
-app.post('/api/register', authCtrl.register);
-app.post('/api/login', authCtrl.login);
- 
-// const port = 4040;
-app.listen(SERVER_PORT, () => console.log(gradient.fruit(`Server running on ${SERVER_PORT}`)));
-
-//AUTH ENDPOINTS//
 app.post('/api/login', authCtrl.login)
 app.post('/api/register', authCtrl.register)
 app.post('/api/logout', authCtrl.logout)
+
+// ===== ===== SIGN UP SETTINGS ===== =====
+
+app.post('/api/profileInfo', userCtrl.addUserInfo)
+
+// Profile Endpoints
+app.get('/api/potentials', profileCtrl.getPotentials)
+
+// const port = 4040;
+app.listen(SERVER_PORT, () => console.log(gradient.fruit(`Server running on ${SERVER_PORT}`)));

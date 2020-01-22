@@ -12,14 +12,12 @@ const Register = (props) => {
     // FUNCTION THAT MAKES AXIOS REQUEST TO REGISTER NEW USER. CURRENTLY PUSHES TO THE SWIPE PAGE, BUT IT SHOULD PUSH THEM TO THE "INSERT USER INFO" PAGE SO THEY CAN SETUP THEIR PROFILE //
     const register = () => {
         axios
-            .post('/api/register', {users_email, password})
+			.post('/api/register', {users_email, password})
             .then(()=>{
-                this.PaymentResponse.history.push('/swipe');
+				props.history.push('/signup-settings');
             })
             .catch(()=>console.log('Register Axios request did not work'))
-            props.history.push('/signup-settings')
-    };
-
+	};
 	return (
 		<div className='Register'>
 			{/* <div className='arrow-container container'> */}
