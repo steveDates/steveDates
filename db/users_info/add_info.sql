@@ -1,5 +1,6 @@
 insert into users_profile(
     users_id,
+    users_image,
     users_age, 
     users_zipcode,
     users_gender_male,
@@ -9,6 +10,7 @@ insert into users_profile(
     users_working
 ) values (
     ${users_id},
+    ${profileImg},
     ${age},
     ${zipCode},
     ${gender},
