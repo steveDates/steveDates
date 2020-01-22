@@ -3,6 +3,7 @@ const axios = require("axios"),
   { RAPID_API_KEY } = process.env;
 
 module.exports = {
+    //will get zipcodes by your criteria
   getPotentials: async (req, res) => {
     const { users_zipcode, users_preference_proximity_max } = req.session.user;
     try {
@@ -23,3 +24,4 @@ module.exports = {
     }
   }
 };
+//iterate over the zipData and have it return just the zipcode, then either individually insert into the zipcode table or find massives way to do a bulk insert into the zipcode table
