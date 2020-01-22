@@ -17,7 +17,10 @@ const SignUpSettings = (props) => {
 	const [zipCode, setZipCode] = useState(0);
 	const [bio, setBio] = useState('');
 
-	const handleInfoSubmit = () => {
+	const handleInfoSubmit = async (e) => {
+		e.preventDefault()
+		await calculate_age()
+		console.clear()
 		console.log(age, 'age')
 		axios.post('/api/profileInfo', {firstName, gender, phoneNumber, age, working, zipCode, bio}).then(()=>{
 			//CHANGE ROUTE TO SWIPE VIEW WHEN READY//
@@ -60,22 +63,6 @@ const SignUpSettings = (props) => {
 		return +newAge;
 	}
 
-
-	console.log(age)
-
-	console.log(
-		`first name: ${firstName}
-		gender: ${gender}
-		phone: ${phoneNumber}
-		birth day: ${birthDay}
-		birth month: ${birthMonth}
-		birth year: ${birthYear}
-		age: ${age}
-		occupation: ${working}
-		city: ${zipCode}
-		bio: ${bio}`
-	)
-
 	return (
 		<div className='SignUpSettings'>
 			<div className=' container upper-line'>
@@ -90,15 +77,15 @@ const SignUpSettings = (props) => {
 					<img src={pic_placeholder} alt='' />
 				</div>
 
-				<form action=''>
+				<form action='' onSubmit={(e)=>{handleInfoSubmit(e)}}>
 					<label htmlFor=''>First Name</label>
 					<div className='input-container-2'>
-						<input type='text' placeholder='Steve' onChange={(event)=>{setFirstName(event.target.value)}}/>
+						<input type='text' placeholder='Steve' onChange={(event)=>{setFirstName(event.target.value)}} required/>
 						<i className='fas fa-pen'></i>
 					</div>
 
 					<label htmlFor=''>Gender</label><br/>
-					<select className='genre' name='' id='' onChange={(e)=>getGenderBoolean(e)}>
+					<select className='genre' name='' id='' onChange={(e)=>getGenderBoolean(e)} required>
 						<option value=''>Select</option>
 						<option value={false}>Female</option>
 						<option value={true}>Male</option>
@@ -120,13 +107,13 @@ const SignUpSettings = (props) => {
 					</label>
 
 					<div className='input-container-2'>
-						<input type='number' placeholder='(123) 600-7000' onChange={(event)=>{setPhoneNumber(event.target.value)}}/>
+						<input type='number' placeholder='(123) 600-7000' onChange={(event)=>{setPhoneNumber(event.target.value)}} required/>
 						<i className='fas fa-pen'></i>
 					</div>
 
 					<h2>Optional<i className="fas fa-sort-down"></i></h2>
 					<label htmlFor=''>Date Of Birth</label><br/>
-					<select name='DD' onChange={(e)=>getBirthDay(e)}>
+					<select name='DD' onChange={(e)=>getBirthDay(e)} required>
 						<option>DD</option>
 						<option value='1'>1</option>
 						<option value='2'>2</option>
@@ -160,7 +147,7 @@ const SignUpSettings = (props) => {
 						<option value='30'>30</option>
 						<option value='31'>31</option>
 					</select>
-					<select name='MM' onChange={(e)=>getBirthMonth(e)}>
+					<select name='MM' onChange={(e)=>getBirthMonth(e)} required>
 						<option>MM</option>
 						<option value={0}>January</option>
 						<option value={1}>Febuary</option>
@@ -175,7 +162,7 @@ const SignUpSettings = (props) => {
 						<option value={10}>November</option>
 						<option value={11}>December</option>
 					</select>
-					<select name='YY' onChange={(e)=>getBirthYear(e)}>
+					<select name='YY' onChange={(e)=>getBirthYear(e)} required>
 						<option>YY</option>
 						<option value='2020'>2020</option>
 						<option value='2019'>2019</option>
@@ -282,15 +269,15 @@ const SignUpSettings = (props) => {
                     </div>
 					<label htmlFor=''>Where?</label>
 					<div className='input-container-2'>
-						<input type='number' placeholder='Zip Code' onChange={(e)=>{setZipCode(e.target.value)}}/>
+						<input type='number' placeholder='Zip Code' onChange={(e)=>{setZipCode(e.target.value)}} required/>
 						<i className='fas fa-pen'></i>
 					</div>
 					<label htmlFor=''>Bio</label>
 					<div className='input-container-2'>
-						<input type='text' placeholder='Something About You' onChange={(e)=>setBio(e.target.value)}/>
+						<input type='text' placeholder='Something About You' onChange={(e)=>setBio(e.target.value)} required/>
 						<i className='fas fa-pen'></i>
 					</div>
-					<button type='button' className='primary-btn next-btn' onClick={()=>{calculate_age(); handleInfoSubmit()}}>
+					<button type='submit' className='primary-btn next-btn'>
 						Next
 					</button>
 				</form>
