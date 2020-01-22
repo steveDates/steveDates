@@ -20,6 +20,7 @@ users_bio varchar(500),
 users_first_name varchar(50),
 users_phone_number int,
 users_working boolean
+users_phone_number_current varchar(11)
 );
 
 create table activity (
