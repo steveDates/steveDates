@@ -4,7 +4,7 @@ const express = require('express'),
     massive = require('massive'),
     gradient = require('gradient-string'),
     session = require('express-session'),
-    aws = require('aws-sdk'),
+    aws= require('aws-sdk'),
     authCtrl = require('./Controllers/authController'),
     userCtrl = require('./Controllers/userController'),
     profileCtrl = require('./Controllers/profileController'),
@@ -19,46 +19,41 @@ app.use(session({
     cookie: {maxAge: 1000 * 60 * 60 * 24}
 }))
 
-// ======== AMAZON S3 ========== //
-
+//=========== AMAZON S3 =========== //
 app.get('/sign-s3', (req, res) => {
     aws.config = {
-      region: 'us-west-1',
-      accessKeyId: AWS_ACCESS_KEY_ID,
-      secretAccessKey: AWS_SECRET_ACCESS_KEY
-    }
-  
+        region: 'us-west-1',
+        accessKeyId: AWS_ACCESS_KEY_ID,
+        secretAccessKey: AWS_SECRET_ACCESS_KEY
+    };
     const s3 = new aws.S3();
     const fileName = req.query['file-name'];
     const fileType = req.query['file-type'];
     const s3Params = {
-      Bucket: S3_BUCKET,
-      Key: fileName,
-      Expires: 60,
-      ContentType: fileType,
-      ACL: 'public-read'
+        Bucket: S3_BUCKET,
+        Key: fileName,
+        Expires: 60,
+        ContentType: fileType,
+        ACL: 'public-read'
     };
-  
-    s3.getSignedUrl('putObject', s3Params, (err, data) => {
-      if(err){
-        console.log(err);
-        return res.end();
-      }
-      const returnData = {
-        signedRequest: data,
-        url: `https://${S3_BUCKET}.s3.amazonaws.com/${fileName}`
-      };
-  
-      return res.send(returnData)
-    });
-  });
-
-// ========== S3 END ============ //
+    s3.getSignedUrl('putObject', s3Params, (err,data)=> {
+        if(err){
+            console.log(err);
+            return res.end();
+        }
+        const returnData = {
+            signedRequest: data,
+            url: `https://${S3_BUCKET}.s3.amazonaws.com/${fileName}`
+        };
+        return res.send(returnData)
+    })
+})
+// ============= S3 END =============== //    
 
 massive(CONNECTION_STRING).then(db=>{app.set('db', db);
-console.log(gradient.summer('db connected'))})
+console.log(gradient.summer('db connected'))});
 
-// ===== ===== AUTH ===== ===== //
+// ===== ===== AUTH ===== =====
 
 app.post('/api/login', authCtrl.login)
 app.post('/api/register', authCtrl.register)
@@ -68,8 +63,8 @@ app.post('/api/logout', authCtrl.logout)
 
 app.post('/api/profileInfo', userCtrl.addUserInfo)
 
-// =========== PROFILE ENDPOINTS ========== //
-app.get('/api/potentials', profileCtrl.getPotentials)
+// Profile Endpoints
+app.get('/api/potentials', profileCtrl.getPotentialsByZip)
 
 // const port = 4040;
 app.listen(SERVER_PORT, () => console.log(gradient.fruit(`Server running on ${SERVER_PORT}`)));
