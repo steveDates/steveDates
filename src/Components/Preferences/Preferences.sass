@@ -1,0 +1,110 @@
+@import '../../App'
+.Preferences
+    position: relative
+    height: 100vh
+
+    .upper-line 
+        position: relative
+        align-items: center
+
+
+        
+        a 
+            top: 50%
+            transform: translate(0, -50%)
+
+            position: absolute
+            color: $primary-color
+            font-size: 2.5rem
+
+        h1 
+            padding: 20px 0
+            font-size: 1.3rem
+            text-align: center
+    &-container
+        display: flex
+        flex-direction: column
+
+        padding: 50px 0
+
+    .max-distance-container
+        display: flex
+        justify-content: space-between
+        margin-bottom: 10px
+    .slider
+        border-radius: 20px
+        -webkit-appearance: none
+        appearance: none
+        width: 100%
+        height: 5px
+        background: #d3d3d3
+        outline: none
+        opacity: 0.7
+        transition: opacity .2s
+        &:hover 
+            opacity: 1
+
+        &::-webkit-slider-thumb 
+            -webkit-appearance: none
+            appearance: none
+            width: 25px
+            height: 25px
+            background: white
+            cursor: pointer
+            box-shadow: 2px 2px 5px #0000004b
+            border-radius: 50%
+        &::-moz-range-thumb 
+            -webkit-appearance: none
+            appearance: none
+            width: 25px
+            height: 25px
+            background: white
+            cursor: pointer
+            box-shadow: 2px 2px 5px #00000041
+            border-radius: 50%
+        // &::-moz-range-progress
+        // &::-ms-fill-lower,
+        // &::-ms-fill-upper,
+        // &::-moz-range-track
+        // &::-webkit-slider-runnable-track
+            // background: red
+    .subtitle
+        margin-top: 25px
+        display: flex
+        justify-content: center
+        align-items: center
+        h1
+            font-size: 1.3rem
+        div 
+            margin: 0 15px
+            height: 2px
+            width: 100%
+            background: grey
+            border-radius: 30px
+    .interest-container
+        margin-top: 30px
+        display: grid 
+        grid-template-columns: repeat(auto-fit, minmax(120px , 1fr))
+        grid-gap: 10px
+        justify-content: center
+        align-items: center
+    .interest
+        text-align: center
+        cursor: pointer
+        width: 100%
+        padding: 10px 15px 
+        border-radius: 50px
+        i 
+            margin-left: 10px
+
+    .activated 
+        background: $input-bg
+        color: black
+        transition: all .5s
+        
+    .deactivated
+        background: $primary-color
+        color: white
+        transition: all .5s
+
+        
