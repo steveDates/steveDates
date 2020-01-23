@@ -27,16 +27,40 @@ module.exports = {
       let bestMatches = matches.filter((el,i) => {
           return el.users_gender_male === users_gender_preference_standard && el.users_gender_preference_standard === users_gender_male && el.users_age >= users_age_preference_min && el.users_age <= users_age_preference_max
       })
+        // console.log('bestMatches', bestMatches)
 
 // ===== ===== ===== JAKE IS BREAKING THINGS ===== ===== ===== ===== ===== =====
-    //   console.log('bestMatches', bestMatches)
+
     let myActivities = await db.users_activities.find({users_id: users_id});
     console.log('My Activities', myActivities);
-      let finalMatches = bestMatches.forEach(async(el) =>{
-          let their_activities = await db.users_activities.find({users_id: el.users_id})
-        console.log('their activities', their_activities)
-      })
-      res.status(200).send(bestMatches);
+
+    // let their_activities = bestMatches.forEach(async(el)=>{
+    //     await db.users_activities.find({users_id: el.users_id});
+    // })
+    // console.log('their activities', their_activities);
+    let finalMatches = [];
+
+    await bestMatches.forEach(async(el, index) =>{
+        their_activities = await db.users_activities.find({users_id: el.users_id});
+        // console.log('their activities', their_activities);
+        await myActivities.forEach((el2)=>{
+                // console.log('THEIRS:', their_activities[0].activity_id);
+                // console.log('MINE:', el2.activity_id);
+            if (their_activities[0] && their_activities[0].activity_id === el2.activity_id){
+                // console.log('SAME:', their_activities[0].activity_id, el2.activity_id);
+                finalMatches.push(bestMatches[index]);
+                console.log('PUSHED', bestMatches[index]);
+            };
+        }
+        )
+        res.status(200).send(finalMatches);
+    }
+    );
+        
+        console.log('AL FINALE:', finalMatches);
+
+// ===== ===== ===== JAKE IS NO LONGER BREAKING THINGS ===== ===== ===== =====
+    //   res.status(200).send(bestMatches);
     }
     catch(err){
         res.status(500).send(err)
