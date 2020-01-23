@@ -20,6 +20,7 @@ users_bio varchar(500),
 users_first_name varchar(50),
 users_phone_number int,
 users_working boolean
+users_phone_number_current varchar(11)
 );
 
 create table activity (
@@ -31,6 +32,11 @@ create table users_activities (
 users_id int references users(users_id),
 activity_id int references activity(activity_id)
 );
+
+--create one that looks like this except zipcode
+--when users profile gets saved, query db and populate table based on users preferred zip codes. 
+--look at query to get users matches, just like i included the user activites, include user zipceds
+--where their zipcodes in select zipcode from user pref zipcodes = my zipcode
 
 create table messages (
 users_messages_id serial primary key,
@@ -61,3 +67,8 @@ create view users_profile_activities as
 select a.*, b.activity_id, c.activity_name from users_profile a 
 join users_activities b on a.users_id = b.users_id
 join activity c on c.activity_id = b.activity_id;
+
+
+--new junction table
+--userid1 int, userid2 int, 1y boolean, 2yboolean
+--swipe right, post function
