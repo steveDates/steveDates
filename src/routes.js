@@ -7,6 +7,8 @@ import Register from './Components/Register/Register'
 import SignUpSettings from './Components/SignUpSettings/SignUpSettings'
 import Preferences from './Components/Preferences/Preferences'
 import Swipe from './Components/Swipe/Swipe'
+import AddPhotos from './Components/AddPhotos/AddPhotos'
+
 export default (
 <Switch>
     <Route component={Login} exact path='/'/>
@@ -14,6 +16,7 @@ export default (
     <Route component={SignUpSettings} exact path='/signup-settings'/>
     <Route component={Preferences} exact path='/preferences'/>
     <Route component={Swipe} exact path='/swipe'/>
+    <Route component={AddPhotos} exact path='/add-photos'/>
 
     {/* <Route component={Login} exact path='/'/>
     <Route component={Login} exact path='/'/>

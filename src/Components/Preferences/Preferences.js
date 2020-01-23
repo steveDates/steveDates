@@ -166,6 +166,7 @@ const Preferences = () => {
 						</div>
 					))}
 				</div>
+			<button className='primary-btn next-btn'>Next</button>
 			</div>
 		</div>
 	);
