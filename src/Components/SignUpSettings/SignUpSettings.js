@@ -1,16 +1,14 @@
 import React, {useState, useEffect} from 'react';
 import Dropzone from 'react-dropzone';
 import './SignUpSettings.sass';
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import pic_placeholder from '../../img/profile-placeholder.jpg';
 import axios from 'axios';
 import GridLoader from 'react-spinners';
-// const randomString = require('randomstring');
-// import randomString from 'randomstring'
 import {v4 as randomString} from 'uuid'
 
 const SignUpSettings = (props) => {
-	// const [profilePic, setProfilePic] = useState('')
+	const [profileImg, setProfileImg] = useState('');
 	const [firstName, setFirstName] = useState('');
 	const [gender, setGender] = useState(true);
 	const [phoneNumber, setPhoneNumber] = useState('');
@@ -23,16 +21,16 @@ const SignUpSettings = (props) => {
 	const [bio, setBio] = useState('');
 	const [image, setImage] = useState(true);
 	const [isUploading] = useState(false);
-	const [profile_img, setProfileImg] = useState('');
+	
 
 	const handleInfoSubmit = async (e) => {
 		e.preventDefault()
 		await calculate_age()
 		// console.clear()
 		console.log(age, 'age')
-		axios.post('/api/profileInfo', {firstName, gender, phoneNumber, age, working, zipCode, bio}).then(()=>{
+		axios.post('/api/profileInfo', {profileImg, firstName, gender, phoneNumber, age, working, zipCode, bio}).then(()=>{
 			//CHANGE ROUTE TO SWIPE VIEW WHEN READY//
-			props.history.push('/swipe');
+			props.history.push('/preferences');
 		}).catch(()=> console.log('Shits Broke'))
 	}
 
@@ -138,7 +136,7 @@ const SignUpSettings = (props) => {
 						</div>)
 						:
 						(<div>
-							{!profile_img
+							{!profileImg
 							?
 							(<div>
 							<button className='camera-icon fas fa-camera' onClick={() => toggleEditImg()}></button>
@@ -171,7 +169,7 @@ const SignUpSettings = (props) => {
 							</div>)
 							:
 							(
-								<img src={profile_img} alt='profile-pic'/>
+								<img src={profileImg} alt='profile-pic'/>
 							)
 							}
 						</div>)

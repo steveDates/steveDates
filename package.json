@@ -20,7 +20,6 @@
     "massive": "^6.1.4",
     "node-sass": "^4.13.1",
     "nodemon": "^2.0.2",
-    "randomstring": "^1.1.5",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-dropzone": "^10.2.1",
