@@ -1,14 +1,45 @@
-const today_date = new Date();
-const today_year = today_date.getFullYear();
-const today_month = today_date.getMonth();
-const today_day = today_date.getDate();
+import React from 'react';
+import './Profile.sass';
+import kevin_2 from '../../img/kevin_1.jpg';
+import logo from '../../img/logo.png';
+const Profile = () => {
+	return (
+		<div className='Profile'>
+            <div className="circle"></div>
+			<div className='container'>
+				<div className='Profile-nav'>
+					<div style={{ width: '35px', height: '5' }}></div>
+					<i className='fas fa-user'></i>
+					<img src={logo} alt='logo' className='profile-logo' />
+				</div>
+				<div className='Profile-personal-info'>
+					<img src={kevin_2} alt='' />
+					<p>Kevin, 22</p>
+				</div>
 
-function calculate_age(){
-    let age = today_year - +birthYear;
-    if(today_month < (+birthMonth - 1)){
-        age--;
-    }if (((+birthMonth - 1) == today_month) && (today_day < +birthDay)){
-        age--;
-    }
-    return console.log(+age);
-}
+				<div className='btn-container'>
+					<div className='icon-container'>
+						<div className='icon-box'>
+							<i className='fas fa-cog'></i>
+						</div>
+						<p>settings</p>
+					</div>
+					<div className='icon-container'>
+						<div className='camera-box icon-box'>
+							<i className='fas fa-camera'></i>
+						</div>
+						<p>add media</p>
+					</div>
+					<div className='icon-container'>
+						<div className='icon-box'>
+							<i className='fas fa-pen'></i>
+						</div>
+						<p>edit info</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	);
+};
+
+export default Profile;
