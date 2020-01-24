@@ -30,7 +30,7 @@ const SignUpSettings = (props) => {
 		console.log(age, 'age')
 		axios.post('/api/profileInfo', {profileImg, firstName, gender, phoneNumber, age, working, zipCode, bio}).then(()=>{
 			//CHANGE ROUTE TO SWIPE VIEW WHEN READY//
-			props.history.push('/preferences');
+			props.history.push('/add-photos');
 		}).catch(()=> console.log('Shits Broke'))
 	}
 
