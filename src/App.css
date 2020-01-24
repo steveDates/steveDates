@@ -1,0 +1,52 @@
+@import url("https://fonts.googleapis.com/css?family=Comfortaa&display=swap");
+* {
+  margin: 0;
+  outline: none;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  font-family: 'Comfortaa', cursive;
+}
+
+.container {
+  margin: 0 auto;
+  max-width: 600px;
+  width: 80%;
+}
+
+.input-container {
+  width: 100%;
+  position: relative;
+}
+
+.input-container i {
+  color: #6A696E;
+  position: absolute;
+  top: 15px;
+  left: 19px;
+}
+
+.input-container input {
+  font-size: 1rem;
+  background: #EFEFF7;
+  padding: 15px  10px 15px 45px;
+  border-style: none;
+  border-radius: 40px;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.primary-btn {
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  cursor: pointer;
+  padding: 13px 25px;
+  background: #E81E63;
+  color: white;
+  border-radius: 50px;
+  border-style: none;
+  width: 100%;
+  -webkit-box-shadow: 2px 2px 5px #E81E63, 3px 3px 6px #00000036;
+          box-shadow: 2px 2px 5px #E81E63, 3px 3px 6px #00000036;
+}
+/*# sourceMappingURL=App.css.map */
