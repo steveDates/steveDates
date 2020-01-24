@@ -28,7 +28,15 @@ module.exports = {
           return el.users_gender_male === users_gender_preference_standard && el.users_gender_preference_standard === users_gender_male && el.users_age >= users_age_preference_min && el.users_age <= users_age_preference_max 
 
       })
+
+// ===== ===== ===== JAKE IS BREAKING THINGS ===== ===== ===== ===== ===== =====
     //   console.log('bestMatches', bestMatches)
+    let myActivities = await db.users_activities.find({users_id: users_id});
+    console.log('My Activities', myActivities);
+      let finalMatches = bestMatches.forEach(async(el) =>{
+          let their_activities = await db.users_activities.find({users_id: el.users_id})
+        console.log('their activities', their_activities)
+      })
       res.status(200).send(bestMatches);
     }
     catch(err){
