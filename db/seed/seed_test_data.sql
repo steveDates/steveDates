@@ -31,33 +31,33 @@ insert into users_profile (users_profile_id, users_id, users_image,users_age, us
 values (100067, 100067, 'https://stevedates.s3.amazonaws.com/049e5277-fb70-4087-9e88-239cb5eedc74-bobross.jpeg', 41, 18, 45, 84060, null, 50, true, true, 'All my single ladies!', 'Bob6');
 
 insert into users_activities(users_id, activity_id) values (
-    100001, 1
+    100004, 10
 );
 insert into users_activities(users_id, activity_id) values (
-    100001, 2
+    100004, 11
 );
 insert into users_activities(users_id, activity_id) values (
-    100001, 3
-);
-
-insert into users_activities(users_id, activity_id) values (
-    100002, 4
-);
-insert into users_activities(users_id, activity_id) values (
-    100002, 5
-);
-insert into users_activities(users_id, activity_id) values (
-    100003, 6
+    100004, 12
 );
 
 insert into users_activities(users_id, activity_id) values (
-    100003, 1
+    100005, 10
 );
 insert into users_activities(users_id, activity_id) values (
-    100003, 7
+    100005, 11
 );
 insert into users_activities(users_id, activity_id) values (
-    100003, 8
+    100005, 12
+);
+
+insert into users_activities(users_id, activity_id) values (
+    100006, 13
+);
+insert into users_activities(users_id, activity_id) values (
+    100006, 14
+);
+insert into users_activities(users_id, activity_id) values (
+    100006, 12
 );
 
 
