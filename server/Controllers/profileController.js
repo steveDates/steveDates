@@ -25,7 +25,8 @@ module.exports = {
       let matches = await db.users_profile.find({users_zipcode: newData, "users_id <>": users_id })
     //   console.log('matches', matches)
       let bestMatches = matches.filter((el,i) => {
-          return el.users_gender_male === users_gender_preference_standard && el.users_gender_preference_standard === users_gender_male && el.users_age >= users_age_preference_min && el.users_age <= users_age_preference_max
+          return el.users_gender_male === users_gender_preference_standard && el.users_gender_preference_standard === users_gender_male && el.users_age >= users_age_preference_min && el.users_age <= users_age_preference_max 
+
       })
     //   console.log('bestMatches', bestMatches)
       res.status(200).send(bestMatches);
@@ -36,6 +37,4 @@ module.exports = {
     // console.log("data", newData)
   }
 };
-//iterate over the zipData and have it return just the zipcode, then either individually insert into the zipcode table or find massives way to do a bulk insert into the zipcode table
-
 

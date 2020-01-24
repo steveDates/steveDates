@@ -19,8 +19,9 @@ users_gender_preference_standard boolean,
 users_bio varchar(500),
 users_first_name varchar(50),
 users_phone_number int,
-users_working boolean
-users_phone_number_current varchar(11)
+users_working boolean,
+users_phone_number_current varchar(11),
+users_activities text []
 );
 
 create table activity (
