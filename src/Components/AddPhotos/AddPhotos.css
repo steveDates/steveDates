@@ -1,0 +1,130 @@
+@import url("https://fonts.googleapis.com/css?family=Comfortaa&display=swap");
+* {
+  margin: 0;
+  outline: none;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  font-family: 'Comfortaa', cursive;
+}
+
+.container {
+  margin: 0 auto;
+  max-width: 600px;
+  width: 80%;
+}
+
+.input-container {
+  width: 100%;
+  position: relative;
+}
+
+.input-container i {
+  color: #6A696E;
+  position: absolute;
+  top: 15px;
+  left: 19px;
+}
+
+.input-container input {
+  font-size: 1rem;
+  background: #EFEFF7;
+  padding: 15px  10px 15px 45px;
+  border-style: none;
+  border-radius: 40px;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.primary-btn {
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  cursor: pointer;
+  padding: 13px 25px;
+  background: #E81E63;
+  color: white;
+  border-radius: 50px;
+  border-style: none;
+  width: 100%;
+  -webkit-box-shadow: 2px 2px 5px #E81E63, 3px 3px 6px #00000036;
+          box-shadow: 2px 2px 5px #E81E63, 3px 3px 6px #00000036;
+}
+
+.AddPhotos {
+  position: relative;
+  height: 100vh;
+}
+
+.AddPhotos .upper-line {
+  position: relative;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.AddPhotos .upper-line a {
+  top: 50%;
+  -webkit-transform: translate(0, -50%);
+          transform: translate(0, -50%);
+  position: absolute;
+  color: #E81E63;
+  font-size: 2.5rem;
+}
+
+.AddPhotos .upper-line h1 {
+  padding: 20px 0;
+  font-size: 1.3rem;
+  text-align: center;
+}
+
+.AddPhotos .grid-photos {
+  padding: 50px 0;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (minmax(150px, 1fr))[auto-fit];
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  grid-gap: 20px;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.AddPhotos .grid-photos .single-photo {
+  cursor: pointer;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background: #e5e5e5;
+  border-radius: 20px;
+  height: 250px;
+  -webkit-box-shadow: 3px 2px 6px #d8d6d6;
+          box-shadow: 3px 2px 6px #d8d6d6;
+}
+
+.AddPhotos .grid-photos .single-photo img {
+  width: 60px;
+}
+
+.AddPhotos .register-btn {
+  margin-bottom: 90px;
+}
+
+@media (max-width: 700px) {
+  .AddPhotos .grid-photos {
+    -ms-grid-columns: (minmax(90px, 1fr))[auto-fit];
+        grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+  }
+  .AddPhotos .grid-photos .single-photo {
+    height: 200px;
+  }
+}
+/*# sourceMappingURL=AddPhotos.css.map */

@@ -1,0 +1,206 @@
+@import url("https://fonts.googleapis.com/css?family=Comfortaa&display=swap");
+* {
+  margin: 0;
+  outline: none;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  font-family: 'Comfortaa', cursive;
+}
+
+.container {
+  margin: 0 auto;
+  max-width: 600px;
+  width: 80%;
+}
+
+.input-container {
+  width: 100%;
+  position: relative;
+}
+
+.input-container i {
+  color: #6A696E;
+  position: absolute;
+  top: 15px;
+  left: 19px;
+}
+
+.input-container input {
+  font-size: 1rem;
+  background: #EFEFF7;
+  padding: 15px  10px 15px 45px;
+  border-style: none;
+  border-radius: 40px;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.primary-btn {
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  cursor: pointer;
+  padding: 13px 25px;
+  background: #E81E63;
+  color: white;
+  border-radius: 50px;
+  border-style: none;
+  width: 100%;
+  -webkit-box-shadow: 2px 2px 5px #E81E63, 3px 3px 6px #00000036;
+          box-shadow: 2px 2px 5px #E81E63, 3px 3px 6px #00000036;
+}
+
+.SignUpSettings {
+  position: relative;
+  height: 100vh;
+}
+
+.SignUpSettings .upper-line {
+  position: relative;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.SignUpSettings .upper-line a {
+  top: 50%;
+  -webkit-transform: translate(0, -50%);
+          transform: translate(0, -50%);
+  position: absolute;
+  color: #E81E63;
+  font-size: 2.5rem;
+}
+
+.SignUpSettings .upper-line h1 {
+  padding: 20px 0;
+  font-size: 1.3rem;
+  text-align: center;
+}
+
+.SignUpSettings-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 50px 0;
+}
+
+.SignUpSettings-container .pic-container {
+  position: relative;
+  margin-bottom: 50px;
+}
+
+.SignUpSettings-container .pic-container .camera-icon {
+  cursor: pointer;
+  top: 25px;
+  right: 10px;
+  position: absolute;
+  font-size: 2rem;
+  color: white;
+  background: #E81E63;
+  padding: 15px;
+  border-radius: 50%;
+}
+
+.SignUpSettings-container .pic-container img {
+  border: 10px solid #E81E63;
+  -o-object-fit: cover;
+     object-fit: cover;
+  height: 280px;
+  width: 280px;
+  border-radius: 50%;
+}
+
+.SignUpSettings-container label {
+  margin-left: 10px;
+}
+
+.SignUpSettings-container label span {
+  color: #E81E63;
+  font-size: .8rem;
+}
+
+.SignUpSettings-container .next-btn {
+  margin-top: 20px;
+}
+
+.SignUpSettings .radio-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+
+.SignUpSettings .radio-container .radio-input {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.SignUpSettings .radio-container .radio-input input {
+  margin-right: 10px;
+  padding: 50px;
+}
+
+.SignUpSettings .input-container-2 {
+  position: relative;
+}
+
+.SignUpSettings .input-container-2 input {
+  border-style: none;
+  background: #EFEFF7;
+  padding: 12px 20px;
+  border-radius: 30px;
+  width: 100%;
+  margin: 15px 0;
+  font-size: 1rem;
+}
+
+.SignUpSettings .input-container-2 i {
+  color: #6A696E;
+  position: absolute;
+  top: 30px;
+  right: 15px;
+  font-size: .9rem;
+}
+
+.SignUpSettings select {
+  border-style: none;
+  background: #EFEFF7;
+  padding: 10px 10px;
+  border-radius: 50px;
+  margin: 10px 10px 10px 0;
+}
+
+.SignUpSettings select option {
+  border-radius: 40px;
+}
+
+.SignUpSettings select option:first-child {
+  margin-top: 5px;
+}
+
+.SignUpSettings h2 {
+  margin: 25px 0 15px 10px;
+  font-size: 1rem;
+}
+
+.SignUpSettings h2 i {
+  opacity: .7;
+  padding: 10px;
+  font-size: 1.5rem;
+}
+/*# sourceMappingURL=SignUpSettings.css.map */
