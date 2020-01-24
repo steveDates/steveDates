@@ -1,4 +1,4 @@
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcryptjs')
 module.exports = {
     login: async(req,res) => {
         const {users_email, password} = req.body;
@@ -11,6 +11,7 @@ module.exports = {
         }
         const authenticated = bcrypt.compareSync(password, user.password);
         if(authenticated){
+            console.log('authenticated')
             delete user.password;
             session.user = user;
             res.status(202).send(session.user);

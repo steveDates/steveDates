@@ -15,6 +15,7 @@ const Login = (props) => {
         axios
             .post('/api/login', {users_email, password})
             .then(()=>{
+				//change to swipe view when done with
                 props.history.push('/signup-settings');
             })
             .catch(()=>console.log('Login Axios request did not work'))
