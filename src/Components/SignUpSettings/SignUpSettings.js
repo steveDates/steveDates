@@ -1,122 +1,131 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import Dropzone from 'react-dropzone';
 import './SignUpSettings.sass';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import pic_placeholder from '../../img/profile-placeholder.jpg';
 import axios from 'axios';
-import GridLoader from 'react-spinners';
-import {v4 as randomString} from 'uuid'
+import { v4 as randomString } from 'uuid';
 
-const SignUpSettings = (props) => {
-	const [profileImg, setProfileImg] = useState('');
+const SignUpSettings = props => {
+	const [profileImg, setProfileImg] = useState(pic_placeholder);
 	const [firstName, setFirstName] = useState('');
 	const [gender, setGender] = useState(true);
 	const [phoneNumber, setPhoneNumber] = useState('');
 	const [birthDay, setBirthDay] = useState(0);
 	const [birthMonth, setBirthMonth] = useState(0);
 	const [birthYear, setBirthYear] = useState(0);
-	const [age, setAge] = useState(0)
+	const [age, setAge] = useState(0);
 	const [working, setWorking] = useState(true);
 	const [zipCode, setZipCode] = useState(0);
 	const [bio, setBio] = useState('');
-	const [image, setImage] = useState(true);
-	const [isUploading] = useState(false);
-	
 
-	const handleInfoSubmit = async (e) => {
-		e.preventDefault()
-		await calculate_age()
+	const handleInfoSubmit = async e => {
+		e.preventDefault();
+		await calculate_age();
 		// console.clear()
-		console.log(age, 'age')
-		axios.post('/api/profileInfo', {profileImg, firstName, gender, phoneNumber, age, working, zipCode, bio}).then(()=>{
-			//CHANGE ROUTE TO SWIPE VIEW WHEN READY//
-			props.history.push('/preferences');
-		}).catch(()=> console.log('Shits Broke'))
-	}
+		console.log(age, 'age');
+		axios
+			.post('/api/profileInfo', {
+				profileImg,
+				firstName,
+				gender,
+				phoneNumber,
+				age,
+				working,
+				zipCode,
+				bio
+			})
+			.then(() => {
+				//CHANGE ROUTE TO SWIPE VIEW WHEN READY//
+				props.history.push('/preferences');
+			})
+			.catch(() => console.log('Shits Broke'));
+	};
 
 	/////////AGE GENERATOR//////////////
 
-	const getBirthDay = (e) => {
-		setBirthDay(e.target.value)
-	}
+	const getBirthDay = e => {
+		setBirthDay(e.target.value);
+	};
 
-	const getBirthMonth = (e) => {
-		setBirthMonth(e.target.value)
-	}
+	const getBirthMonth = e => {
+		setBirthMonth(e.target.value);
+	};
 
-	const getBirthYear = (e) => {
-		setBirthYear(e.target.value)
-	}
+	const getBirthYear = e => {
+		setBirthYear(e.target.value);
+	};
 
-	const getGenderBoolean = (e) => {
-		setGender(e.target.value)
-	}
+	const getGenderBoolean = e => {
+		setGender(e.target.value);
+	};
 
 	const today_date = new Date();
 	const today_year = today_date.getFullYear();
 	const today_month = today_date.getMonth();
 	const today_day = today_date.getDate();
-	
-	useEffect(() => {
-		calculate_age()})
 
-	function calculate_age(){
+	useEffect(() => {
+		calculate_age();
+	});
+
+	function calculate_age() {
 		let newAge = today_year - +birthYear;
-		if(today_month < (+birthMonth - 1)){
-			newAge--;
-		}if (((+birthMonth - 1) === today_month) && (today_day < +birthDay)){
+		if (today_month < +birthMonth - 1) {
 			newAge--;
 		}
-		setAge(+newAge)
+		if (+birthMonth - 1 === today_month && today_day < +birthDay) {
+			newAge--;
+		}
+		setAge(+newAge);
 		return +newAge;
 	}
 
 	///////////AMAZON S3///////////////
 
-	function toggleEditImg(){
-		setImage(!image)
-	}
-
 	let getSignedRequest = ([file]) => {
-		const fileName = `${randomString()}-${file.name.replace(/\s/g, '-')}`
-	 
-		axios.get('/sign-s3', {
-		  params: {
-			'file-name': fileName,
-			'file-type': file.type
-		  }
-		}).then((response) => {
-		  const { signedRequest, url } = response.data;
-		  uploadFile(file, signedRequest, url)
-		}).catch( err => {
-		  console.log(err)
-		})
-	 }
+		const fileName = `${randomString()}-${file.name.replace(/\s/g, '-')}`;
 
-	 let uploadFile = (file, signedRequest, url) => {
-        	const options = {
-        	headers: {
-            'Content-Type': file.type,
-        	},
+		axios
+			.get('/sign-s3', {
+				params: {
+					'file-name': fileName,
+					'file-type': file.type
+				}
+			})
+			.then(response => {
+				const { signedRequest, url } = response.data;
+				uploadFile(file, signedRequest, url);
+			})
+			.catch(err => {
+				console.log(err);
+			});
+	};
+
+	let uploadFile = (file, signedRequest, url) => {
+		const options = {
+			headers: {
+				'Content-Type': file.type
+			}
 		};
-		
-		axios.put(signedRequest, file, options).then(res => {
-            setProfileImg(url);
-        })
-        .catch(err => {
-            if (err.res.status === 403) {
-            alert(
-                `Your request for a signed URL failed with a status 403. Double check the CORS configuration and bucket policy in the README. You also will want to double check your AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY in your .env and ensure that they are the same as the ones that you created in the IAM dashboard. You may need to generate new keys\n${
-                err.stack
-                }`
-            );
-            } else {
-            alert(`ERROR: ${err.status}\n ${err.stack}`);
-        }   
-        });
-    };
 
-	 /////////////////////////////////////
+		axios
+			.put(signedRequest, file, options)
+			.then(res => {
+				setProfileImg(url);
+			})
+			.catch(err => {
+				if (err.res.status === 403) {
+					alert(
+						`Your request for a signed URL failed with a status 403. Double check the CORS configuration and bucket policy in the README. You also will want to double check your AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY in your .env and ensure that they are the same as the ones that you created in the IAM dashboard. You may need to generate new keys\n${err.stack}`
+					);
+				} else {
+					alert(`ERROR: ${err.status}\n ${err.stack}`);
+				}
+			});
+	};
+
+	/////////////////////////////////////
 
 	return (
 		<div className='SignUpSettings'>
@@ -128,68 +137,64 @@ const SignUpSettings = (props) => {
 			</div>
 			<div className='container SignUpSettings-container'>
 				<div className='pic-container'>
-					{image
-						?
-						(<div>
-							<button className='camera-icon fas fa-camera' onClick={() => toggleEditImg()}></button>
-							<img src={pic_placeholder} alt='' />
-						</div>)
-						:
-						(<div>
-							{!profileImg
-							?
-							(<div>
-							<button className='camera-icon fas fa-camera' onClick={() => toggleEditImg()}></button>
-							<Dropzone 
-								onDropAccepted={getSignedRequest}
-								accept='image/*'
-								multiple={false} >
-									{({getRootProps, getInputProps}) => (
-                                <div className="container">
-                                    <div
-                                        {...getRootProps({
-                                        className: 'dropzone',
-                                        onDrop: event => event.stopPropagation()
-                                        })}
-                                    >
-									   {!isUploading
-									   ?(<>
-									   <input {...getInputProps()} />
-									   <p>Drop files here, or click to select files</p>
-									   </>)
-									:(
-										<>
-										<GridLoader />
-										</>
-									)}
-                                    </div>
-                                </div>
-                            )}  
-							</Dropzone>
-							</div>)
-							:
-							(
-								<img src={profileImg} alt='profile-pic'/>
-							)
-							}
-						</div>)
-					}
+					<img className='profile-img' src={profileImg} alt='' />
+					<Dropzone
+						onDropAccepted={getSignedRequest}
+						accept='image/*'
+						multiple={false}
+						className='test'
+					>
+						{({ getRootProps, getInputProps }) => (
+							<div className='container'>
+								<div
+									{...getRootProps({
+										className: 'dropzone',
+										onDrop: event => event.stopPropagation()
+									})}
+								>
+									<input {...getInputProps()} />
+									<div className=' camera-icon camera-container'>
+										<i className='fas fa-camera'></i>
+									</div>
+								</div>
+							</div>
+						)}
+					</Dropzone>
 				</div>
 
-				<form action='' onSubmit={(e)=>{handleInfoSubmit(e)}}>
+				<form
+					action=''
+					onSubmit={e => {
+						handleInfoSubmit(e);
+					}}
+				>
 					<label htmlFor=''>First Name</label>
 					<div className='input-container-2'>
-						<input type='text' placeholder='Steve' onChange={(event)=>{setFirstName(event.target.value)}} required/>
+						<input
+							type='text'
+							placeholder='Steve'
+							onChange={event => {
+								setFirstName(event.target.value);
+							}}
+							required
+						/>
 						<i className='fas fa-pen'></i>
 					</div>
 
-					<label htmlFor=''>Gender</label><br/>
-					<select className='genre' name='' id='' onChange={(e)=>getGenderBoolean(e)} required>
+					<label htmlFor=''>Gender</label>
+					<br />
+					<select
+						className='genre'
+						name=''
+						id=''
+						onChange={e => getGenderBoolean(e)}
+						required
+					>
 						<option value=''>Select</option>
 						<option value={false}>Female</option>
 						<option value={true}>Male</option>
 					</select>
-                    <br/>
+					<br />
 
 					{/* <label htmlFor=''>
 						Email Address <span>(Not visible to anyone)</span>
@@ -206,13 +211,23 @@ const SignUpSettings = (props) => {
 					</label>
 
 					<div className='input-container-2'>
-						<input type='number' placeholder='(123) 600-7000' onChange={(event)=>{setPhoneNumber(event.target.value)}} required/>
+						<input
+							type='number'
+							placeholder='(123) 600-7000'
+							onChange={event => {
+								setPhoneNumber(event.target.value);
+							}}
+							required
+						/>
 						<i className='fas fa-pen'></i>
 					</div>
 
-					<h2>Optional<i className="fas fa-sort-down"></i></h2>
-					<label htmlFor=''>Date Of Birth</label><br/>
-					<select name='DD' onChange={(e)=>getBirthDay(e)} required>
+					<h2>
+						Optional<i className='fas fa-sort-down'></i>
+					</h2>
+					<label htmlFor=''>Date Of Birth</label>
+					<br />
+					<select name='DD' onChange={e => getBirthDay(e)} required>
 						<option>DD</option>
 						<option value='1'>1</option>
 						<option value='2'>2</option>
@@ -246,7 +261,7 @@ const SignUpSettings = (props) => {
 						<option value='30'>30</option>
 						<option value='31'>31</option>
 					</select>
-					<select name='MM' onChange={(e)=>getBirthMonth(e)} required>
+					<select name='MM' onChange={e => getBirthMonth(e)} required>
 						<option>MM</option>
 						<option value={0}>January</option>
 						<option value={1}>Febuary</option>
@@ -261,7 +276,7 @@ const SignUpSettings = (props) => {
 						<option value={10}>November</option>
 						<option value={11}>December</option>
 					</select>
-					<select name='YY' onChange={(e)=>getBirthYear(e)} required>
+					<select name='YY' onChange={e => getBirthYear(e)} required>
 						<option>YY</option>
 						<option value='2020'>2020</option>
 						<option value='2019'>2019</option>
@@ -357,23 +372,48 @@ const SignUpSettings = (props) => {
 					</select>
 					<label htmlFor=''>What are you doing?</label>
 					<div className='radio-container'>
-                        <div className='radio-input'>
-                            <input type='radio' name='genre' checked="checked"  onChange={(e)=>{setWorking(true)}}/>
-                            <p>Working</p>
-                        </div>
-                        <div className='radio-input'>
-                            <input type='radio' name='genre'  onChange={(e)=>{setWorking(false)}}/>
-                            <p>Studying</p>
-                        </div>
-                    </div>
+						<div className='radio-input'>
+							<input
+								type='radio'
+								name='genre'
+								checked='checked'
+								onChange={e => {
+									setWorking(true);
+								}}
+							/>
+							<p>Working</p>
+						</div>
+						<div className='radio-input'>
+							<input
+								type='radio'
+								name='genre'
+								onChange={e => {
+									setWorking(false);
+								}}
+							/>
+							<p>Studying</p>
+						</div>
+					</div>
 					<label htmlFor=''>Where?</label>
 					<div className='input-container-2'>
-						<input type='number' placeholder='Zip Code' onChange={(e)=>{setZipCode(e.target.value)}} required/>
+						<input
+							type='number'
+							placeholder='Zip Code'
+							onChange={e => {
+								setZipCode(e.target.value);
+							}}
+							required
+						/>
 						<i className='fas fa-pen'></i>
 					</div>
 					<label htmlFor=''>Bio</label>
 					<div className='input-container-2'>
-						<input type='text' placeholder='Something About You' onChange={(e)=>setBio(e.target.value)} required/>
+						<input
+							type='text'
+							placeholder='Something About You'
+							onChange={e => setBio(e.target.value)}
+							required
+						/>
 						<i className='fas fa-pen'></i>
 					</div>
 					<button type='submit' className='primary-btn next-btn'>
