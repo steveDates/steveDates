@@ -66,6 +66,8 @@ app.post('/api/logout', authCtrl.logout)
 // ===== ===== USER ===== =====
 
 app.post('/api/profileInfo', userCtrl.addUserInfo)
+app.get('/api/activities', userCtrl.getActivities)
+app.post('/api/activities', userCtrl.saveActivities)
 app.get('/api/user-photos', userCtrl.getUserImgs)
 app.put('/api/photos', userCtrl.addUserImgs)
 
