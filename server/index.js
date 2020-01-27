@@ -62,6 +62,8 @@ app.post('/api/logout', authCtrl.logout)
 // ===== ===== SIGN UP SETTINGS ===== =====
 
 app.post('/api/profileInfo', userCtrl.addUserInfo)
+app.get('/api/activities', userCtrl.getActivities)
+app.post('/api/activities', userCtrl.saveActivities)
 
 // Profile Endpoints
 app.get('/api/potentials', profileCtrl.getPotentialsByZip)
