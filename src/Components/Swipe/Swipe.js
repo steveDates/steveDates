@@ -6,6 +6,7 @@ import Slider from 'react-slick';
 
 const Swipe = () => {
 	const [heartToggle, setHeartToggle] = useState(false);
+	const [friendZone, setFriendZone] = useState(false);
 	const settings = {
 		// dots: true,
 		infinite: true,
@@ -17,17 +18,16 @@ const Swipe = () => {
 	};
 
 	const { images } = data[0];
-	console.log(images);
 	console.log(heartToggle);
 	return (
 		<div className='Swipe'>
 			<div className=' Swipe-container'>
-			<div className=' top-nav'>
-				<i className='fas fa-ellipsis-h'></i>
-				<img src={logo} alt='' />
-				<i className='far fa-comment-dots'></i>
-			</div>
-			
+				<div className=' top-nav'>
+					<i className='fas fa-ellipsis-h'></i>
+					<img src={logo} alt='' />
+					<i className='far fa-comment-dots'></i>
+				</div>
+
 				<div className=''>
 					<div>
 						<Slider {...settings}>
@@ -45,6 +45,11 @@ const Swipe = () => {
 							Kevin<span>22</span>
 						</h1>
 						<div className='icon-container'>
+							<i class='far '></i>
+							<i
+								onClick={()=>setFriendZone(!friendZone)}
+								className={`far  ${!friendZone ? 'fa-smile' : 'fa-sad-tear'}`}
+							></i>
 							<i
 								onClick={() => setHeartToggle(!heartToggle)}
 								className={`${heartToggle ? 'like' : 'unliked'} fas fa-heart`}

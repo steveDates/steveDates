@@ -12,27 +12,31 @@ const AddPhotos = (props) => {
 	const [img4, setImg4] = useState('');
 	const [img5, setImg5] = useState('');
 	const [img6, setImg6] = useState('');
+
    let getUserPhotos = () => {
         axios.get('/api/user-photos').then(res => {
-			console.log('DATA', res.data[0]);
-            setProfileImg(res.data)
+			// console.log('DATA', res.data[0]);
+			setProfileImg(res.data[0])
+			setImg2(res.data[1])
+			setImg3(res.data[2])
+			setImg4(res.data[3])
+			setImg5(res.data[4])
+			setImg6(res.data[5])
         }).catch(err => {
             console.log(err);
         });
 	}
-console.log('IMAGE IS:', img2);
+
     useEffect(() => {
 		getUserPhotos()
-    }, [])
-    console.log(profileImg)
-    
+	}, [])
+	
 const addUserPhotos = () => {
     axios
-        .post('/api/photos', {profileImg, img2, img3, img4, img5, img6})
+        .put('/api/photos', {profileImg, img2, img3, img4, img5, img6})
         .then(()=>{props.history.push('/swipe');
     })
 };
-
     // === === === AMAZON S3 === === === //
 	let getSignedRequest = ([file]) => {
 		const fileName = `${randomString()}-${file.name.replace(/\s/g, '-')}`;
@@ -60,7 +64,6 @@ const addUserPhotos = () => {
 		axios
 			.put(signedRequest, file, options)
 			.then(res => {
-                console.log('RUNNING');
 				if(!profileImg){
                     setProfileImg(url);
                     return;
@@ -255,3 +258,5 @@ const addUserPhotos = () => {
 	);
 };
 export default AddPhotos;
+
+
