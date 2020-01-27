@@ -21,7 +21,8 @@ const AddPhotos = () => {
 				</div>
                 <div className="grid-photos">
                     {data.map((photo, i)=>
-                    <div className="single-photo" key={i} >
+                    
+                    <div className={`${photo === add_photo? 'camera': 'pic_uploaded'} single-photo`} key={i} >
                         <img src={photo} alt="" className={`${photo === add_photo? 'camera-icon': 'uploaded-photo'}`} />
                     </div>
                     )}
