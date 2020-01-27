@@ -1,0 +1,88 @@
+@import '../../App'
+.Chat
+    position: relative
+    height: 100%
+    min-height: 100vh
+    &-container
+        max-width: 900px 
+        margin: 0 auto
+        overflow: hidden  // shadow control
+    .shadow-control
+        position: relative
+        min-height: calc(100vh - 70px)
+    &-nav
+        padding: 0 15px
+        height: 70px
+        display: flex
+        align-items: center
+        justify-content: space-between
+        box-shadow: 0px 2px 5px #ccc
+        i 
+            color: $primary-color
+            font-size: 1.5rem
+        .back-arrow
+            font-size: 2.5rem
+        .user 
+            display: flex
+            align-items: center
+            img 
+                height: 45px
+                width: 45px 
+                object-fit: cover
+                object-position: center
+                border-radius: 50%
+                margin: 0 15px 0 30px
+            p 
+                font-size: 1.2rem
+                font-weight: 700
+
+    .chat-section
+        margin-top: 10px
+        .msg-flex
+            display: flex 
+            flex-direction: column
+
+        .msgs 
+            margin: 10px 15px
+            padding: 10px
+            border-radius: 15px
+            line-height: 1.5rem
+
+        .grey
+            background: #e2e1e1
+        .pink 
+            color: white
+            background: $primary-color
+
+        .receiver-msg
+            align-items: flex-start
+            
+        .sender-msg
+            align-items: flex-end
+            margin-left: 30px
+       
+    .send-message-section 
+        position: absolute
+        bottom: 20px
+        width: 100%
+        padding: 0 10px
+
+        input 
+            box-sizing: border-box
+            width: 100%
+            position: relative
+            padding: 15px 43px 15px  20px
+            border-radius: 30px
+            border-style: none
+            background: $input-bg
+            font-size: 1rem
+            border: 1px solid #6a696e34
+            
+        i 
+            cursor: pointer
+            color: #6A696E
+            position: absolute 
+            top: 16px
+            right: 30px
+    
+    
