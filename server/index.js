@@ -71,6 +71,7 @@ app.put('/api/photos', userCtrl.addUserImgs)
 
 // Profile Endpoints
 app.get('/api/potentials', profileCtrl.getPotentialsByZip)
+app.post('/api/addMatchInterest', profileCtrl.addMatchInterest)
 
 // const port = 4040;
 app.listen(SERVER_PORT, () => console.log(gradient.fruit(`Server running on ${SERVER_PORT}`)));

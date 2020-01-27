@@ -9,6 +9,8 @@ import Preferences from './Components/Preferences/Preferences';
 import Swipe from './Components/Swipe/Swipe';
 import AddPhotos from './Components/AddPhotos/AddPhotos';
 import Profile from './Components/Profile/Profile';
+import Chat from './Components/Chat/Chat'
+
 export default (
 	<Switch>
 		<Route component={Login} exact path='/' />
@@ -18,7 +20,8 @@ export default (
 		<Route component={Swipe} exact path='/swipe' />
 		<Route component={AddPhotos} exact path='/add-photos' />
 		<Route component={Profile} exact path='/profile' />
-		{/* <Route component={Login} exact path='/'/>
-    <Route component={Login} exact path='/'/> */}
+		
+		<Route component={Chat} exact path='/chat'/>
+		{/* <Route component={AllChats} exact path='/all-chats'/> */}
 	</Switch>
 );

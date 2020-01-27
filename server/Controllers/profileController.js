@@ -3,12 +3,20 @@ const axios = require("axios"),
   { RAPID_API_KEY } = process.env;
 
 module.exports = {
-    //will get zipcodes by your criteria
+  //will get zipcodes by your criteria
   getPotentialsByZip: async (req, res) => {
-      let db = req.app.get('db')
-      let data = []
-      let newData
-    const { users_id, users_zipcode, users_preference_proximity_max, users_gender_male, users_age_preference_min, users_age_preference_max, users_gender_preference_standard} = req.session.user;
+    let db = req.app.get("db");
+    let data = [];
+    let newData;
+    const {
+      users_id,
+      users_zipcode,
+      users_preference_proximity_max,
+      users_gender_male,
+      users_age_preference_min,
+      users_age_preference_max,
+      users_gender_preference_standard
+    } = req.session.user;
     try {
       const zipData = await axios({
         method: "get",
@@ -18,28 +26,56 @@ module.exports = {
           "x-rapidapi-key": RAPID_API_KEY
         }
       });
-      data = zipData.data.zip_codes
-      console.log (data)
-      newData = data.map(el => el.zip_code)
-      let matches = await db.users_profile.find({users_zipcode: newData, "users_id <>": users_id })
-      let bestMatches = matches.filter((el,i) => {
-          return el.users_gender_male === users_gender_preference_standard && el.users_gender_preference_standard === users_gender_male && el.users_age >= users_age_preference_min && el.users_age <= users_age_preference_max 
-      })
-        console.log('bestMatches', bestMatches)
+      data = zipData.data.zip_codes;
+      console.log(data);
+      newData = data.map(el => el.zip_code);
+      let matches = await db.users_profile.find({
+        users_zipcode: newData,
+        "users_id <>": users_id
+      });
+      let bestMatches = matches.filter((el, i) => {
+        return (
+          el.users_gender_male === users_gender_preference_standard &&
+          el.users_gender_preference_standard === users_gender_male &&
+          el.users_age >= users_age_preference_min &&
+          el.users_age <= users_age_preference_max
+        );
+      });
+      console.log("bestMatches", bestMatches);
 
-
-let usersIds = await bestMatches.map(el => el.users_id)
-    let myActivities = await db.users_activities.find({users_id: users_id});
-    let myIds = await myActivities.map(el => el.activity_id)
-    let theirActivities = await db.users_activities.find({users_id: usersIds})
-    let matchesByActivity = theirActivities.filter(el => myIds.includes(el.activity_id))
-    let matchedIds = matchesByActivity.map(el => el.users_id)
-    let ultimateMatches = await bestMatches.filter(el => matchedIds.includes(el.users_id))
-            res.status(200).send({ultimateMatches, data});
+      let usersIds = await bestMatches.map(el => el.users_id);
+      let myActivities = await db.users_activities.find({ users_id: users_id });
+      let myIds = await myActivities.map(el => el.activity_id);
+      let theirActivities = await db.users_activities.find({
+        users_id: usersIds
+      });
+      let matchesByActivity = theirActivities.filter(el =>
+        myIds.includes(el.activity_id)
+      );
+      let matchedIds = matchesByActivity.map(el => el.users_id);
+      let ultimateMatches = await bestMatches.filter(el =>
+        matchedIds.includes(el.users_id)
+      );
+      let myInterests = db.matches.find({ me: users_id });
+      let penUltimateMatches = ultimateMatches.filter(
+        el => !myInterests.includes(mi => mi.them == el.users_id)
+      );
+      res.status(200).send({ penUltimateMatches, data });
+    } catch (err) {
+      res.status(500).send(err);
     }
-    catch(err){
-        res.status(500).send(err)
-    }
+  },
+  addMatchInterest: async (req, res) => {
+    const db = req.app.get("db");
+    const { users_id } = req.session.user;
+    const them = req.body.users_id;
+    const interest_level = req.body.interest_level;
+    db.profile
+      .matches({ me: users_id, them, interest_level })
+      .then(() => {console.log("addMatchInterest success", users_id, them, interest_level); res.sendStatus(200)})
+      .catch(err => {
+        console.log("addMatchInterest", err);
+        res.sendStatus(500);
+      });
   }
 };
-
