@@ -25,8 +25,8 @@ module.exports = {
 
     getUserImgs: (req,res) => {
         const db = req.app.get('db')
-        let users_id = 60
-        // const {users_id} = req.session.user
+        // let users_id = 60
+        const {users_id} = req.session.user
         // console.log('USER ID', users_id, 'userCTRL, getUserImgs')
         db.users_info.get_users_imgs(users_id).then((images) => {
             imagesArray = Object.values(images[0]).filter(image => image)
@@ -36,8 +36,8 @@ module.exports = {
 
     addUserImgs: (req,res) => {
         const db = req.app.get('db')
-        let users_id = 60
-        // const {users_id} = req.session.user
+        // let users_id = 60
+        const {users_id} = req.session.user
         const {
             profileImg,
             img2,
