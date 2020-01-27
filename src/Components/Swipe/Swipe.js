@@ -18,7 +18,6 @@ const Swipe = () => {
 	};
 
 	const { images } = data[0];
-	console.log(images);
 	console.log(heartToggle);
 	return (
 		<div className='Swipe'>
