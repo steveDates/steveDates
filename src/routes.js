@@ -10,6 +10,7 @@ import Swipe from './Components/Swipe/Swipe';
 import AddPhotos from './Components/AddPhotos/AddPhotos';
 import Profile from './Components/Profile/Profile';
 import Chat from './Components/Chat/Chat'
+import Matches from './Components/Matches/Matches'
 
 export default (
 	<Switch>
@@ -22,6 +23,8 @@ export default (
 		<Route component={Profile} exact path='/profile' />
 		
 		<Route component={Chat} exact path='/chat'/>
+		<Route component={Matches} exact path='/matches'/>
+		
 		{/* <Route component={AllChats} exact path='/all-chats'/> */}
 	</Switch>
 );

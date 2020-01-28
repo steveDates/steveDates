@@ -5,7 +5,6 @@ import axios from 'axios'
 // import addIcon from '../../img/add-photo.png'
 import { v4 as randomString } from 'uuid';
 import Dropzone from 'react-dropzone';
-
 const AddPhotos = (props) => {   
     const [profileImg, setProfileImg] = useState('')
 	const [img2, setImg2] = useState('');

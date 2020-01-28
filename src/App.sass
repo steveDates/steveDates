@@ -9,14 +9,19 @@ $primary-color: #E81E63
 $grey-icon: #6A696E
 $input-bg: #EFEFF7
 
-@mixin container($max-width)
+@mixin container($max-width, $width)
   margin: 0 auto 
   max-width: $max-width
-  width: 80% 
+  width: $width  
 
 .container  
-  @include container(600px)
+  @include container(600px, 80%)
 
+.lg-container 
+  @include  container(600px, 95%)
+
+.xl-container 
+  @include  container(600px, 0%)
     
 .input-container
   width: 100%

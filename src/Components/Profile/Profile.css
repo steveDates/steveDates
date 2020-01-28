@@ -1,1 +1,192 @@
-/* No CSS *//*# sourceMappingURL=Profile.css.map */
+@import url("https://fonts.googleapis.com/css?family=Comfortaa&display=swap");
+* {
+  margin: 0;
+  outline: none;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  font-family: 'Comfortaa', cursive;
+}
+
+.container {
+  margin: 0 auto;
+  max-width: 600px;
+  width: 80%;
+}
+
+.input-container {
+  width: 100%;
+  position: relative;
+}
+
+.input-container i {
+  color: #6A696E;
+  position: absolute;
+  top: 15px;
+  left: 19px;
+}
+
+.input-container input {
+  font-size: 1rem;
+  background: #EFEFF7;
+  padding: 15px  10px 15px 45px;
+  border-style: none;
+  border-radius: 40px;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.primary-btn {
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  cursor: pointer;
+  padding: 13px 25px;
+  background: #E81E63;
+  color: white;
+  border-radius: 50px;
+  border-style: none;
+  width: 100%;
+  -webkit-box-shadow: 2px 2px 5px #E81E63, 3px 3px 6px #00000036;
+          box-shadow: 2px 2px 5px #E81E63, 3px 3px 6px #00000036;
+}
+
+.Profile {
+  position: relative;
+  height: 100vh;
+}
+
+.Profile .circle {
+  position: absolute;
+  width: 900px;
+  height: 650px;
+  border-radius: 50%;
+  z-index: -3;
+  top: -10%;
+  left: 50%;
+  -webkit-transform: translate(-50%, 0);
+          transform: translate(-50%, 0);
+}
+
+.Profile-nav {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 10px 0;
+}
+
+.Profile-nav i {
+  color: #E81E63;
+}
+
+.Profile-nav img {
+  height: 35px;
+  margin: 0;
+}
+
+.Profile-nav .fa-user {
+  font-size: 1.4rem;
+}
+
+.Profile-personal-info {
+  margin-top: 30px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.Profile-personal-info img {
+  height: 250px;
+  width: 250px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: top;
+     object-position: top;
+  border-radius: 50%;
+  margin-bottom: 20px;
+  border: none;
+}
+
+.Profile-personal-info p {
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.Profile .btn-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.Profile .btn-container .icon-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.Profile .btn-container .icon-container .icon-box {
+  width: 100px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-shadow: 1px 1px 4px  #ccc;
+          box-shadow: 1px 1px 4px  #ccc;
+  height: 60px;
+  width: 60px;
+  border-radius: 50%;
+}
+
+.Profile .btn-container .icon-container .icon-box i {
+  font-size: 1.5rem;
+  color: #6A696E;
+}
+
+.Profile .btn-container .icon-container p {
+  margin-top: 5px;
+  font-size: .9rem;
+  text-transform: capitalize;
+}
+
+.Profile .btn-container .icon-container .camera-box {
+  margin-top: 60px;
+  background: #E81E63;
+}
+
+.Profile .btn-container .icon-container .camera-box i {
+  color: white;
+}
+/*# sourceMappingURL=Profile.css.map */

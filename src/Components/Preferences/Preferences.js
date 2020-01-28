@@ -1,96 +1,61 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './Preferences.sass';
-const Preferences = () => {
-	const [maxDistance, setMaxDistance] = useState(0);
+import axios from 'axios';
+
+
+const Preferences = (props) => {
+	const [maxDistance, setMaxDistance] = useState(10);
 	const [minAge, setMinAge] = useState(18);
-	const [maxAge, setMaxAge] = useState(100);
-	const [value, setValue] = useState(false);
+    const [maxAge, setMaxAge] = useState(100);
+    const [genderPreference, setGenderPreference] = useState(true);
+    const [activities, setActivities] = useState([]);
+    const [myActivity1, setMyActivity1] = useState({});
+    const [myActivity2, setMyActivity2] = useState({});
+    const [myActivity3, setMyActivity3] = useState({});
+    const [myActivity4, setMyActivity4] = useState({});
+    
+    useEffect(()=>{
+        getActivities()}, [])
 
-	// const SetInterest = () => {};
-	// useEffect(()=>{
-	// 	$(function() {
-	// 		$('#slider-range').slider({
-	// 			range: true,
-	// 			min: 0,
-	// 			max: 500,
-	// 			values: [75, 300],
-	// 			slide: function(event, ui) {
-	// 				$('#amount').val('$' + ui.values[0] + ' - $' + ui.values[1]);
-	// 			}
-	// 		});
-	// 		$('#amount').val(
-	// 			'$' +
-	// 				$('#slider-range').slider('values', 0) +
-	// 				' - $' +
-	// 				$('#slider-range').slider('values', 1)
-	// 		);
-	// 	});
-	// },[])
-	const interests = [
-		{
-			id: 1,
-			interest: 'Dancing',
-			value: false
-		},
-		{
-			id: 2,
-			interest: 'Art',
-			value: true
-		},
-		{
-			id: 3,
-			interest: 'Travel',
-			value: false
-		},
-		{
-			id: 4,
-			interest: 'Politics',
-			value: false
-		},
-		{
-			id: 1,
-			interest: 'Dancing',
-			value: false
-		},
-		{
-			id: 2,
-			interest: 'Art',
-			value: true
-		},
-		{
-			id: 3,
-			interest: 'Travel',
-			value: false
-		},
-		{
-			id: 4,
-			interest: 'Politics',
-			value: true
-		},
-		{
-			id: 1,
-			interest: 'Dancing',
-			value: false
-		},
-		{
-			id: 2,
-			interest: 'Art',
-			value: true
-		},
-		{
-			id: 3,
-			interest: 'Travel',
-			value: true
-		},
-		{
-			id: 4,
-			interest: 'Politics',
-			value: false
-		}
-	];
+    useEffect(() => {
+        if(minAge >= maxAge){
+            setMinAge(maxAge)
+        }
+        if(maxAge<=minAge){
+            setMaxAge(minAge)
+        }
+    }, [minAge, maxAge])
 
-	// const interest_bg = value ? 'activated' : 'deactivated';
+    const getActivities = () => {
+        axios
+            .get('/api/activities')
+            .then((res)=>{
+                setActivities(res.data.activities)
+                setMyActivity1(res.data.myActivities[0]);
+                setMyActivity2(res.data.myActivities[1]);
+                setMyActivity3(res.data.myActivities[2]);
+                setMyActivity4(res.data.myActivities[3]);
+            })
+        }
+        console.log('MaxDist:', maxDistance)
+        console.log('MaxAge:', maxAge)
+        console.log('MinAge:', minAge)
+    console.log('1:', myActivity1)
+    console.log('2:', myActivity2)
+    console.log('3:', myActivity3)
+    console.log('4:', myActivity4)
+
+    const saveActivities = () => {
+        axios
+            .post('/api/activities', {myActivity1, myActivity2, myActivity3, myActivity4, maxDistance, maxAge, minAge, genderPreference})
+            .then(()=>{
+				props.history.push('/swipe');
+            })
+    }
+
+    console.log('LOOKING FOR:', genderPreference);
+    
 	return (
 		<div className='Preferences'>
 			<div className='container'>
@@ -108,7 +73,7 @@ const Preferences = () => {
 					<input
 						type='range'
 						value={maxDistance}
-						min='0'
+						min='10'
 						max='100'
 						className='slider'
 						onChange={e => setMaxDistance(e.target.value)}
@@ -143,30 +108,73 @@ const Preferences = () => {
 					/>
 				</div>
 
+                <label htmlFor=''>Show Me...</label>
+                <div className='radio-container'>
+						<div className='radio-input'>
+							<input
+								type='radio'
+								name='genre'
+								checked='checked'
+								onChange={e => {
+									setGenderPreference(true);
+								}}
+							/>
+							<p>Men</p>
+						</div>
+						<div className='radio-input'>
+							<input
+								type='radio'
+								name='genre'
+								onChange={e => {
+									setGenderPreference(false);
+								}}
+							/>
+							<p>Women</p>
+						</div>
+					</div>
+					{/* <br />
+                <select
+						className='genre'
+						name=''
+						id=''
+						onChange={e => getGenderBoolean(e)}
+						required
+					>
+						<option value=''>Select</option>
+						<option value={false}>Female</option>
+						<option value={true}>Male</option>
+					</select> */}
+
 				<div className='subtitle'>
 					<div></div>
 					<h1>Interests</h1> <div></div>
 				</div>
 
 				<div className='interest-container'>
-					{interests.map((interest, i) => (
-						<div
-							className={`${
-								interest.value ? 'activated' : 'deactivated'
-							} interest`}
-							onClick={() => setValue(!value)}
-							key={i}
+                    {myActivity1?<div className = 'activated interest' onClick={()=>{setMyActivity1(myActivity2); setMyActivity2(myActivity3); setMyActivity3(myActivity4); setMyActivity4();}}>{myActivity1.activity_name}</div>:null}
+                    {myActivity2?<div className = 'activated interest' onClick={()=>{setMyActivity2(myActivity3); setMyActivity3(myActivity4); setMyActivity4();}}>{myActivity2.activity_name}</div>:null}
+                    {myActivity3?<div className = 'activated interest' onClick={()=>{setMyActivity3(myActivity4); setMyActivity4();}}>{myActivity3.activity_name}</div>:null}
+                    {myActivity4?<div className = 'activated interest' onClick={()=>{setMyActivity4()}}>{myActivity4.activity_name}</div>:null}
+					{activities.map((activity, i) => (
+                        (myActivity1 && myActivity1.activity_id === activity.activity_id) 
+                        || (myActivity2 && myActivity2.activity_id === activity.activity_id) 
+                        || (myActivity3 && myActivity3.activity_id === activity.activity_id)
+                        || (myActivity4 && myActivity4.activity_id === activity.activity_id) ? null:
+                        <div
+							className='deactivated interest'
+							onClick={() =>{ 
+                                if(!myActivity1){setMyActivity1(activity); return};
+                                if(!myActivity2){setMyActivity2(activity); return};
+                                if(!myActivity3){setMyActivity3(activity); return};
+                                if(!myActivity4){setMyActivity4(activity); return};
+                            }} 
+                            key={i}
 						>
-							{interest.interest}
-							{interest.value ? (
-								<i className='fas fa-check'></i>
-							) : (
-								<i className='far fa-circle'></i>
-							)}
+							{activity.activity_name}
 						</div>
 					))}
 				</div>
-			<button className='primary-btn next-btn'>Next</button>
+			<button className='primary-btn next-btn' onClick={()=>saveActivities()}>Next</button>
 			</div>
 		</div>
 	);
