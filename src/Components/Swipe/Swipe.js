@@ -5,13 +5,15 @@ import Slider from 'react-slick';
 import axios from 'axios';
 import ProfileOverview from '../ProfileOverview/ProfileOverview';
 
-const Swipe = () => {
+const Swipe = (props) => {
     const [zipcodes, setZipcodes] = useState([]);
     const [potentials, setPotentials] = useState([]);
 	const [heartToggle, setHeartToggle] = useState(false);
     const [friendZone, setFriendZone] = useState(false);
     let [i, setI] = useState(0);
 	const [userInfo, setUserInfo] = useState(false);
+
+    console.log('potentials:',potentials);
 
 	const settings = {
 		// dots: true,
@@ -23,13 +25,27 @@ const Swipe = () => {
 		className: 'slides'
     };
 
-    const handleClick = () => {
-        if (i===potentials.length-1) {
-            setI(0);
-            console.log('OUT OF PEOPLE');
-        } else {
-            setI(i+1);
-        }
+    const handleClick = (e) => {
+        let their_id = potentials[i].users_id;
+        let interest_level = e;
+
+        axios
+            .post('/api/swipe', {their_id, interest_level})
+            .then(()=>{
+                console.log('MOVE ON, JAY-Z!!')
+                if (i===potentials.length-1) {
+                    setI(0);
+                    console.log('OUT OF PEOPLE');
+                } else {
+                    setI(i+1);
+                }
+            })
+            .catch(console.log('swipe did not work'))
+        // console.log('their id:', their_id)
+        // console.log('swipe value:', interest_level);
+
+        // REMOVE THIS AT SOME POINT
+        
     }
     
     useEffect(()=>{
@@ -47,9 +63,6 @@ const Swipe = () => {
                 })
         }
     
-        console.log('ZIPCODES', zipcodes);
-        console.log('POTENTIALS:', potentials);
-
     const photos = [potentials[i] && potentials[i].users_image, potentials[i] && potentials[i].users_image2, potentials[i] && potentials[i].users_image3, potentials[i] && potentials[i].users_image4, potentials[i] && potentials[i].users_image5, potentials[i] && potentials[i].users_image6];
     console.log('PHOTOS', photos);
 
@@ -61,7 +74,8 @@ const Swipe = () => {
 		<div className='Swipe'>
 			<div className=' Swipe-container'>
 				<div className=' top-nav'>
-					<i className='fas fa-ellipsis-h'></i>
+					<i className='fas fa-ellipsis-h'
+                        onClick={()=>props.history.push('/profile')}></i>
 					<img src={logo} alt='' />
 					<i className='far fa-comment-dots'></i>
 				</div>
@@ -85,14 +99,16 @@ const Swipe = () => {
 						<div className='icon-container'>
 							<i className='far '></i>
 							<i
-								onClick={()=>{setFriendZone(!friendZone); handleClick(); console.log('i:', i)}}
-								className={`far  ${!friendZone ? 'fa-smile' : 'fa-sad-tear'}`}
+								onClick={()=>{setFriendZone(!friendZone); handleClick(2); console.log('i:', i)}}
+                                className={`far  ${!friendZone ? 'fa-smile' : 'fa-sad-tear'}`}
+                                name = 'friend'
 							></i>
 							<i
-								onClick={() => {setHeartToggle(!heartToggle); handleClick(); console.log('i:',i)}}
-								className={`${heartToggle ? 'like' : 'unliked'} fas fa-heart`}
+								onClick={() => {setHeartToggle(!heartToggle); handleClick(1); console.log('i:',i)}}
+                                className={`${heartToggle ? 'like' : 'unliked'} fas fa-heart`}
 							></i>
-							<i className='fas fa-angle-right'></i>
+                            <i className='fas fa-angle-right' 
+                                onClick={()=>handleClick(3)}></i>
 						</div>
 					</div>
 
