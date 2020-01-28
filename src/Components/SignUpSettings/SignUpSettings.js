@@ -222,9 +222,6 @@ const SignUpSettings = props => {
 						<i className='fas fa-pen'></i>
 					</div>
 
-					<h2>
-						Optional<i className='fas fa-sort-down'></i>
-					</h2>
 					<label htmlFor=''>Date Of Birth</label>
 					<br />
 					<select name='DD' onChange={e => getBirthDay(e)} required>
@@ -353,7 +350,7 @@ const SignUpSettings = props => {
 						<option value='1931'>1931</option>
 						<option value='1930'>1930</option>
 					</select>
-					<label htmlFor=''>What are you doing?</label>
+					<label>What are you doing?</label>
 					<div className='radio-container'>
 						<div className='radio-input'>
 							<input
