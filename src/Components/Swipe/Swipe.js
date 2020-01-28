@@ -3,6 +3,7 @@ import './Swipe.sass';
 import logo from '../../img/logo.png';
 import Slider from 'react-slick';
 import axios from 'axios';
+import ProfileOverview from '../ProfileOverview/ProfileOverview';
 
 const Swipe = () => {
     const [zipcodes, setZipcodes] = useState([]);
@@ -10,7 +11,8 @@ const Swipe = () => {
 	const [heartToggle, setHeartToggle] = useState(false);
     const [friendZone, setFriendZone] = useState(false);
     let [i, setI] = useState(0);
-    
+	const [userInfo, setUserInfo] = useState(false);
+
 	const settings = {
 		// dots: true,
 		infinite: true,
@@ -51,6 +53,10 @@ const Swipe = () => {
     const photos = [potentials[i] && potentials[i].users_image, potentials[i] && potentials[i].users_image2, potentials[i] && potentials[i].users_image3, potentials[i] && potentials[i].users_image4, potentials[i] && potentials[i].users_image5, potentials[i] && potentials[i].users_image6];
     console.log('PHOTOS', photos);
 
+	const overviewToggle = () => {
+		setUserInfo(!userInfo);
+	};
+	console.log('user info', userInfo)
 	return (
 		<div className='Swipe'>
 			<div className=' Swipe-container'>
@@ -61,7 +67,7 @@ const Swipe = () => {
 				</div>
 
 				<div className=''>
-					<div>
+					<div onClick={overviewToggle}>
 						<Slider {...settings}>
 							{photos.filter(el=>el!==null).map((image, i) => (
 								<div key={i}>
@@ -97,6 +103,15 @@ const Swipe = () => {
                     )}
 					
 				</div>
+
+				{userInfo ? (
+					<div className={`${userInfo ? ' wow fadeInUp' : 'wow fadeOut'}  ProfileOverview`} >
+						<ProfileOverview  overviewToggle={overviewToggle} />
+					</div>
+				) : null}
+					{/* <div className={`${userInfo ? ' wow fadeInUp' : 'wow fadeOutDown'}  ProfileOverview`} >
+						<ProfileOverview  overviewToggle={overviewToggle} />
+					</div> */}
 			</div>
 		</div>
 	);

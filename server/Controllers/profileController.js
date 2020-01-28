@@ -64,7 +64,17 @@ module.exports = {
       let penUltimateMatches = ultimateMatches.filter(
         el => !myInterests.includes(mi => mi.them == el.users_id)
       );
-      console.log('PENULTIMATE:', penUltimateMatches);
+      let usersFinalMatches = await db.profile.users_final_matches(users_id)
+      penUltimateMatches = penUltimateMatches.filter(({users_id: theirUserId}) => {
+        if(usersFinalMatches.findIndex(match => match.me === users_id && match.them === theirUserId) > -1){
+          return false
+        }
+        if(usersFinalMatches.findIndex(match => match.them === users_id && match.me === theirUserId && match.interest_level === 3) > -1) {
+          return false
+        } else {
+          return true
+        }
+      });
       res.status(200).send({ penUltimateMatches, data });
     } catch (err) {
       res.status(500).send(err);

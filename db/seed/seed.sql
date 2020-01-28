@@ -32,7 +32,8 @@ users_activities text []
 create table matches (
     me int references users(users_id),
     them int references users(users_id),
-    interest_level int
+    interest_level int,
+    match_id serial primary key
 );
 
 create table activity (
