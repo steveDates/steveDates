@@ -97,8 +97,7 @@ module.exports = {
       });
   },
 };
-// after we save, in method above we need to check if they positively like them to us and if we match, if we do tell the front that we matched. save to messages when matched or create pop-up
-// save to a socket room number
+
 
 
 
