@@ -1,13 +1,8 @@
 @import '../../App'
 .Swipe
-    // background: red
-    overflow-y: hidden
-    // width: 900px
-    overflow: hidden
     position: relative
     &-container 
         position: relative
-        // background: red
         margin: 0 auto
         max-height: 100vh
         width: 100% 
@@ -15,7 +10,6 @@
         overflow: hidden
 
     img 
-        // position: absolute
         height: 100vh
         width: 100%
         object-fit: cover
@@ -30,6 +24,7 @@
         padding: 5px 15px
         background: linear-gradient(to bottom, black, transparent)
         z-index: 90
+
         img 
             height: 50px
             width: 50px
@@ -67,3 +62,13 @@
         p 
             margin-left: 10px
             color: $primary-color
+
+.ProfileOverview 
+    padding: 70px 30px
+    border-radius: 50px 50px 0 0
+    width: 100%
+    position: absolute 
+    bottom: 0 
+    left: 0
+    background: white
+    z-index: 90
