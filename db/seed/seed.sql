@@ -36,6 +36,12 @@ create table matches (
     match_id serial primary key
 );
 
+create table matched_users (
+    chat_id serial primary key,
+    me int references users(users_id),
+    them int references users(users_id)
+)
+
 create table activity (
 activity_id serial primary key,
 activity_name varchar(40)
