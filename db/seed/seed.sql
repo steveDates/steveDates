@@ -29,6 +29,13 @@ users_phone_number_current varchar(11),
 users_activities text []
 );
 
+create table matches (
+    me int references users(users_id),
+    them int references users(users_id),
+    interest_level int,
+    match_id serial primary key
+);
+
 create table activity (
 activity_id serial primary key,
 activity_name varchar(40)

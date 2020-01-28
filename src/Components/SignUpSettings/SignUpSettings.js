@@ -22,8 +22,6 @@ const SignUpSettings = props => {
 	const handleInfoSubmit = async e => {
 		e.preventDefault();
 		await calculate_age();
-		// console.clear()
-		console.log(age, 'age');
 		axios
 			.post('/api/profileInfo', {
 				profileImg,
@@ -136,6 +134,7 @@ const SignUpSettings = props => {
 				<h1>Profile Settings</h1>
 			</div>
 			<div className='container SignUpSettings-container'>
+				
 				<div className='pic-container'>
 					<img className='profile-img' src={profileImg} alt='' />
 					<Dropzone

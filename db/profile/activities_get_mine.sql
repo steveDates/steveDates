@@ -1,0 +1,1 @@
+select * from users_activities join activity on users_activities.activity_id = activity.activity_id where users_id = 100001 ;

@@ -4,7 +4,7 @@ const express = require('express'),
     massive = require('massive'),
     gradient = require('gradient-string'),
     session = require('express-session'),
-    aws= require('aws-sdk'),
+    aws = require('aws-sdk'),
     authCtrl = require('./Controllers/authController'),
     userCtrl = require('./Controllers/userController'),
     profileCtrl = require('./Controllers/profileController'),
@@ -16,8 +16,12 @@ app.use(session({
     resave: false,
     saveUninitialized: true,
     secret: SESSION_SECRET,
-    cookie: {maxAge: 1000 * 60 * 60 * 24}
+    cookie: {
+        maxAge: 1000 * 60 * 60 * 24 * 30
+    }
 }))
+
+
 
 //=========== AMAZON S3 =========== //
 app.get('/sign-s3', (req, res) => {
@@ -59,12 +63,17 @@ app.post('/api/login', authCtrl.login)
 app.post('/api/register', authCtrl.register)
 app.post('/api/logout', authCtrl.logout)
 
-// ===== ===== SIGN UP SETTINGS ===== =====
+// ===== ===== USER ===== =====
 
 app.post('/api/profileInfo', userCtrl.addUserInfo)
+app.get('/api/activities', userCtrl.getActivities)
+app.post('/api/activities', userCtrl.saveActivities)
+app.get('/api/user-photos', userCtrl.getUserImgs)
+app.put('/api/photos', userCtrl.addUserImgs)
 
 // Profile Endpoints
 app.get('/api/potentials', profileCtrl.getPotentialsByZip)
+app.post('/api/addMatchInterest', profileCtrl.addMatchInterest)
 
 // const port = 4040;
 app.listen(SERVER_PORT, () => console.log(gradient.fruit(`Server running on ${SERVER_PORT}`)));
