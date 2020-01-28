@@ -39,8 +39,9 @@ create table swipes (
 create table matched_users (
 chat_id serial primary key,
 user_one int references users(users_id),
-user_two int references users(users_id)
-)
+user_two int references users(users_id),
+friend_zone boolean;
+);
 
 create table activity (
 activity_id serial primary key,

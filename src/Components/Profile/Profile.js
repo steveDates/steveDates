@@ -2,7 +2,7 @@ import React from 'react';
 import './Profile.sass';
 import kevin_2 from '../../img/kevin_1.jpg';
 import logo from '../../img/logo.png';
-const Profile = () => {
+const Profile = (props) => {
 	return (
 		<div className='Profile'>
             <div className="circle"></div>
@@ -10,7 +10,7 @@ const Profile = () => {
 				<div className='Profile-nav'>
 					<div style={{ width: '35px', height: '5' }}></div>
 					<i className='fas fa-user'></i>
-					<img src={logo} alt='logo' className='profile-logo' />
+					<img src={logo} alt='logo' className='profile-logo' onClick={()=>props.history.push('/swipe')}/>
 				</div>
 				<div className='Profile-personal-info'>
 					<img src={kevin_2} alt='' />

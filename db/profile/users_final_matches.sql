@@ -1,2 +1,2 @@
 select * from swipes
-where me = $1 or them = $2
+where me = $1 or them = $1
