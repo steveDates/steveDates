@@ -70,7 +70,7 @@ const Swipe = () => {
 				</div>
 
 				{userInfo ? (
-					<div className={`${userInfo ? ' wow fadeInUp' : 'wow fadeOut'}  ProfileOverview`} >
+					<div className={`${userInfo ? ' wow fadeInUp' : 'wow fadeOut'}  ProfileOverview`} data-wow-duration='2s' >
 						<ProfileOverview  overviewToggle={overviewToggle} />
 					</div>
 				) : null}

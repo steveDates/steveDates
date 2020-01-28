@@ -5,7 +5,7 @@ import logo from '../../img/logo.png';
 const Profile = () => {
 	return (
 		<div className='Profile'>
-            <div className="circle"></div>
+			<div className='circle'></div>
 			<div className='container'>
 				<div className='Profile-nav'>
 					<div style={{ width: '35px', height: '5' }}></div>
@@ -36,6 +36,9 @@ const Profile = () => {
 						</div>
 						<p>edit info</p>
 					</div>
+				</div>
+				<div className='logout-btn-container'>
+					<p><i className='logout-btn fas fa-power-off'></i></p>
 				</div>
 			</div>
 		</div>

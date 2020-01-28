@@ -11,7 +11,8 @@ import AddPhotos from './Components/AddPhotos/AddPhotos';
 import Profile from './Components/Profile/Profile';
 import Chat from './Components/Chat/Chat'
 import Matches from './Components/Matches/Matches'
-
+import UpdatePreferences from './Components/UpdatePreferences/UpdatePreferences'
+import UpdateSignUpSettings from './Components/UpdateSignUpSettings/UpdateSignupSettings'
 export default (
 	<Switch>
 		<Route component={Login} exact path='/' />
@@ -24,6 +25,8 @@ export default (
 		
 		<Route component={Chat} exact path='/chat'/>
 		<Route component={Matches} exact path='/matches'/>
+		<Route component={UpdatePreferences} exact path='/update-preferences'/>
+		<Route component={UpdateSignUpSettings} exact path='/update-signup-settings'/>
 		
 		{/* <Route component={AllChats} exact path='/all-chats'/> */}
 	</Switch>
