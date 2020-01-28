@@ -1,4 +1,4 @@
-insert into matches(
+insert into swipes(
    me,
    them,
    interest_level

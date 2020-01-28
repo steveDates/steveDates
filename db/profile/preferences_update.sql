@@ -32,5 +32,6 @@ insert into users_activities(
 update users_profile
 set users_preference_proximity_max = ${maxDistance},
     users_age_preference_min = ${minAge},
-    users_age_preference_max = ${maxAge}
+    users_age_preference_max = ${maxAge},
+    users_gender_preference_standard = ${genderPreference}
 where users_id = ${users_id};
