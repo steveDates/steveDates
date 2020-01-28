@@ -29,6 +29,7 @@
     "react-spinners": "^0.8.0",
     "redux-promise-middleware": "^6.1.2",
     "slick-carousel": "^1.8.1",
+    "socket.io": "^2.3.0",
     "swiper": "^5.3.0",
     "uuid": "^3.4.0",
     "wowjs": "^1.1.3"

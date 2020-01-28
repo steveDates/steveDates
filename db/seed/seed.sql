@@ -32,8 +32,17 @@ users_activities text []
 create table matches (
     me int references users(users_id),
     them int references users(users_id),
-    interest_level int
+    interest_level int,
+    match_id serial primary key
 );
+
+--//CHAT_ID IS ROOM_ID//--
+create table matched_users (
+chat_id serial primary key,
+user_one int references users(users_id),
+user_two int references users(users_id),
+friend_zone boolean
+)
 
 create table activity (
 activity_id serial primary key,
@@ -48,7 +57,8 @@ activity_id int references activity(activity_id)
 create table messages (
 users_messages_id serial primary key,
 users_message varchar(500),
-message_time date
+sender int REFERENCES users(users_id),
+match_id int REFERENCES matches(match_id)
 );
 
 create table users_sent_message (

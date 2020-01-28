@@ -5,6 +5,7 @@ const express = require('express'),
     gradient = require('gradient-string'),
     session = require('express-session'),
     aws = require('aws-sdk'),
+    socket = require("socket.io"),
     authCtrl = require('./Controllers/authController'),
     userCtrl = require('./Controllers/userController'),
     profileCtrl = require('./Controllers/profileController'),
@@ -12,6 +13,14 @@ const express = require('express'),
     app = express();
  
 app.use(express.json());
+
+io = socket(
+    app.listen(SERVER_PORT, () => 
+        console.log(gradient.fruit(`Server running on ${SERVER_PORT}`)
+        )
+    )
+);
+
 app.use(session({
     resave: false,
     saveUninitialized: true,
@@ -52,10 +61,54 @@ app.get('/sign-s3', (req, res) => {
         return res.send(returnData)
     })
 })
-// ============= S3 END =============== //    
+// ============= S3 END =============== // 
+
+// ========= SOCKET.IO START ========== //
+
+// REGULAR ENDPOINTS HERE
+app.get("/api/example", (req, res, next) => {
+    res.status(200).send("hello");
+  });
+
+io.on("connection", socket => {
+    console.log("User Connected");
+
+    socket.on("join room", async data => {
+        const { room } = data;
+        const db = app.get("db");
+        console.log("Room joined", room);
+        let existingRoom = await db.chat.check_match({ match_id: +room });
+        // HOW DO I CREATE ROOM FROM MATCH? //
+        // !existingRoom.length ? db.chat.create_room({ match_id: +room }) : null;
+        let messages = await db.chat.get_chat_history({ match_id: +room });
+        socket.join(+room);
+        console.log(room)
+        io.to(+room).emit("room joined", messages);
+      });
+      socket.on("message sent", async data => {
+          //USER_ID IS SENDER//
+        const { room, message } = data;
+        let users_id = 57
+        // console.log('Room', room)
+        // const db = req.app.get('db')
+        // const {users_id} = req.session.user
+        //NEED TO ASSIGN USERS_ID TO SENDER//
+        console.log('DATA', data)
+        const db = app.get("db");
+        await db.chat.create_message({ match_id: +room, message, users_id });
+        console.log('message', message)
+        let messages = await db.chat.get_chat_history({ match_id: +room, users_id });
+        io.to(+data.room).emit("message dispatched", messages);
+      });
+    
+      socket.on("disconnect", () => {
+        console.log("User Disconnected");
+      });
+    });
+// ========= SOCKET.IO END ========== //
 
 massive(CONNECTION_STRING).then(db=>{app.set('db', db);
-console.log(gradient.summer('db connected'))});
+console.log(gradient.summer('db is super connected'))});
 
 // ===== ===== AUTH ===== =====
 
@@ -74,4 +127,4 @@ app.get('/api/potentials', profileCtrl.getPotentialsByZip)
 app.post('/api/addMatchInterest', profileCtrl.addMatchInterest)
 
 // const port = 4040;
-app.listen(SERVER_PORT, () => console.log(gradient.fruit(`Server running on ${SERVER_PORT}`)));
+
