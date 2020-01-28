@@ -11,9 +11,9 @@ module.exports = {
         }
         const authenticated = bcrypt.compareSync(password, user.password);
         if(authenticated){
-            console.log('authenticated')
             delete user.password;
             session.user = user;
+            // console.log(req.session.user)
             res.status(202).send(session.user);
         } else {
             res.status(401).send('INCORRECT PASSWORD YO!')
