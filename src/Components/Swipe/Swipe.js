@@ -3,10 +3,13 @@ import './Swipe.sass';
 import logo from '../../img/logo.png';
 import data from './data';
 import Slider from 'react-slick';
+import ProfileOverview from '../ProfileOverview/ProfileOverview';
 
 const Swipe = () => {
 	const [heartToggle, setHeartToggle] = useState(false);
 	const [friendZone, setFriendZone] = useState(false);
+	const [userInfo, setUserInfo] = useState(false);
+
 	const settings = {
 		// dots: true,
 		infinite: true,
@@ -16,9 +19,11 @@ const Swipe = () => {
 		arrow: false,
 		className: 'slides'
 	};
-
+	const overviewToggle = () => {
+		setUserInfo(!userInfo);
+	};
+	console.log('user info', userInfo)
 	const { images } = data[0];
-	console.log(heartToggle);
 	return (
 		<div className='Swipe'>
 			<div className=' Swipe-container'>
@@ -29,7 +34,7 @@ const Swipe = () => {
 				</div>
 
 				<div className=''>
-					<div>
+					<div onClick={overviewToggle}>
 						<Slider {...settings}>
 							{images.map((image, i) => (
 								<div key={i}>
@@ -45,14 +50,16 @@ const Swipe = () => {
 							Kevin<span>22</span>
 						</h1>
 						<div className='icon-container'>
-							<i class='far '></i>
+							<i className='far '></i>
 							<i
-								onClick={()=>setFriendZone(!friendZone)}
+								onClick={() => setFriendZone(!friendZone)}
 								className={`far  ${!friendZone ? 'fa-smile' : 'fa-sad-tear'}`}
 							></i>
 							<i
 								onClick={() => setHeartToggle(!heartToggle)}
-								className={`${heartToggle ? 'like' : 'unliked'} fas fa-heart`}
+								className={`${
+									heartToggle ? 'like wow heartBeat' : 'unliked'
+								} fas fa-heart `}
 							></i>
 							<i className='fas fa-angle-right'></i>
 						</div>
@@ -61,6 +68,15 @@ const Swipe = () => {
 						<i className='fas fa-map-marker-alt'></i> Lehi, Utah
 					</p>
 				</div>
+
+				{userInfo ? (
+					<div className={`${userInfo ? ' wow fadeInUp' : 'wow fadeOut'}  ProfileOverview`} >
+						<ProfileOverview  overviewToggle={overviewToggle} />
+					</div>
+				) : null}
+					{/* <div className={`${userInfo ? ' wow fadeInUp' : 'wow fadeOutDown'}  ProfileOverview`} >
+						<ProfileOverview  overviewToggle={overviewToggle} />
+					</div> */}
 			</div>
 		</div>
 	);
