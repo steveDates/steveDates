@@ -8,6 +8,7 @@ module.exports = {
     let db = req.app.get("db");
     let data = [];
     let newData;
+    console.log('profile ctrl is running');
     const {
       users_id,
       users_zipcode,
@@ -17,6 +18,7 @@ module.exports = {
       users_age_preference_max,
       users_gender_preference_standard
     } = req.session.user;
+    console.log('user id:', users_id);
     try {
       const zipData = await axios({
         method: "get",
@@ -27,7 +29,7 @@ module.exports = {
         }
       });
       data = zipData.data.zip_codes;
-      console.log(data);
+    //   console.log(data);
       newData = data.map(el => el.zip_code);
       let matches = await db.users_profile.find({
         users_zipcode: newData,
@@ -41,7 +43,7 @@ module.exports = {
           el.users_age <= users_age_preference_max
         );
       });
-      console.log("bestMatches", bestMatches);
+    //   console.log("bestMatches", bestMatches);
 
       let usersIds = await bestMatches.map(el => el.users_id);
       let myActivities = await db.users_activities.find({ users_id: users_id });
@@ -56,10 +58,13 @@ module.exports = {
       let ultimateMatches = await bestMatches.filter(el =>
         matchedIds.includes(el.users_id)
       );
-      let myInterests = db.matches.find({ me: users_id });
+    //   console.log('ULTIMATE:', ultimateMatches);
+      let myInterests = await db.matches.find({ me: users_id });
+      console.log('INTERESTS:',myInterests);
       let penUltimateMatches = ultimateMatches.filter(
         el => !myInterests.includes(mi => mi.them == el.users_id)
       );
+      console.log('PENULTIMATE:', penUltimateMatches);
       res.status(200).send({ penUltimateMatches, data });
     } catch (err) {
       res.status(500).send(err);

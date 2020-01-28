@@ -7,13 +7,13 @@ import axios from 'axios';
 const Preferences = (props) => {
 	const [maxDistance, setMaxDistance] = useState(10);
 	const [minAge, setMinAge] = useState(18);
-	const [maxAge, setMaxAge] = useState(100);
+    const [maxAge, setMaxAge] = useState(100);
+    const [genderPreference, setGenderPreference] = useState(true);
     const [activities, setActivities] = useState([]);
     const [myActivity1, setMyActivity1] = useState({});
     const [myActivity2, setMyActivity2] = useState({});
     const [myActivity3, setMyActivity3] = useState({});
     const [myActivity4, setMyActivity4] = useState({});
-    const [myActivities, setMyActivities] = useState([]);
     
     useEffect(()=>{
         getActivities()}, [])
@@ -25,7 +25,7 @@ const Preferences = (props) => {
         if(maxAge<=minAge){
             setMaxAge(minAge)
         }
-    })
+    }, [minAge, maxAge])
 
     const getActivities = () => {
         axios
@@ -47,13 +47,14 @@ const Preferences = (props) => {
     console.log('4:', myActivity4)
 
     const saveActivities = () => {
-        const id1 = myActivity1.activity_id
         axios
-            .post('/api/activities', {myActivity1, myActivity2, myActivity3, myActivity4, maxDistance, maxAge, minAge})
+            .post('/api/activities', {myActivity1, myActivity2, myActivity3, myActivity4, maxDistance, maxAge, minAge, genderPreference})
             .then(()=>{
 				props.history.push('/swipe');
             })
     }
+
+    console.log('LOOKING FOR:', genderPreference);
     
 	return (
 		<div className='Preferences'>
@@ -106,6 +107,43 @@ const Preferences = (props) => {
 						onChange={e => setMaxAge(e.target.value)}
 					/>
 				</div>
+
+                <label htmlFor=''>Show Me...</label>
+                <div className='radio-container'>
+						<div className='radio-input'>
+							<input
+								type='radio'
+								name='genre'
+								checked='checked'
+								onChange={e => {
+									setGenderPreference(true);
+								}}
+							/>
+							<p>Men</p>
+						</div>
+						<div className='radio-input'>
+							<input
+								type='radio'
+								name='genre'
+								onChange={e => {
+									setGenderPreference(false);
+								}}
+							/>
+							<p>Women</p>
+						</div>
+					</div>
+					{/* <br />
+                <select
+						className='genre'
+						name=''
+						id=''
+						onChange={e => getGenderBoolean(e)}
+						required
+					>
+						<option value=''>Select</option>
+						<option value={false}>Female</option>
+						<option value={true}>Male</option>
+					</select> */}
 
 				<div className='subtitle'>
 					<div></div>

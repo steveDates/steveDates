@@ -9,7 +9,7 @@ import { v4 as randomString } from 'uuid';
 const SignUpSettings = props => {
 	const [profileImg, setProfileImg] = useState(pic_placeholder);
 	const [firstName, setFirstName] = useState('');
-	const [gender, setGender] = useState(true);
+    const [gender, setGender] = useState(true);
 	const [phoneNumber, setPhoneNumber] = useState('');
 	const [birthDay, setBirthDay] = useState(0);
 	const [birthMonth, setBirthMonth] = useState(0);
@@ -221,9 +221,6 @@ const SignUpSettings = props => {
 						<i className='fas fa-pen'></i>
 					</div>
 
-					<h2>
-						Optional<i className='fas fa-sort-down'></i>
-					</h2>
 					<label htmlFor=''>Date Of Birth</label>
 					<br />
 					<select name='DD' onChange={e => getBirthDay(e)} required>
