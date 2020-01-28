@@ -8,6 +8,7 @@ const express = require('express'),
     authCtrl = require('./Controllers/authController'),
     userCtrl = require('./Controllers/userController'),
     profileCtrl = require('./Controllers/profileController'),
+    swipeCtrl = require('./Controllers/swipeController'),
     {SERVER_PORT, CONNECTION_STRING, SESSION_SECRET, S3_BUCKET, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY} = process.env,
     app = express();
  
@@ -70,6 +71,10 @@ app.get('/api/activities', userCtrl.getActivities)
 app.post('/api/activities', userCtrl.saveActivities)
 app.get('/api/user-photos', userCtrl.getUserImgs)
 app.put('/api/photos', userCtrl.addUserImgs)
+
+// ===== ===== SWIPES ===== =====
+
+app.post('/api/swipe', swipeCtrl.addSwipe)
 
 // Profile Endpoints
 app.get('/api/potentials', profileCtrl.getPotentialsByZip)

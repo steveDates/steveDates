@@ -58,9 +58,10 @@ module.exports = {
       let ultimateMatches = await bestMatches.filter(el =>
         matchedIds.includes(el.users_id)
       );
+      
     //   console.log('ULTIMATE:', ultimateMatches);
-      let myInterests = await db.matches.find({ me: users_id });
-      console.log('INTERESTS:',myInterests);
+      let myInterests = await db.swipes.find({ me: users_id });
+    //   console.log('INTERESTS:',myInterests);
       let penUltimateMatches = ultimateMatches.filter(
         el => !myInterests.includes(mi => mi.them == el.users_id)
       );

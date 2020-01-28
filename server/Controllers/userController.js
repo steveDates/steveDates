@@ -21,7 +21,7 @@ module.exports = {
             id4 = (myActivity4 ? myActivity4.activity_id : null);
         const {users_id} = req.session.user;
         db.profile.preferences_update({id1, id2, id3, id4, users_id, maxDistance, maxAge, minAge, genderPreference});
-        res.sendStatus(200);
+        // res.sendStatus(200);
         const {
             profileImg, 
             firstName, 
