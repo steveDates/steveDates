@@ -65,7 +65,7 @@ module.exports = {
       let penUltimateMatches = ultimateMatches.filter(
         el => !myInterests.includes(mi => mi.them == el.users_id)
       );
-      let usersFinalMatches = await db.profile.users_final_matches(users_id)
+      let usersFinalMatches = await db.profile.users_final_matches([users_id, users_id])
       penUltimateMatches = penUltimateMatches.filter(({users_id: theirUserId}) => {
         if(usersFinalMatches.findIndex(match => match.me === users_id && match.them === theirUserId) > -1){
           return false
@@ -86,12 +86,19 @@ module.exports = {
     const { users_id } = req.session.user;
     const them = req.body.users_id;
     const interest_level = req.body.interest_level;
-    db.profile
+    await db.profile
       .matches({ me: users_id, them, interest_level })
-      .then(() => {console.log("addMatchInterest success", users_id, them, interest_level); res.sendStatus(200)})
+      console.log("addMatchInterest success", users_id, them, interest_level); 
+      let theirInterestLevelResonse = db.profile.users_final_matches([them, users_id])
+      res.sendStatus(200)
       .catch(err => {
         console.log("addMatchInterest", err);
         res.sendStatus(500);
       });
-  }
+  },
 };
+// after we save, in method above we need to check if they positively like them to us and if we match, if we do tell the front that we matched. save to messages when matched or create pop-up
+// save to a socket room number
+
+
+
