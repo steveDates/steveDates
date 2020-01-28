@@ -29,7 +29,7 @@ users_phone_number_current varchar(11),
 users_activities text []
 );
 
-create table matches (
+create table swipes (
     me int references users(users_id),
     them int references users(users_id),
     interest_level int,
@@ -37,9 +37,9 @@ create table matches (
 );
 
 create table matched_users (
-    chat_id serial primary key,
-    me int references users(users_id),
-    them int references users(users_id)
+chat_id serial primary key,
+user_one int references users(users_id),
+user_two int references users(users_id)
 )
 
 create table activity (
