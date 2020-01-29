@@ -6,4 +6,4 @@ insert into matched_users(
     ${users_id},
     ${their_id},
     true
-)
+);
