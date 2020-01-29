@@ -108,8 +108,9 @@ const Swipe = (props) => {
 								onClick={() => {setHeartToggle(!heartToggle); handleClick(1); console.log('i:',i)}}
                                 className={`${heartToggle ? 'like' : 'unliked'} fas fa-heart`}
 							></i>
-                            <i className='fas fa-angle-right' 
+                            <i className='fas fa-times' 
                                 onClick={()=>handleClick(3)}></i>
+							
 						</div>
 					</div>
 
@@ -122,7 +123,7 @@ const Swipe = (props) => {
 				</div>
 
 				{userInfo ? (
-					<div className={`${userInfo ? ' wow fadeInUp' : 'wow fadeOut'}  ProfileOverview`} >
+					<div className={`${userInfo ? ' wow fadeInUp' : 'wow fadeOut'}  ProfileOverview`} data-wow-duration='2s' >
 						<ProfileOverview  overviewToggle={overviewToggle} />
 					</div>
 				) : null}
