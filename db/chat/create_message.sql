@@ -1,9 +1,9 @@
 insert into messages (
-match_id,
+chat_id,
 users_message,
 sender
 ) values (
-${match_id},
+${chat_id},
 ${message},
 ${users_id}
 )
