@@ -8,7 +8,7 @@ module.exports = {
     let db = req.app.get("db");
     let data = [];
     let newData;
-    console.log('profile ctrl is running');
+    // console.log('profile ctrl is running');
     const {
       users_id,
       users_zipcode,
@@ -18,8 +18,10 @@ module.exports = {
       users_age_preference_max,
       users_gender_preference_standard
     } = req.session.user;
-    console.log('user id:', users_id);
+    // console.log('user id:', users_id);
+    // console.log('proximity', users_preference_proximity_max)
     try {
+      // console.log('hit one')
       const zipData = await axios({
         method: "get",
         url: `https://redline-redline-zipcode.p.rapidapi.com/rest/radius.json/${users_zipcode}/${users_preference_proximity_max}/miles`,
@@ -28,8 +30,9 @@ module.exports = {
           "x-rapidapi-key": RAPID_API_KEY
         }
       });
+      // console.log('hit two')
       data = zipData.data.zip_codes;
-    //   console.log(data);
+      // console.log(data);
       newData = data.map(el => el.zip_code);
       let matches = await db.users_profile.find({
         users_zipcode: newData,
@@ -43,7 +46,7 @@ module.exports = {
           el.users_age <= users_age_preference_max
         );
       });
-    //   console.log("bestMatches", bestMatches);
+      // console.log("bestMatches", bestMatches);
 
       let usersIds = await bestMatches.map(el => el.users_id);
       let myActivities = await db.users_activities.find({ users_id: users_id });
