@@ -13,9 +13,9 @@ module.exports = {
     },
     getActivities: async (req, res) => {
         const db = req.app.get('db')
-        // let {users_id} = req.session.user;
+        let {users_id} = req.session.user;
         let activities = await db.profile.activities_get_all();
-        let myActivities = await db.profile.activities_get_mine();
+        let myActivities = await db.profile.activities_get_mine(users_id);
         res.status(200).send({activities, myActivities});
     },
     saveActivities: async (req, res) => {
@@ -27,16 +27,6 @@ module.exports = {
             id4 = (myActivity4 ? myActivity4.activity_id : null);
         const {users_id} = req.session.user;
         db.profile.preferences_update({id1, id2, id3, id4, users_id, maxDistance, maxAge, minAge, genderPreference});
-        // res.sendStatus(200);
-        const {
-            profileImg, 
-            firstName, 
-            gender, 
-            phoneNumber, 
-            age, 
-            working, 
-            zipCode, 
-            bio} = req.body
         res.sendStatus(200).catch(err => console.log(err))
     },
 

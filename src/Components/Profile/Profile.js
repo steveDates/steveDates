@@ -36,23 +36,27 @@ const Profile = (props) => {
 
 				<div className='btn-container'>
 					<div className='icon-container'>
+                        <Link to='/edit-preferences'>
 						<div className='icon-box'>
 							<i className='fas fa-cog'></i>
 						</div>
-						<p>settings</p>
+                        </Link>
+						<p>Preferences</p>
 					</div>
 					<div className='icon-container'>
+                    <Link to='/add-photos'>
 						<div className='camera-box icon-box'>
 							<i className='fas fa-camera'></i>
 						</div>
-						<Link to='/add-photos'><p>add media</p></Link>
+                    </Link>
+						<p>add media</p>
 					</div>
 					<div className='icon-container'>
 						<div className='icon-box'
                             onClick={()=>props.history.push('/edit-signup-settings')}>
 							<i className='fas fa-pen'></i>
 						</div>
-						<p>Edit Settings</p>
+						<p>Edit Info</p>
 					</div>
 				</div>
 			</div>
