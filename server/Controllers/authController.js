@@ -13,7 +13,6 @@ module.exports = {
         if(authenticated){
             delete user.password;
             session.user = user;
-            // console.log(req.session.user)
             res.status(202).send(session.user);
         } else {
             res.status(401).send('INCORRECT PASSWORD YO!')
@@ -35,7 +34,6 @@ module.exports = {
         let newUser = await db.auth.register_user([users_email, hash]).then(result => {
             session.user = result[0]
             res.status(200).send(session.user)
-            console.log(session.user)
         }).catch(err => {
             res.status(500).send({message: 'FAILED TO REGISTER'})
         })
@@ -43,5 +41,12 @@ module.exports = {
     logout: (req,res) => {
         req.session.destroy();
         res.sendStatus(200);
+    },
+    getMe: async (req, res) => {
+        const db = req.app.get('db');
+        const {users_email} = req.session.user;
+        let me = await db.auth.check_user(users_email);
+        me = me[0];
+        res.send(me).status(200);
     }
 }

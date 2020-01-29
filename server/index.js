@@ -60,6 +60,7 @@ console.log(gradient.summer('db connected'))});
 
 // ===== ===== AUTH ===== =====
 
+app.get('/me', authCtrl.getMe)
 app.post('/api/login', authCtrl.login)
 app.post('/api/register', authCtrl.register)
 app.post('/api/logout', authCtrl.logout)
@@ -67,6 +68,7 @@ app.post('/api/logout', authCtrl.logout)
 // ===== ===== USER ===== =====
 
 app.post('/api/profileInfo', userCtrl.addUserInfo)
+app.put('/api/profileInfo', userCtrl.updateUserInfo)
 app.get('/api/activities', userCtrl.getActivities)
 app.post('/api/activities', userCtrl.saveActivities)
 app.get('/api/user-photos', userCtrl.getUserImgs)
