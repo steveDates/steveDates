@@ -36,6 +36,7 @@ create table swipes (
     match_id serial primary key
 );
 
+--//CHAT_ID IS ROOM_ID//--
 create table matched_users (
 chat_id serial primary key,
 user_one int references users(users_id),
@@ -56,7 +57,8 @@ activity_id int references activity(activity_id)
 create table messages (
 users_messages_id serial primary key,
 users_message varchar(500),
-message_time date
+sender int REFERENCES users(users_id),
+chat_id int REFERENCES matched_users(chat_id)
 );
 
 create table users_sent_message (
