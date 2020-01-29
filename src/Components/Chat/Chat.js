@@ -3,28 +3,34 @@ import receiver_pic from '../../img/kevin_1.jpg';
 // import sender_pic from '../../img/kevin_2.jpg';
 import { Link } from 'react-router-dom';
 import io from 'socket.io-client';
+import Axios from 'axios'
 import './Chat.sass';
 
 //HARD CODED MATCH_ID 4 INTO GET_CHAT_HISTORY.SQL AND THIS.STATE, ROOM. NEED TO SET SENDER TO USER_ID, CURRENTLY HAVE HARD CODED IN STATE AND MESSAGE SENT SOCKET.
 
 class Chat extends Component {
-		constructor() {
-		super();
+		constructor(props) {
+		super(props);
 
 		this.state = {
 			input: '',
 			messages: [],
-			room: '',
-			// joined: false
-			// room: 0,
+			chat_id: 0,
 			joined: true,
-			sender: 57
+			sender: 89
 		  };
 		  this.joinRoom = this.joinRoom.bind(this);
 		  this.joinSuccess = this.joinSuccess.bind(this);
 		  this.sendMessage = this.sendMessage.bind(this);
 		  this.updateMessages = this.updateMessages.bind(this);
+		  this.getChat = this.getChat.bind(this);
 		};
+
+		getChat() {
+			Axios.get(`/api/chats/${this.state.chat_id}`).then(res => 
+				console.log('res.data', res.data)
+			)
+		}
 
 		// const messages
 		// user: 1,
@@ -32,22 +38,27 @@ class Chat extends Component {
 		// message_id: 0,
 		// message_content: 'Hi, how are doing?'
 
-		componentDidMount() {
+		componentDidMount = async () => {
 			this.socket = io();
 			this.socket.on('room joined', data => {
 			  this.joinSuccess(data)
 			})
 			this.socket.on('message dispatched', data => {
-			  console.log(data)
+			//   console.log(data)
 			  this.updateMessages(data);
-            })
-            console.log('ROOM:', this.state.room);
+			}); await 
+			this.setState({
+				chat_id: +(this.props.match.params.chat_id)
+			})
+			console.log('ROOM:', this.state.chat_id);
+			// console.log('PROPs', this.props)
+			this.getChat()
 		  }
 		  
 		  joinRoom() {
-			if (this.state.room) {
+			if (this.state.chat_id) {
 			  this.socket.emit('join room', {
-				room: this.state.room
+				chat_id: this.state.chat_id
 			  })
 			}
 		  }
@@ -59,7 +70,7 @@ class Chat extends Component {
 		  sendMessage () {
 			this.socket.emit("message sent", {
 			  message: this.state.input,
-			  room: this.state.room,
+			  chat_id: this.state.chat_id,
 			  sender: this.state.sender
 			})
 			this.setState({

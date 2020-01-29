@@ -11,6 +11,7 @@ module.exports = {
     getChats: (req,res) => {
         const db = req.app.get('db')
         const { chat_id } = req.params
+        console.log('chat-id', chat_id)
         db.matches.get_chats(chat_id).then(result => {
             res.status(200).send(result)
         })

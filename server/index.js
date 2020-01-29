@@ -81,15 +81,14 @@ io.on("connection", socket => {
   console.log("User Connected");
 
   socket.on("join room", async data => {
-    console.log("join room", data);
+    // console.log("join room", data);
 
     const { room } = data;
 
     const db = app.get("db");
     console.log("Room joined", room);
     let existingRoom = await db.chat.check_match(+room);
-    // HOW DO I CREATE ROOM FROM MATCH? //
-    // !existingRoom.length ? db.chat.create_room({ match_id: +room }) : null;
+    !existingRoom.length ? db.chat.create_room({ match_id: +room }) : null;
     let messages = await db.chat.get_chat_history( +room);
     socket.join(+room);
     console.log(room);
@@ -98,17 +97,12 @@ io.on("connection", socket => {
 
   socket.on("message sent", async data => {
     console.log("message sent", data);
-
-    //USER_ID IS SENDER//
-    const { room, message, users_id} = data;
-    //destructure and put proper values in and it should work
-    // console.log('Room', room)
-    // const db = req.app.get('db')
-    // const {users_id} = req.session.user
+    const { chat_id, message, sender } = data;
     //NEED TO ASSIGN USERS_ID TO SENDER//
     const db = app.get("db");
-    await db.chat.create_message({ chat_id: +room, message, users_id });
+    await db.chat.create_message({ chat_id: chat_id, message, sender });
     console.log("message", message);
+    console.log('room', +room)
     // why are you sending all messages here?  Should you just send the message we are hanlding in this call? 
     // let messages = await db.chat.get_chat_history({
     //   chat_id: +room,
