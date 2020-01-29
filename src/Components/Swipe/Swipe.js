@@ -77,7 +77,8 @@ const Swipe = (props) => {
 					<i className='fas fa-ellipsis-h'
                         onClick={()=>props.history.push('/profile')}></i>
 					<img src={logo} alt='' />
-					<i className='far fa-comment-dots'></i>
+					<i className='far fa-comment-dots'
+                        onClick={()=>props.history.push('/matches')}></i>
 				</div>
 
 				<div className=''>
