@@ -97,7 +97,7 @@ io.on("connection", socket => {
   });
 
   socket.on("message sent", async data => {
-    console.log("message sent", data);
+    // console.log("message sent", data);
 
     //USER_ID IS SENDER//
     const { room, message, users_id} = data;
