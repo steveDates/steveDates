@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import receiver_pic from '../../img/kevin_1.jpg';
 // import sender_pic from '../../img/kevin_2.jpg';
+import { Link } from 'react-router-dom';
 import io from 'socket.io-client';
 import './Chat.sass';
 
@@ -76,10 +77,10 @@ class Chat extends Component {
 			return(
 			<div className='Chat'>
 				<div className='Chat-container'>
-					<div className='Chat-nav'>
+					<div className='Chat-nav' >
 						<div className='user'>
-							<i className='back-arrow fas fa-angle-left'></i>
-							<img src={receiver_pic} alt='' />
+							<Link to='/matches'><i className='back-arrow fas fa-angle-left'></i></Link>
+							<img src={receiver_pic} alt=''/>
 							<p className='receiver-name'>Kevin</p>
 						</div>
 						<i className='fas fa-flag'></i>

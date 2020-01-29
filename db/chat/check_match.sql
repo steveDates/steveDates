@@ -1,2 +1,2 @@
-select * from matches
-where match_id = $1
+select * from matched_users
+where chat_id = $1

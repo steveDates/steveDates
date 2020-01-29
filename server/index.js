@@ -10,6 +10,7 @@ const express = require('express'),
     userCtrl = require('./Controllers/userController'),
     profileCtrl = require('./Controllers/profileController'),
     swipeCtrl = require('./Controllers/swipeController'),
+    matchCtrl = require('./Controllers/matchController'),
     {SERVER_PORT, CONNECTION_STRING, SESSION_SECRET, S3_BUCKET, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY} = process.env,
     app = express();
  
@@ -132,6 +133,11 @@ app.post('/api/swipe', swipeCtrl.addSwipe)
 // Profile Endpoints
 app.get('/api/potentials', profileCtrl.getPotentialsByZip)
 app.post('/api/addMatchInterest', profileCtrl.addMatchInterest)
+
+// === === MATCH === === //
+
+app.get('/api/matches', matchCtrl.getMatches)
+app.get('/api/chats/:chat_id', matchCtrl.getChats)
 
 // const port = 4040;
 

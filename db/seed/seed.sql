@@ -58,7 +58,7 @@ create table messages (
 users_messages_id serial primary key,
 users_message varchar(500),
 sender int REFERENCES users(users_id),
-match_id int REFERENCES matches(match_id)
+chat_id int REFERENCES matched_users(chat_id)
 );
 
 create table users_sent_message (

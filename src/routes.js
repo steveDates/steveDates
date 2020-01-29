@@ -22,7 +22,7 @@ export default (
 		<Route component={AddPhotos} exact path='/add-photos' />
 		<Route component={Profile} exact path='/profile' />
 		
-		<Route component={Chat} exact path='/chat'/>
+		<Route component={Chat} exact path='/chat/:chat_id'/>
 		<Route component={Matches} exact path='/matches'/>
 		
 		{/* <Route component={AllChats} exact path='/all-chats'/> */}
