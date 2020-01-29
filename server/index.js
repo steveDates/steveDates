@@ -84,24 +84,23 @@ io.on("connection", socket => {
     console.log("join room", data);
 
     const { room } = data;
+
     const db = app.get("db");
     console.log("Room joined", room);
     let existingRoom = await db.chat.check_match(+room);
     // HOW DO I CREATE ROOM FROM MATCH? //
     // !existingRoom.length ? db.chat.create_room({ match_id: +room }) : null;
-    let messages = await db.chat.get_chat_history({ match_id: +room });
+    let messages = await db.chat.get_chat_history( +room);
     socket.join(+room);
     console.log(room);
     io.to(+room).emit("room joined", messages);
   });
+
   socket.on("message sent", async data => {
     console.log("message sent", data);
 
     //USER_ID IS SENDER//
-    // const { room, message } = data;
-    let message = 'testing 123'
-    let users_id = 100001;
-    let room = 6
+    const { room, message, users_id} = data;
     //destructure and put proper values in and it should work
     // console.log('Room', room)
     // const db = req.app.get('db')
@@ -110,11 +109,12 @@ io.on("connection", socket => {
     const db = app.get("db");
     await db.chat.create_message({ chat_id: +room, message, users_id });
     console.log("message", message);
-    let messages = await db.chat.get_chat_history({
-      chat_id: +room,
-      users_id
-    });
-    io.to(+data.room).emit("message dispatched", messages);
+    // why are you sending all messages here?  Should you just send the message we are hanlding in this call? 
+    // let messages = await db.chat.get_chat_history({
+    //   chat_id: +room,
+    //   users_id
+    // });
+    io.to(+room).emit("message dispatched", message);
     console.log('ending send mess')
   });
 
