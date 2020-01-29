@@ -5,6 +5,12 @@ module.exports = {
         const {profileImg, firstName, gender, phoneNumber, age, working, zipCode, bio} = req.body
         db.users_info.add_info({users_id, profileImg, firstName, gender, phoneNumber, age, working, zipCode, bio}).then(() => res.sendStatus(200)).catch(err => console.log(err))
     },
+    updateUserInfo: (req, res) => {
+        const db = req.app.get('db')
+        const {users_id} = req.session.user
+        const {profileImg, firstName, phoneNumber, working, zipCode, bio} = req.body
+        db.users_info.edit_info({users_id, profileImg, firstName, phoneNumber, working, zipCode, bio}).then(() => res.sendStatus(200)).catch(err => console.log(err))
+    },
     getActivities: async (req, res) => {
         const db = req.app.get('db')
         // let {users_id} = req.session.user;
@@ -31,16 +37,7 @@ module.exports = {
             working, 
             zipCode, 
             bio} = req.body
-        db.users_info.add_info({
-            users_id, 
-            profileImg, 
-            firstName, 
-            gender, 
-            phoneNumber, 
-            age, 
-            working, 
-            zipCode, 
-            bio}).then(() => res.sendStatus(200)).catch(err => console.log(err))
+        res.sendStatus(200).catch(err => console.log(err))
     },
 
     getUserImgs: (req,res) => {
