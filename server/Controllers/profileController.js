@@ -18,7 +18,8 @@ module.exports = {
       users_age_preference_max,
       users_gender_preference_standard
     } = req.session.user;
-    // console.log('user id:', users_id);
+    console.log('user id:', users_id);
+    console.log('user obj', users)
     // console.log('proximity', users_preference_proximity_max)
     try {
       // console.log('hit one')
