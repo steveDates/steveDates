@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import './Profile.sass';
-import kevin_2 from '../../img/kevin_1.jpg';
+// import kevin_2 from '../../img/kevin_1.jpg';
 import logo from '../../img/logo.png';
 import axios from 'axios';
 const Profile = (props) => {

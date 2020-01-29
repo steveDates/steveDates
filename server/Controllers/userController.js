@@ -19,6 +19,7 @@ module.exports = {
         res.status(200).send({activities, myActivities});
     },
     saveActivities: async (req, res) => {
+        const {session} = req;
         const db = req.app.get('db')
         const {myActivity1, myActivity2, myActivity3, myActivity4, maxDistance, maxAge, minAge, genderPreference} = req.body;
             id1 = (myActivity1 ? myActivity1.activity_id : null);
@@ -26,8 +27,21 @@ module.exports = {
             id3 = (myActivity3 ? myActivity3.activity_id : null);
             id4 = (myActivity4 ? myActivity4.activity_id : null);
         const {users_id} = req.session.user;
-        db.profile.preferences_update({id1, id2, id3, id4, users_id, maxDistance, maxAge, minAge, genderPreference});
-        res.sendStatus(200).catch(err => console.log(err))
+        db.profile.preferences_update({id1, id2, id3, id4, users_id, maxDistance, maxAge, minAge, genderPreference}).then(result => {
+            session.user = result[0]
+            res.status(200).send(session.user)})
+
+        // res.sendStatus(200);
+        // const {
+        //     profileImg, 
+        //     firstName, 
+        //     gender, 
+        //     phoneNumber, 
+        //     age, 
+        //     working, 
+        //     zipCode, 
+        //     bio} = req.body
+        // res.sendStatus(200)
     },
 
     getUserImgs: (req,res) => {
