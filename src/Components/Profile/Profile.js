@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import {Link} from 'react-router-dom';
 import './Profile.sass';
 import kevin_2 from '../../img/kevin_1.jpg';
 import logo from '../../img/logo.png';
@@ -44,7 +45,7 @@ const Profile = (props) => {
 						<div className='camera-box icon-box'>
 							<i className='fas fa-camera'></i>
 						</div>
-						<p>add media</p>
+						<Link to='/add-photos'><p>add media</p></Link>
 					</div>
 					<div className='icon-container'>
 						<div className='icon-box'
