@@ -14,9 +14,9 @@ class Chat extends Component {
 		this.state = {
 			input: '',
 			messages: [],
-			// room: '',
+			room: '',
 			// joined: false
-			room: 0,
+			// room: 0,
 			joined: true,
 			sender: 57
 		  };
