@@ -34,8 +34,8 @@ const SignUpSettings = props => {
 				bio
 			})
 			.then(() => {
-				//CHANGE ROUTE TO SWIPE VIEW WHEN READY//
-				props.history.push('/preferences');
+				//CHANGE ROUTE TO ADD-PHOTOS VIEW WHEN READY//
+				props.history.push('/add-photos');
 			})
 			.catch(() => console.log('Shits Broke'));
 	};
@@ -111,6 +111,7 @@ const SignUpSettings = props => {
 			.put(signedRequest, file, options)
 			.then(res => {
 				setProfileImg(url);
+				console.log('setProfileImg', url)
 			})
 			.catch(err => {
 				if (err.res.status === 403) {
