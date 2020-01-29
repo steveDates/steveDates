@@ -40,7 +40,8 @@ class Chat extends Component {
 			this.socket.on('message dispatched', data => {
 			  console.log(data)
 			  this.updateMessages(data);
-			})
+            })
+            console.log('ROOM:', this.state.room);
 		  }
 		  
 		  joinRoom() {
@@ -77,7 +78,7 @@ class Chat extends Component {
 			  joined: true,
 			  messages
 			})
-		  }
+          }
 
 		render(){
 			return(

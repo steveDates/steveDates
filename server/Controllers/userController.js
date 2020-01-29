@@ -13,9 +13,9 @@ module.exports = {
     },
     getActivities: async (req, res) => {
         const db = req.app.get('db')
-        // let {users_id} = req.session.user;
+        let {users_id} = req.session.user;
         let activities = await db.profile.activities_get_all();
-        let myActivities = await db.profile.activities_get_mine();
+        let myActivities = await db.profile.activities_get_mine(users_id);
         res.status(200).send({activities, myActivities});
     },
     saveActivities: async (req, res) => {
