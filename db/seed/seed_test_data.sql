@@ -2,33 +2,34 @@
 delete from users_activities where users_id > 100000;
 delete from users_profile where users_profile_id > 100000;
 delete from users where users_id > 100000;
---password abc
+--password abc, or asdf
 insert into users (users_id, users_email, password)
-values (100062, 'Bob1@mail.com', '$2b$10$JnecPja78n73hxlY.bjjaORrSid0zptVpNxGf6qEp28T8YwsZeILG');
+values (100110, 'C3PO-1', '$2a$10$RMwMcWxb4CUDIpDgcO1SbOTYqDZQ85qBkNaiLV9bWC/kEkFL3hjBm');
 insert into users (users_id, users_email, password)
-values (100063, 'Bob2@mail.com', '$2b$10$JnecPja78n73hxlY.bjjaORrSid0zptVpNxGf6qEp28T8YwsZeILG');
+values (100111, 'C3PO-2', '$2a$10$RMwMcWxb4CUDIpDgcO1SbOTYqDZQ85qBkNaiLV9bWC/kEkFL3hjBm');
 insert into users (users_id, users_email, password)
-values (100064, 'Bob3@mail.com', '$2b$10$JnecPja78n73hxlY.bjjaORrSid0zptVpNxGf6qEp28T8YwsZeILG');
+values (100112, 'C3PO-3', '$2a$10$RMwMcWxb4CUDIpDgcO1SbOTYqDZQ85qBkNaiLV9bWC/kEkFL3hjBm');
 insert into users (users_id, users_email, password)
-values (100065, 'Bob1@mail.com', '$2b$10$JnecPja78n73hxlY.bjjaORrSid0zptVpNxGf6qEp28T8YwsZeILG');
+values (100113, 'C3PO-4', '$$2a$10$RMwMcWxb4CUDIpDgcO1SbOTYqDZQ85qBkNaiLV9bWC/kEkFL3hjBm');
 insert into users (users_id, users_email, password)
-values (100066, 'Bob2@mail.com', '$2b$10$JnecPja78n73hxlY.bjjaORrSid0zptVpNxGf6qEp28T8YwsZeILG');
+values (100114, 'C3PO-5', '$2a$10$RMwMcWxb4CUDIpDgcO1SbOTYqDZQ85qBkNaiLV9bWC/kEkFL3hjBm');
 insert into users (users_id, users_email, password)
-values (100067, 'Bob3@mail.com', '$2b$10$JnecPja78n73hxlY.bjjaORrSid0zptVpNxGf6qEp28T8YwsZeILG');
+values (100115, 'C3PO-6', '$2a$10$RMwMcWxb4CUDIpDgcO1SbOTYqDZQ85qBkNaiLV9bWC/kEkFL3hjBm');
 
 
+
 insert into users_profile (users_profile_id, users_id, users_image,users_age, users_age_preference_min, users_age_preference_max, users_zipcode, users_zipcode_ext, users_preference_proximity_max, users_gender_male, users_gender_preference_standard, users_bio, users_first_name)
-values (100062, 100062, 'https://stevedates.s3.amazonaws.com/049e5277-fb70-4087-9e88-239cb5eedc74-bobross.jpeg', 18, 21, 35, 84060, null, 50, true, true, 'All my single ladies!', 'Bob');
+values (100110, 100110, 'https://img.cinemablend.com/filter:scale/quill/7/e/9/b/6/f/7e9b6f625b1f06b8c70fe19107bf62bc0f44b6eb.jpg?mw=600', 18, 21, 35, 84101, null, 100, false, true, 'Space travel sound rather perilous', 'C3PO-1');
 insert into users_profile (users_profile_id, users_id, users_image,users_age, users_age_preference_min, users_age_preference_max, users_zipcode, users_zipcode_ext, users_preference_proximity_max, users_gender_male, users_gender_preference_standard, users_bio, users_first_name)
-values (100063, 100063, 'https://stevedates.s3.amazonaws.com/049e5277-fb70-4087-9e88-239cb5eedc74-bobross.jpeg', 29, 31, 35, 84060, null, 50, true, false, 'All my single ladies!', 'Bob2');
+values (100111, 100111, 'https://img.cinemablend.com/filter:scale/quill/7/e/9/b/6/f/7e9b6f625b1f06b8c70fe19107bf62bc0f44b6eb.jpg?mw=600', 29, 20, 40, 84101, null, 100, false, false, 'Space travel sound rather perilous', 'C3PO-2');
 insert into users_profile (users_profile_id, users_id, users_image,users_age, users_age_preference_min, users_age_preference_max, users_zipcode, users_zipcode_ext, users_preference_proximity_max, users_gender_male, users_gender_preference_standard, users_bio, users_first_name)
-values (100064, 100064, 'https://stevedates.s3.amazonaws.com/049e5277-fb70-4087-9e88-239cb5eedc74-bobross.jpeg', 32, 18, 35, 84060, null, 50, true, true, 'All my single ladies!', 'Bob3');
+values (100112, 100112, 'https://img.cinemablend.com/filter:scale/quill/7/e/9/b/6/f/7e9b6f625b1f06b8c70fe19107bf62bc0f44b6eb.jpg?mw=600', 32, 18, 35, 84101, null, 100, false, true, 'Space travel sound rather perilous', 'C3PO-3');
 insert into users_profile (users_profile_id, users_id, users_image,users_age, users_age_preference_min, users_age_preference_max, users_zipcode, users_zipcode_ext, users_preference_proximity_max, users_gender_male, users_gender_preference_standard, users_bio, users_first_name)
-values (100065, 100065, 'https://stevedates.s3.amazonaws.com/049e5277-fb70-4087-9e88-239cb5eedc74-bobross.jpeg', 22, 21, 35, 84060, null, 50, true, false, 'All my single ladies!', 'Bob4');
+values (100113, 100113, 'https://img.cinemablend.com/filter:scale/quill/7/e/9/b/6/f/7e9b6f625b1f06b8c70fe19107bf62bc0f44b6eb.jpg?mw=600', 22, 21, 35, 84101, null, 100, false, true, 'Space travel sound rather perilous', 'C3PO-4');
 insert into users_profile (users_profile_id, users_id, users_image,users_age, users_age_preference_min, users_age_preference_max, users_zipcode, users_zipcode_ext, users_preference_proximity_max, users_gender_male, users_gender_preference_standard, users_bio, users_first_name)
-values (100066, 100066, 'https://stevedates.s3.amazonaws.com/049e5277-fb70-4087-9e88-239cb5eedc74-bobross.jpeg', 48, 35, 50, 84060, null, 50, true, false, 'All my single ladies!', 'Bob5');
+values (100114, 100114, 'https://img.cinemablend.com/filter:scale/quill/7/e/9/b/6/f/7e9b6f625b1f06b8c70fe19107bf62bc0f44b6eb.jpg?mw=600', 25, 18, 50, 84101, null, 100, false, true, 'Space travel sound rather perilous', 'C3PO-5');
 insert into users_profile (users_profile_id, users_id, users_image,users_age, users_age_preference_min, users_age_preference_max, users_zipcode, users_zipcode_ext, users_preference_proximity_max, users_gender_male, users_gender_preference_standard, users_bio, users_first_name)
-values (100067, 100067, 'https://stevedates.s3.amazonaws.com/049e5277-fb70-4087-9e88-239cb5eedc74-bobross.jpeg', 41, 18, 45, 84060, null, 50, true, true, 'All my single ladies!', 'Bob6');
+values (100115, 100115, 'https://img.cinemablend.com/filter:scale/quill/7/e/9/b/6/f/7e9b6f625b1f06b8c70fe19107bf62bc0f44b6eb.jpg?mw=600', 28, 18, 45, 84101, null, 100, false, true, 'Space travel sound rather perilous', 'C3PO-6');
 
 insert into users_activities(users_id, activity_id) values (
     100004, 10

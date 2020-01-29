@@ -26,6 +26,12 @@ class Chat extends Component {
 		  this.updateMessages = this.updateMessages.bind(this);
 		};
 
+		// const messages
+		// user: 1,
+		// user_picture: receiver_pic,
+		// message_id: 0,
+		// message_content: 'Hi, how are doing?'
+
 		componentDidMount() {
 			this.socket = io();
 			this.socket.on('room joined', data => {
