@@ -35,3 +35,6 @@ set users_preference_proximity_max = ${maxDistance},
     users_age_preference_max = ${maxAge},
     users_gender_preference_standard = ${genderPreference}
 where users_id = ${users_id};
+
+select * from users_profile 
+where users_id = ${users_id};

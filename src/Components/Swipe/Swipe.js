@@ -64,12 +64,12 @@ const Swipe = (props) => {
         }
     
     const photos = [potentials[i] && potentials[i].users_image, potentials[i] && potentials[i].users_image2, potentials[i] && potentials[i].users_image3, potentials[i] && potentials[i].users_image4, potentials[i] && potentials[i].users_image5, potentials[i] && potentials[i].users_image6];
-    console.log('PHOTOS', photos);
+    // console.log('PHOTOS', photos);
 
 	const overviewToggle = () => {
 		setUserInfo(!userInfo);
 	};
-	console.log('user info', userInfo)
+	console.log('potentials', potentials)
 	return (
 		<div className='Swipe'>
 			<div className=' Swipe-container'>
