@@ -87,7 +87,7 @@ module.exports = {
     const them = req.body.users_id;
     const interest_level = req.body.interest_level;
     await db.profile
-      .matches({ me: users_id, them, interest_level })
+      .swipes({ me: users_id, them, interest_level })
       console.log("addMatchInterest success", users_id, them, interest_level); 
       let theirInterestLevelResonse = db.profile.users_final_matches([them, users_id])
       res.sendStatus(200)

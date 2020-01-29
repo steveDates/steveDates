@@ -1,8 +1,24 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import './Profile.sass';
 import kevin_2 from '../../img/kevin_1.jpg';
 import logo from '../../img/logo.png';
+import axios from 'axios';
 const Profile = (props) => {
+
+    const [me, setMe] = useState({});
+
+    useEffect(()=>{
+        getUser()
+    }, []);
+
+    const getUser = () => {
+        axios
+            .get('/me')
+            .then((res)=>setMe(res.data))
+    }
+
+    console.log('I AM:', me);
+
 	return (
 		<div className='Profile'>
             <div className="circle"></div>
@@ -13,8 +29,8 @@ const Profile = (props) => {
 					<img src={logo} alt='logo' className='profile-logo' onClick={()=>props.history.push('/swipe')}/>
 				</div>
 				<div className='Profile-personal-info'>
-					<img src={kevin_2} alt='' />
-					<p>Kevin, 22</p>
+					<img src={me.users_image} alt='' />
+					<p>{me.users_first_name}, {me.users_age}</p>
 				</div>
 
 				<div className='btn-container'>
@@ -31,10 +47,11 @@ const Profile = (props) => {
 						<p>add media</p>
 					</div>
 					<div className='icon-container'>
-						<div className='icon-box'>
+						<div className='icon-box'
+                            onClick={()=>props.history.push('/edit-signup-settings')}>
 							<i className='fas fa-pen'></i>
 						</div>
-						<p>edit info</p>
+						<p>Edit Settings</p>
 					</div>
 				</div>
 			</div>
