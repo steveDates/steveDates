@@ -76,16 +76,14 @@ io.on("connection", socket => {
     console.log("join room", data);
     const { room } = data;
     const db = app.get("db");
-    console.log("Room joined", chat_id);
-    let existingRoom = await db.chat.check_match(+chat_id);
-    // console.log('index.js89', existingRoom)
+    console.log("Room joined", room);
+    let existingRoom = await db.chat.check_match(+room);
     // HOW DO I CREATE ROOM FROM MATCH? //
     // !existingRoom.length ? db.chat.create_room({ match_id: +room }) : null;
-    let messages = await db.matches.get_messages({chat_id});
-    console.log('(index.js93) messages =', messages)
-    socket.join(+chat_id);
-    console.log(chat_id);
-    io.to(+chat_id).emit("room joined", messages);
+    let messages = await db.chat.get_chat_history( +room);
+    socket.join(+room);
+    console.log(room);
+    io.to(+room).emit("room joined", messages);
   });
   socket.on("message sent", async data => {
     console.log("message sent", data);
@@ -100,6 +98,7 @@ io.on("connection", socket => {
     const db = app.get("db");
     await db.chat.create_message({ chat_id: +room, message, users_id: sender });
     console.log("message", message);
+    console.log('room', +room)
     // why are you sending all messages here?  Should you just send the message we are hanlding in this call? 
     // let messages = await db.chat.get_chat_history({
     //   chat_id: +room,
@@ -113,6 +112,7 @@ io.on("connection", socket => {
   });
 });
 // ========= SOCKET.IO END ========== //
+
 massive(CONNECTION_STRING).then(db => {
   app.set("db", db);
   console.log(gradient.summer("db is super connected"));

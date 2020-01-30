@@ -3,7 +3,6 @@ import receiver_pic from '../../img/kevin_1.jpg';
 // import sender_pic from '../../img/kevin_2.jpg';
 import { Link } from 'react-router-dom';
 import io from 'socket.io-client';
-import Axios from 'axios'
 import './Chat.sass';
 //HARD CODED MATCH_ID 4 INTO GET_CHAT_HISTORY.SQL AND THIS.STATE, ROOM. NEED TO SET SENDER TO USER_ID, CURRENTLY HAVE HARD CODED IN STATE AND MESSAGE SENT SOCKET.
 class Chat extends Component {
@@ -24,9 +23,6 @@ class Chat extends Component {
 		  this.joinSuccess = this.joinSuccess.bind(this);
 		  this.sendMessage = this.sendMessage.bind(this);
 		  this.updateMessages = this.updateMessages.bind(this);
-          this.getChat = this.getChat.bind(this);
-          this.getMessages = this.getMessages.bind(this);
-          this.getMe = this.getMe.bind(this);
 		};
 		componentDidMount() {
 			this.socket = io();
@@ -43,7 +39,7 @@ class Chat extends Component {
 		  joinRoom() {
 			// if (this.state.room) {
 			  this.socket.emit('join room', {
-				chat_id: this.state.chat_id
+				room: this.state.room
 			  })
 			// }
 		  }
@@ -53,7 +49,7 @@ class Chat extends Component {
 		  sendMessage () {
 			this.socket.emit("message sent", {
 			  message: this.state.input,
-			  chat_id: this.state.chat_id,
+			  room: this.state.room,
 			  sender: this.state.sender
 			})
 			this.setState({
@@ -79,7 +75,7 @@ class Chat extends Component {
 						<div className='user'>
 							<Link to='/matches'><i className='back-arrow fas fa-angle-left'></i></Link>
 							<img src={receiver_pic} alt=''/>
-							<p className='receiver-name'>Kevin</p>
+							<p className='receiver-name'>kevin</p>
 						</div>
 						<i className='fas fa-flag'></i>
 					</div>
