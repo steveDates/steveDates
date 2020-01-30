@@ -124,10 +124,10 @@ class Chat extends Component {
 								<div
 									key={i}
 									className={`${
-										msg.sender === global.user.user_id ? 'receiver-msg' : 'sender-msg'
+										msg.sender !== global.user.users_id ? 'receiver-msg' : 'sender-msg'
 									} msg-flex`}
 								>
-									<p className={`${msg.sender === global.user.user_id ? 'pink' : 'grey'} msgs`}>
+									<p className={`${msg.sender !== global.user.users_id ? 'pink' : 'grey'} msgs`}>
 										{msg.users_message}
 									</p>
 								</div>
