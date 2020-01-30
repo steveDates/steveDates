@@ -19,6 +19,7 @@ module.exports = {
       users_gender_preference_standard
     } = req.session.user;
     // console.log('user id:', users_id);
+    // console.log('user obj', users)
     // console.log('proximity', users_preference_proximity_max)
     try {
       // console.log('hit one')
@@ -41,12 +42,11 @@ module.exports = {
       let bestMatches = matches.filter((el, i) => {
         return (
           el.users_gender_male === users_gender_preference_standard &&
-          el.users_gender_preference_standard === users_gender_male &&
+        //   el.users_gender_preference_standard === users_gender_male &&
           el.users_age >= users_age_preference_min &&
           el.users_age <= users_age_preference_max
         );
       });
-      // console.log("bestMatches", bestMatches);
 
       let usersIds = await bestMatches.map(el => el.users_id);
       let myActivities = await db.users_activities.find({ users_id: users_id });
@@ -62,9 +62,7 @@ module.exports = {
         matchedIds.includes(el.users_id)
       );
       
-    //   console.log('ULTIMATE:', ultimateMatches);
       let myInterests = await db.swipes.find({ me: users_id });
-    //   console.log('INTERESTS:',myInterests);
       let penUltimateMatches = ultimateMatches.filter(
         el => !myInterests.includes(mi => mi.them == el.users_id)
       );
