@@ -155,6 +155,7 @@ app.post("/api/addMatchInterest", profileCtrl.addMatchInterest);
 
 // === === MATCH === === //
 
+app.get('/api/messages', matchCtrl.getMessages);
 app.get("/api/matches", matchCtrl.getMatches);
 app.get("/api/chats/:chat_id", matchCtrl.getChats);
 
