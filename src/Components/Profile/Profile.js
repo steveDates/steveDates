@@ -24,7 +24,7 @@ const Profile = (props) => {
 
 	return (
 		<div className='Profile'>
-            <div className="circle"></div>
+			<div className='circle'></div>
 			<div className='container'>
 				<div className='Profile-nav'>
 					<div style={{ width: '35px', height: '5' }}></div>
@@ -60,6 +60,9 @@ const Profile = (props) => {
 						</div>
 						<p>Edit Info</p>
 					</div>
+				</div>
+				<div className='logout-btn-container'>
+					<p><i className='logout-btn fas fa-power-off'></i></p>
 				</div>
 			</div>
 		</div>

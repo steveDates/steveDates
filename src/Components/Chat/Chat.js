@@ -9,13 +9,18 @@ import './Chat.sass';
 class Chat extends Component {
 		constructor(props) {
 		super(props);
+
 		this.state = {
 			input: '',
 			messages: [],
-			chat_id: 0,
+			// room: '',
+			// joined: false
+			room: this.props.location.pathname.split('/')[2], 
 			joined: true,
-			sender: 0
+			sender: global.user.users_id
 		  };
+		  console.log('state', this.state)
+		  console.log('globaluser', global.user)
 		  this.joinRoom = this.joinRoom.bind(this);
 		  this.joinSuccess = this.joinSuccess.bind(this);
 		  this.sendMessage = this.sendMessage.bind(this);
@@ -57,27 +62,23 @@ class Chat extends Component {
             await this.getMe();
             console.log('i am:', this.state.sender)
 			this.socket = io();
+			this.joinRoom();
 			this.socket.on('room joined', data => {
 			  this.joinSuccess(data)
 			})
 			this.socket.on('message dispatched', data => {
-			//   console.log(data)
+			  console.log('update messges dispatched', data)
 			  this.updateMessages(data);
-			}); await 
-			this.setState({
-				chat_id: +(this.props.match.params.chat_id)
 			})
-            this.joinRoom()
-            await this.getChat();
-            this.getMessages();
+			
+            console.log('ROOM:', this.state.room);
 		  }
 		  joinRoom() {
-              console.log('(chat.js)join room running')
-			if (this.state.chat_id) {
+			// if (this.state.room) {
 			  this.socket.emit('join room', {
 				chat_id: this.state.chat_id
 			  })
-			}
+			// }
 		  }
 		  componentWillUnmount() {
 			this.socket.disconnect();
@@ -94,9 +95,8 @@ class Chat extends Component {
 		  }
 		  updateMessages(messages) {
 			this.setState({
-			  messages
-            })
-            console.log('(Chat.js87) Messages:', this.state.messages)
+			  messages: [...this.state.messages, messages]
+			})
 		  }
 		  joinSuccess(messages) {
 			this.setState({
@@ -119,14 +119,15 @@ class Chat extends Component {
 					<div className='shadow-control '>
 						{/* MESSAGE DISPLAY START */}
 						<div className='chat-section'>
-							{this.state.messages.map((msg, i) => (
+							{ /**{chat_id: 9, users_message: "is it really working?", sender: 89} */
+							this.state.messages.map((msg, i) => (
 								<div
 									key={i}
 									className={`${
-										msg.sender === 100006 ? 'receiver-msg' : 'sender-msg'
+										msg.sender === global.user.user_id ? 'receiver-msg' : 'sender-msg'
 									} msg-flex`}
 								>
-									<p className={`${msg.sender === 77 ? 'pink' : 'grey'} msgs`}>
+									<p className={`${msg.sender === global.user.user_id ? 'pink' : 'grey'} msgs`}>
 										{msg.users_message}
 									</p>
 								</div>

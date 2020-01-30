@@ -16,7 +16,7 @@ const ProfileOverview = props => {
 		description:
 			'Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum, a? Accusamus quos eos, debitis suscipit doloremque illo quis quod quo blanditiis iusto. Est repellat eos iste commodi quo eius aperiam.'
     };
-    console.log(props);
+    console.log('current_user:',props.current_user);
 	return (
 		<div className='ProfileOverview'>
 			<div className='ProfileOverview-container'>

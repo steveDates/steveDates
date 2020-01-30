@@ -100,21 +100,22 @@ io.on("connection", socket => {
     console.log("(index.js100) message sent:", data);
 
     //USER_ID IS SENDER//
-    const { chat_id, message, sender} = data;
+    const { room, message, sender} = data;
     //destructure and put proper values in and it should work
     // console.log('Room', room)
     // const db = req.app.get('db')
     // const {users_id} = req.session.user
     //NEED TO ASSIGN USERS_ID TO SENDER//
+    console.log('before create_message')
     const db = app.get("db");
-    await db.chat.create_message({ chat_id: chat_id, message, sender });
+    await db.chat.create_message({ chat_id: +room, message, users_id: sender });
     console.log("message", message);
     // why are you sending all messages here?  Should you just send the message we are hanlding in this call? 
     // let messages = await db.chat.get_chat_history({
     //   chat_id: +room,
     //   users_id
     // });
-    io.to(chat_id).emit("(index.js117) message dispatched:", message);
+    io.to(+room).emit("message dispatched", {chat_id: +room, users_message: message, sender});
     console.log('ending send mess')
   });
 

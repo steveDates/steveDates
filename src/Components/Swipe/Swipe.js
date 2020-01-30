@@ -100,16 +100,21 @@ const Swipe = (props) => {
 						<div className='icon-container'>
 							<i className='far '></i>
 							<i
-								onClick={()=>{setFriendZone(!friendZone); handleClick(2); console.log('i:', i)}}
+                                onMouseDown={()=>setFriendZone(true)}
+                                onMouseUp={()=>{setFriendZone(false); handleClick(2)}}
+								// onClick={()=>{setFriendZone(!friendZone); handleClick(2); console.log('i:', i)}}
                                 className={`far  ${!friendZone ? 'fa-smile' : 'fa-sad-tear'}`}
                                 name = 'friend'
 							></i>
 							<i
-								onClick={() => {setHeartToggle(!heartToggle); handleClick(1); console.log('i:',i)}}
+                                onMouseDown={()=>setHeartToggle(true)}
+                                onMouseUp={()=>{setHeartToggle(false); handleClick(3)}}
+								// onClick={() => {setHeartToggle(!heartToggle); handleClick(1); console.log('i:',i)}}
                                 className={`${heartToggle ? 'like' : 'unliked'} fas fa-heart`}
 							></i>
-                            <i className='fas fa-angle-right' 
+                            <i className='fas fa-times' 
                                 onClick={()=>handleClick(3)}></i>
+							
 						</div>
 					</div>
 
@@ -122,7 +127,7 @@ const Swipe = (props) => {
 				</div>
 
 				{userInfo ? (
-					<div className={`${userInfo ? ' wow fadeInUp' : 'wow fadeOut'}  ProfileOverview`} >
+					<div className={`${userInfo ? ' wow fadeInUp' : 'wow fadeOut'}  ProfileOverview`} data-wow-duration='2s' >
 						<ProfileOverview  overviewToggle={overviewToggle} currentUser = {potentials[i]} zipcodes = {zipcodes}/>
 					</div>
 				) : null}
