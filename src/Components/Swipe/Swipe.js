@@ -108,7 +108,7 @@ const Swipe = (props) => {
 							></i>
 							<i
                                 onMouseDown={()=>setHeartToggle(true)}
-                                onMouseUp={()=>{setHeartToggle(false); handleClick(3)}}
+                                onMouseUp={()=>{setHeartToggle(false); handleClick(1)}}
 								// onClick={() => {setHeartToggle(!heartToggle); handleClick(1); console.log('i:',i)}}
                                 className={`${heartToggle ? 'like' : 'unliked'} fas fa-heart`}
 							></i>

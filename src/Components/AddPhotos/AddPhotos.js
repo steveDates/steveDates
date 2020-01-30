@@ -48,7 +48,7 @@ const AddPhotos = props => {
 				axios
 					.put('/api/photos', { profileImg, img2, img3, img4, img5, img6 })
 					.then(() => {
-						props.history.push('/swipe');
+						props.history.push('/preferences');
 					});
 		} else {
 			setAlert(true);
