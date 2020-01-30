@@ -43,7 +43,7 @@ module.exports = {
       let bestMatches = matches.filter((el, i) => {
         return (
           el.users_gender_male === users_gender_preference_standard &&
-          el.users_gender_preference_standard === users_gender_male &&
+        //   el.users_gender_preference_standard === users_gender_male &&
           el.users_age >= users_age_preference_min &&
           el.users_age <= users_age_preference_max
         );

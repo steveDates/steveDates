@@ -28,6 +28,7 @@ module.exports = {
             id4 = (myActivity4 ? myActivity4.activity_id : null);
         const {users_id} = req.session.user;
         db.profile.preferences_update({id1, id2, id3, id4, users_id, maxDistance, maxAge, minAge, genderPreference}).then(result => {
+            // You are only sending info from the users_profile table, not the users table.
             session.user = result[0]
             res.status(200).send(session.user)})
 

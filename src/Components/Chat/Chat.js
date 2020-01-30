@@ -3,10 +3,9 @@ import receiver_pic from '../../img/kevin_1.jpg';
 // import sender_pic from '../../img/kevin_2.jpg';
 import { Link } from 'react-router-dom';
 import io from 'socket.io-client';
+import Axios from 'axios'
 import './Chat.sass';
-
 //HARD CODED MATCH_ID 4 INTO GET_CHAT_HISTORY.SQL AND THIS.STATE, ROOM. NEED TO SET SENDER TO USER_ID, CURRENTLY HAVE HARD CODED IN STATE AND MESSAGE SENT SOCKET.
-
 class Chat extends Component {
 		constructor(props) {
 		super(props);
@@ -26,9 +25,42 @@ class Chat extends Component {
 		  this.joinSuccess = this.joinSuccess.bind(this);
 		  this.sendMessage = this.sendMessage.bind(this);
 		  this.updateMessages = this.updateMessages.bind(this);
+          this.getChat = this.getChat.bind(this);
+          this.getMessages = this.getMessages.bind(this);
+          this.getMe = this.getMe.bind(this);
 		};
-
-		componentDidMount() {
+		getChat() {
+			Axios.get(`/api/chats/${this.state.chat_id}`).then(res =>{ 
+                // console.log('res', res);
+                // console.log('chat_id:', res.data[0].chat_id);
+                this.setState({
+                    chat_id: res.data[0].chat_id
+                })
+                console.log('new chat:', this.state.chat_id);
+            })
+            .catch(()=>console.log('did not get chat'))
+        }
+        getMe(){
+            Axios
+                .get('/me')
+                .then(res=>
+                    console.log(res.data.users_id)
+                //     this.setState({
+                //     sender: res.data.users_id
+                // })
+                ).catch(console.log('get me failed'));
+                // console.log('I am:',this.state.sender)
+                }
+        getMessages(){
+            Axios.get(`/api/messages/${this.state.chat_id}`)
+                .then((res)=>this.setState({
+                    messages: res.data
+                }))
+                .catch('get messages failed');
+        }
+		componentDidMount = async () => {
+            await this.getMe();
+            console.log('i am:', this.state.sender)
 			this.socket = io();
 			this.joinRoom();
 			this.socket.on('room joined', data => {
@@ -41,43 +73,37 @@ class Chat extends Component {
 			
             console.log('ROOM:', this.state.room);
 		  }
-		  
 		  joinRoom() {
 			// if (this.state.room) {
 			  this.socket.emit('join room', {
-				room: this.state.room
+				chat_id: this.state.chat_id
 			  })
 			// }
 		  }
-		
 		  componentWillUnmount() {
 			this.socket.disconnect();
 		  }
-		
 		  sendMessage () {
 			this.socket.emit("message sent", {
 			  message: this.state.input,
-			  room: this.state.room,
+			  chat_id: this.state.chat_id,
 			  sender: this.state.sender
 			})
 			this.setState({
 			  input: ''
 			})
 		  }
-		
 		  updateMessages(messages) {
 			this.setState({
 			  messages: [...this.state.messages, messages]
 			})
 		  }
-		
 		  joinSuccess(messages) {
 			this.setState({
 			  joined: true,
 			  messages
 			})
           }
-
 		render(){
 			return(
 			<div className='Chat'>
@@ -122,5 +148,4 @@ class Chat extends Component {
 			)
 		};
 };
-
 export default Chat;
