@@ -27,9 +27,10 @@ class Chat extends Component {
 		};
 
 		getChat() {
-			Axios.get(`/api/chats/${this.state.chat_id}`).then(res => 
-				console.log('res.data', res.data)
-			)
+			Axios.get(`/api/chats/${this.state.chat_id}`).then(res => {
+				console.log('res.data Chat.js', res.data);
+				// this.setState(sender)
+			})
 		}
 
 		// const messages
@@ -90,16 +91,16 @@ class Chat extends Component {
 			  messages
 			})
           }
-
-		render(){
-			return(
+		  render(){
+			// console.log('user blah', data)
+			  return(
 			<div className='Chat'>
 				<div className='Chat-container'>
 					<div className='Chat-nav' >
 						<div className='user'>
 							<Link to='/matches'><i className='back-arrow fas fa-angle-left'></i></Link>
 							<img src={receiver_pic} alt=''/>
-							<p className='receiver-name'>Kevin</p>
+							<p className='receiver-name'>kevin</p>
 						</div>
 						<i className='fas fa-flag'></i>
 					</div>

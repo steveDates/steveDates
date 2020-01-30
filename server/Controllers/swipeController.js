@@ -3,8 +3,8 @@ module.exports = {
         const db = req.app.get('db');
         const {users_id} = req.session.user;
         const {their_id, interest_level} = req.body;
-        console.log('their id:', their_id);
-        console.log('int lev', interest_level);
+        // console.log('their id:', their_id);
+        // console.log('int lev', interest_level);
         await db.swipe.add_swipe({users_id, their_id, interest_level});
         
         let theirSwipe = await db.swipe.get_their_swipe(their_id);
