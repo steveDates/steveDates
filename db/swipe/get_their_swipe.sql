@@ -1,1 +1,1 @@
-select interest_level from swipes where them = $1
+select interest_level from swipes where me = ${their_id} and them = ${users_id};

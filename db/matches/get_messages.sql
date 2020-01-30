@@ -1,0 +1,1 @@
+select * from messages where chat_id = ${chat_id};

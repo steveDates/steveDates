@@ -5,9 +5,7 @@ import { Link } from 'react-router-dom';
 import io from 'socket.io-client';
 import Axios from 'axios'
 import './Chat.sass';
-
 //HARD CODED MATCH_ID 4 INTO GET_CHAT_HISTORY.SQL AND THIS.STATE, ROOM. NEED TO SET SENDER TO USER_ID, CURRENTLY HAVE HARD CODED IN STATE AND MESSAGE SENT SOCKET.
-
 class Chat extends Component {
 		constructor(props) {
 		super(props);
@@ -15,59 +13,76 @@ class Chat extends Component {
 		this.state = {
 			input: '',
 			messages: [],
-			chat_id: 0,
+			// room: '',
+			// joined: false
+			room: this.props.location.pathname.split('/')[2], 
 			joined: true,
-			sender: 89
+			sender: global.user.users_id
 		  };
+		  console.log('state', this.state)
+		  console.log('globaluser', global.user)
 		  this.joinRoom = this.joinRoom.bind(this);
 		  this.joinSuccess = this.joinSuccess.bind(this);
 		  this.sendMessage = this.sendMessage.bind(this);
 		  this.updateMessages = this.updateMessages.bind(this);
-		  this.getChat = this.getChat.bind(this);
+          this.getChat = this.getChat.bind(this);
+          this.getMessages = this.getMessages.bind(this);
+          this.getMe = this.getMe.bind(this);
 		};
-
 		getChat() {
-			Axios.get(`/api/chats/${this.state.chat_id}`).then(res => {
-				console.log('res.data Chat.js', res.data);
-				// this.setState(sender)
-			})
-		}
-
-		// const messages
-		// user: 1,
-		// user_picture: receiver_pic,
-		// message_id: 0,
-		// message_content: 'Hi, how are doing?'
-
+			Axios.get(`/api/chats/${this.state.chat_id}`).then(res =>{ 
+                // console.log('res', res);
+                // console.log('chat_id:', res.data[0].chat_id);
+                this.setState({
+                    chat_id: res.data[0].chat_id
+                })
+                console.log('new chat:', this.state.chat_id);
+            })
+            .catch(()=>console.log('did not get chat'))
+        }
+        getMe(){
+            Axios
+                .get('/me')
+                .then(res=>
+                    console.log(res.data.users_id)
+                //     this.setState({
+                //     sender: res.data.users_id
+                // })
+                ).catch(console.log('get me failed'));
+                // console.log('I am:',this.state.sender)
+                }
+        getMessages(){
+            Axios.get(`/api/messages/${this.state.chat_id}`)
+                .then((res)=>this.setState({
+                    messages: res.data
+                }))
+                .catch('get messages failed');
+        }
 		componentDidMount = async () => {
+            await this.getMe();
+            console.log('i am:', this.state.sender)
 			this.socket = io();
+			this.joinRoom();
 			this.socket.on('room joined', data => {
 			  this.joinSuccess(data)
 			})
 			this.socket.on('message dispatched', data => {
-			//   console.log(data)
+			  console.log('update messges dispatched', data)
 			  this.updateMessages(data);
-			}); await 
-			this.setState({
-				chat_id: +(this.props.match.params.chat_id)
 			})
-			console.log('ROOM:', this.state.chat_id);
-			// console.log('PROPs', this.props)
-			this.getChat()
+			
+            console.log('ROOM:', this.state.room);
 		  }
-		  
 		  joinRoom() {
-			if (this.state.chat_id) {
+			// if (this.state.room) {
 			  this.socket.emit('join room', {
 				chat_id: this.state.chat_id
 			  })
-			}
+			// }
 		  }
-		
 		  componentWillUnmount() {
 			this.socket.disconnect();
 		  }
-		
 		  sendMessage () {
 			this.socket.emit("message sent", {
 			  message: this.state.input,
@@ -78,22 +93,19 @@ class Chat extends Component {
 			  input: ''
 			})
 		  }
-		
 		  updateMessages(messages) {
 			this.setState({
-			  messages
+			  messages: [...this.state.messages, messages]
 			})
 		  }
-		
 		  joinSuccess(messages) {
 			this.setState({
 			  joined: true,
 			  messages
 			})
           }
-		  render(){
-			// console.log('user blah', data)
-			  return(
+		render(){
+			return(
 			<div className='Chat'>
 				<div className='Chat-container'>
 					<div className='Chat-nav' >
@@ -107,15 +119,16 @@ class Chat extends Component {
 					<div className='shadow-control '>
 						{/* MESSAGE DISPLAY START */}
 						<div className='chat-section'>
-							{this.state.messages.map((msg, i) => (
+							{ /**{chat_id: 9, users_message: "is it really working?", sender: 89} */
+							this.state.messages.map((msg, i) => (
 								<div
 									key={i}
 									className={`${
-										msg.user === 1 ? 'receiver-msg' : 'sender-msg'
+										msg.sender !== global.user.users_id ? 'receiver-msg' : 'sender-msg'
 									} msg-flex`}
 								>
-									<p className={`${msg.user === 1 ? 'pink' : 'grey'} msgs`}>
-										{msg.message_content}
+									<p className={`${msg.sender !== global.user.users_id ? 'pink' : 'grey'} msgs`}>
+										{msg.users_message}
 									</p>
 								</div>
 							))}
@@ -135,5 +148,4 @@ class Chat extends Component {
 			)
 		};
 };
-
 export default Chat;
