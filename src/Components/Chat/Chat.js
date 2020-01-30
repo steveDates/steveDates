@@ -75,7 +75,7 @@ class Chat extends Component {
 						<div className='user'>
 							<Link to='/matches'><i className='back-arrow fas fa-angle-left'></i></Link>
 							<img src={receiver_pic} alt=''/>
-							<p className='receiver-name'>Kevin</p>
+							<p className='receiver-name'>kevin</p>
 						</div>
 						<i className='fas fa-flag'></i>
 					</div>

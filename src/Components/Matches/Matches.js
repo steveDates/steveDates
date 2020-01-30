@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import Axios from "axios";
 
 const Matches = props => {
-  console.log("global user is", global.user);
+  // console.log("global user is", global.user);
   const [users, setUsers] = useState([]);
 
   const getMatches = () => {

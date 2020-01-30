@@ -98,6 +98,7 @@ io.on("connection", socket => {
     const db = app.get("db");
     await db.chat.create_message({ chat_id: +room, message, users_id: sender });
     console.log("message", message);
+    console.log('room', +room)
     // why are you sending all messages here?  Should you just send the message we are hanlding in this call? 
     // let messages = await db.chat.get_chat_history({
     //   chat_id: +room,
@@ -111,6 +112,7 @@ io.on("connection", socket => {
   });
 });
 // ========= SOCKET.IO END ========== //
+
 massive(CONNECTION_STRING).then(db => {
   app.set("db", db);
   console.log(gradient.summer("db is super connected"));
