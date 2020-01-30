@@ -22,6 +22,7 @@ module.exports = {
         const {users_email, password} = req.body;
         const {session} = req;
         const db = req.app.get('db')
+        console.log('req.body authController', req.body)
         //CHECK TO SEE IF USER EXISTS//
         let user = await db.auth.check_user(users_email);
         user = user[0]
