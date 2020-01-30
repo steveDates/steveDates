@@ -8,18 +8,20 @@ import './Chat.sass';
 //HARD CODED MATCH_ID 4 INTO GET_CHAT_HISTORY.SQL AND THIS.STATE, ROOM. NEED TO SET SENDER TO USER_ID, CURRENTLY HAVE HARD CODED IN STATE AND MESSAGE SENT SOCKET.
 
 class Chat extends Component {
-		constructor() {
-		super();
+		constructor(props) {
+		super(props);
 
 		this.state = {
 			input: '',
 			messages: [],
 			// room: '',
 			// joined: false
-			room: 6,
+			room: this.props.location.pathname.split('/')[2], 
 			joined: true,
-			sender: 57
+			sender: global.user.users_id
 		  };
+		  console.log('state', this.state)
+		  console.log('globaluser', global.user)
 		  this.joinRoom = this.joinRoom.bind(this);
 		  this.joinSuccess = this.joinSuccess.bind(this);
 		  this.sendMessage = this.sendMessage.bind(this);
@@ -30,13 +32,13 @@ class Chat extends Component {
 			this.socket = io();
 			this.joinRoom();
 			this.socket.on('room joined', data => {
-				console.log('room joined with isaiah')
 			  this.joinSuccess(data)
 			})
 			this.socket.on('message dispatched', data => {
-			  console.log(data)
+			  console.log('update messges dispatched', data)
 			  this.updateMessages(data);
-            })
+			})
+			
             console.log('ROOM:', this.state.room);
 		  }
 		  
@@ -70,7 +72,6 @@ class Chat extends Component {
 		  }
 		
 		  joinSuccess(messages) {
-			  console.log('messages line 73', messages)
 			this.setState({
 			  joined: true,
 			  messages
@@ -92,15 +93,16 @@ class Chat extends Component {
 					<div className='shadow-control '>
 						{/* MESSAGE DISPLAY START */}
 						<div className='chat-section'>
-							{this.state.messages.map((msg, i) => (
+							{ /**{chat_id: 9, users_message: "is it really working?", sender: 89} */
+							this.state.messages.map((msg, i) => (
 								<div
 									key={i}
 									className={`${
-										msg.user === 1 ? 'receiver-msg' : 'sender-msg'
+										msg.sender === global.user.user_id ? 'receiver-msg' : 'sender-msg'
 									} msg-flex`}
 								>
-									<p className={`${msg.user === 1 ? 'pink' : 'grey'} msgs`}>
-										{msg.message_content}
+									<p className={`${msg.sender === global.user.user_id ? 'pink' : 'grey'} msgs`}>
+										{msg.users_message}
 									</p>
 								</div>
 							))}
