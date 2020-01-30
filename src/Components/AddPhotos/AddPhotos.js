@@ -108,14 +108,14 @@ const AddPhotos = props => {
 				}
 			});
 	};
-	const handleNxtBtn = () => {
-		// handleBtnActivation()
-		props.history.push('/');
-	};
+	// const handleNxtBtn = () => {
+	// 	// handleBtnActivation()
+	// 	props.history.push('/');
+	// };
 
 	const handleBtnActive = () => {
 		if (
-			profileImg == '' &&
+			profileImg === '' &&
 			img2 === '' &&
 			img3 === '' &&
 			img4 === '' &&
