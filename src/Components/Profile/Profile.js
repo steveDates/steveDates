@@ -15,7 +15,9 @@ const Profile = (props) => {
     const getUser = () => {
         axios
             .get('/me')
-            .then((res)=>setMe(res.data))
+            .then((res)=>{
+                setMe(res.data);
+                console.log('data:',res.data)})
     }
 
     console.log('I AM:', me);
