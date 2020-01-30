@@ -123,7 +123,7 @@ const Swipe = (props) => {
 
 				{userInfo ? (
 					<div className={`${userInfo ? ' wow fadeInUp' : 'wow fadeOut'}  ProfileOverview`} >
-						<ProfileOverview  overviewToggle={overviewToggle} />
+						<ProfileOverview  overviewToggle={overviewToggle} currentUser = {potentials[i]} zipcodes = {zipcodes}/>
 					</div>
 				) : null}
 					{/* <div className={`${userInfo ? ' wow fadeInUp' : 'wow fadeOutDown'}  ProfileOverview`} >

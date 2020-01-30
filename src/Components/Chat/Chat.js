@@ -14,7 +14,7 @@ class Chat extends Component {
 			messages: [],
 			chat_id: 0,
 			joined: true,
-			sender: 89
+			sender: 0
 		  };
 		  this.joinRoom = this.joinRoom.bind(this);
 		  this.joinSuccess = this.joinSuccess.bind(this);
@@ -22,6 +22,7 @@ class Chat extends Component {
 		  this.updateMessages = this.updateMessages.bind(this);
           this.getChat = this.getChat.bind(this);
           this.getMessages = this.getMessages.bind(this);
+          this.getMe = this.getMe.bind(this);
 		};
 		getChat() {
 			Axios.get(`/api/chats/${this.state.chat_id}`).then(res =>{ 
@@ -30,17 +31,31 @@ class Chat extends Component {
                 this.setState({
                     chat_id: res.data[0].chat_id
                 })
-                // console.log('new chat:', this.state.chat_id);
+                console.log('new chat:', this.state.chat_id);
             })
             .catch(()=>console.log('did not get chat'))
         }
-        // get the chat_id to be defined, please.
+        getMe(){
+            Axios
+                .get('/me')
+                .then(res=>
+                    console.log(res.data.users_id)
+                //     this.setState({
+                //     sender: res.data.users_id
+                // })
+                ).catch(console.log('get me failed'));
+                // console.log('I am:',this.state.sender)
+                }
         getMessages(){
-            Axios.get('/api/messages', {chat_id: this.state.chat_id})
-                .then((res)=>console.log('res.data:',res.data))
-                .catch('get messages failed')
+            Axios.get(`/api/messages/${this.state.chat_id}`)
+                .then((res)=>this.setState({
+                    messages: res.data
+                }))
+                .catch('get messages failed');
         }
 		componentDidMount = async () => {
+            await this.getMe();
+            console.log('i am:', this.state.sender)
 			this.socket = io();
 			this.socket.on('room joined', data => {
 			  this.joinSuccess(data)
@@ -52,11 +67,12 @@ class Chat extends Component {
 			this.setState({
 				chat_id: +(this.props.match.params.chat_id)
 			})
-			console.log('ROOM:', this.state.chat_id);
+            this.joinRoom()
             await this.getChat();
             this.getMessages();
 		  }
 		  joinRoom() {
+              console.log('(chat.js)join room running')
 			if (this.state.chat_id) {
 			  this.socket.emit('join room', {
 				chat_id: this.state.chat_id
@@ -79,7 +95,8 @@ class Chat extends Component {
 		  updateMessages(messages) {
 			this.setState({
 			  messages
-			})
+            })
+            console.log('(Chat.js87) Messages:', this.state.messages)
 		  }
 		  joinSuccess(messages) {
 			this.setState({

@@ -81,40 +81,40 @@ io.on("connection", socket => {
   console.log("User Connected");
 
   socket.on("join room", async data => {
-    console.log("join room", data);
-
-    const { room } = data;
+    const { chat_id } = data;
 
     const db = app.get("db");
-    console.log("Room joined", room);
-    let existingRoom = await db.chat.check_match(+room);
+    console.log("Room joined", chat_id);
+    let existingRoom = await db.chat.check_match(+chat_id);
+    // console.log('index.js89', existingRoom)
     // HOW DO I CREATE ROOM FROM MATCH? //
     // !existingRoom.length ? db.chat.create_room({ match_id: +room }) : null;
-    let messages = await db.chat.get_chat_history( +room);
-    socket.join(+room);
-    console.log(room);
-    io.to(+room).emit("room joined", messages);
+    let messages = await db.matches.get_messages({chat_id});
+    console.log('(index.js93) messages =', messages)
+    socket.join(+chat_id);
+    console.log(chat_id);
+    io.to(+chat_id).emit("room joined", messages);
   });
 
   socket.on("message sent", async data => {
-    console.log("message sent", data);
+    console.log("(index.js100) message sent:", data);
 
     //USER_ID IS SENDER//
-    const { room, message, sender} = data;
+    const { chat_id, message, sender} = data;
     //destructure and put proper values in and it should work
     // console.log('Room', room)
     // const db = req.app.get('db')
     // const {users_id} = req.session.user
     //NEED TO ASSIGN USERS_ID TO SENDER//
     const db = app.get("db");
-    await db.chat.create_message({ chat_id: +room, message, sender });
+    await db.chat.create_message({ chat_id: chat_id, message, sender });
     console.log("message", message);
     // why are you sending all messages here?  Should you just send the message we are hanlding in this call? 
     // let messages = await db.chat.get_chat_history({
     //   chat_id: +room,
     //   users_id
     // });
-    io.to(+room).emit("message dispatched", message);
+    io.to(chat_id).emit("(index.js117) message dispatched:", message);
     console.log('ending send mess')
   });
 
@@ -155,7 +155,7 @@ app.post("/api/addMatchInterest", profileCtrl.addMatchInterest);
 
 // === === MATCH === === //
 
-app.get('/api/messages', matchCtrl.getMessages);
+app.get('/api/messages/:chat_id', matchCtrl.getMessages);
 app.get("/api/matches", matchCtrl.getMatches);
 app.get("/api/chats/:chat_id", matchCtrl.getChats);
 

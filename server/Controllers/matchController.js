@@ -20,7 +20,7 @@ module.exports = {
     },
     getMessages:(req, res) => {
         const db = req.app.get('db');
-        let {chat_id} = req.body;
+        let {chat_id} = req.params;
         console.log('chat:', chat_id)
         chat_id = +chat_id;
         db.matches.get_messages({chat_id}).then(result =>{
