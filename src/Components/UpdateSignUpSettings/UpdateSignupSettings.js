@@ -130,7 +130,7 @@ const UpdateSignUpSettings = props => {
 			});
 	};
 	const handleInput = () => {};
-	/////////////////////////////////////
+	// /////////////////////////////////////
 	console.clear();
 	console.log(inputsToggle.name);
 	return (

@@ -115,7 +115,7 @@ const AddPhotos = props => {
 
 	const handleBtnActive = () => {
 		if (
-			profileImg == '' &&
+			profileImg === '' &&
 			img2 === '' &&
 			img3 === '' &&
 			img4 === '' &&
