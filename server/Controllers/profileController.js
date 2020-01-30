@@ -39,7 +39,6 @@ module.exports = {
         users_zipcode: newData,
         "users_id <>": users_id
       });
-      console.log('best match', matches.length)
       let bestMatches = matches.filter((el, i) => {
         return (
           el.users_gender_male === users_gender_preference_standard &&
@@ -48,32 +47,22 @@ module.exports = {
           el.users_age <= users_age_preference_max
         );
       });
-      console.log("bestMatches", bestMatches.length);
 
       let usersIds = await bestMatches.map(el => el.users_id);
-      // console.log('usersIds', usersIds)
       let myActivities = await db.users_activities.find({ users_id: users_id });
-      // console.log('myActivities', myActivities)
       let myIds = await myActivities.map(el => el.activity_id);
-      // console.log('myIds', myIds)
       let theirActivities = await db.users_activities.find({
         users_id: usersIds
       });
-      // console.log('theiract', theirActivities)
       let matchesByActivity = theirActivities.filter(el =>
         myIds.includes(el.activity_id)
       );
-      console.log('matchesByActivity', matchesByActivity)
       let matchedIds = matchesByActivity.map(el => el.users_id);
-      console.log('matchedids', matchedIds)
       let ultimateMatches = await bestMatches.filter(el =>
         matchedIds.includes(el.users_id)
       );
-      console.log('ultimate matches', ultimateMatches)
       
-    //   console.log('ULTIMATE:', ultimateMatches);
       let myInterests = await db.swipes.find({ me: users_id });
-    //   console.log('INTERESTS:',myInterests);
       let penUltimateMatches = ultimateMatches.filter(
         el => !myInterests.includes(mi => mi.them == el.users_id)
       );
@@ -88,7 +77,6 @@ module.exports = {
           return true
         }
       });
-      console.log('pen match', penUltimateMatches)
       res.status(200).send({ penUltimateMatches, data });
     } catch (err) {
       res.status(500).send(err);
