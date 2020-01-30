@@ -5,5 +5,5 @@ sender
 ) values (
 ${chat_id},
 ${message},
-${sender}
+${users_id}
 )
