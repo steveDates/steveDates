@@ -16,7 +16,7 @@ class Chat extends Component {
 			messages: [],
 			// room: '',
 			// joined: false
-			room: 0,
+			room: 6,
 			joined: true,
 			sender: 57
 		  };
@@ -28,7 +28,9 @@ class Chat extends Component {
 
 		componentDidMount() {
 			this.socket = io();
+			this.joinRoom();
 			this.socket.on('room joined', data => {
+				console.log('room joined with isaiah')
 			  this.joinSuccess(data)
 			})
 			this.socket.on('message dispatched', data => {
@@ -39,11 +41,11 @@ class Chat extends Component {
 		  }
 		  
 		  joinRoom() {
-			if (this.state.room) {
+			// if (this.state.room) {
 			  this.socket.emit('join room', {
 				room: this.state.room
 			  })
-			}
+			// }
 		  }
 		
 		  componentWillUnmount() {
@@ -63,11 +65,12 @@ class Chat extends Component {
 		
 		  updateMessages(messages) {
 			this.setState({
-			  messages
+			  messages: [...this.state.messages, messages]
 			})
 		  }
 		
 		  joinSuccess(messages) {
+			  console.log('messages line 73', messages)
 			this.setState({
 			  joined: true,
 			  messages
