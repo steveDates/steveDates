@@ -9,7 +9,6 @@ import './Chat.sass';
 class Chat extends Component {
 		constructor(props) {
 		super(props);
-
 		this.state = {
 			input: '',
 			messages: [],
@@ -29,38 +28,7 @@ class Chat extends Component {
           this.getMessages = this.getMessages.bind(this);
           this.getMe = this.getMe.bind(this);
 		};
-		getChat() {
-			Axios.get(`/api/chats/${this.state.chat_id}`).then(res =>{ 
-                // console.log('res', res);
-                // console.log('chat_id:', res.data[0].chat_id);
-                this.setState({
-                    chat_id: res.data[0].chat_id
-                })
-                console.log('new chat:', this.state.chat_id);
-            })
-            .catch(()=>console.log('did not get chat'))
-        }
-        getMe(){
-            Axios
-                .get('/me')
-                .then(res=>
-                    console.log(res.data.users_id)
-                //     this.setState({
-                //     sender: res.data.users_id
-                // })
-                ).catch(console.log('get me failed'));
-                // console.log('I am:',this.state.sender)
-                }
-        getMessages(){
-            Axios.get(`/api/messages/${this.state.chat_id}`)
-                .then((res)=>this.setState({
-                    messages: res.data
-                }))
-                .catch('get messages failed');
-        }
-		componentDidMount = async () => {
-            await this.getMe();
-            console.log('i am:', this.state.sender)
+		componentDidMount() {
 			this.socket = io();
 			this.joinRoom();
 			this.socket.on('room joined', data => {
@@ -70,7 +38,6 @@ class Chat extends Component {
 			  console.log('update messges dispatched', data)
 			  this.updateMessages(data);
 			})
-			
             console.log('ROOM:', this.state.room);
 		  }
 		  joinRoom() {

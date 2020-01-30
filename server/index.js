@@ -19,15 +19,12 @@ const express = require("express"),
     AWS_SECRET_ACCESS_KEY
   } = process.env,
   app = express();
-
 app.use(express.json());
-
 io = socket(
   app.listen(SERVER_PORT, () =>
     console.log(gradient.fruit(`Server running on ${SERVER_PORT}`))
   )
 );
-
 app.use(
   session({
     resave: false,
@@ -38,7 +35,6 @@ app.use(
     }
   })
 );
-
 //=========== AMAZON S3 =========== //
 app.get("/sign-s3", (req, res) => {
   aws.config = {
@@ -69,20 +65,16 @@ app.get("/sign-s3", (req, res) => {
   });
 });
 // ============= S3 END =============== //
-
 // ========= SOCKET.IO START ========== //
-
 // REGULAR ENDPOINTS HERE
 app.get("/api/example", (req, res, next) => {
   res.status(200).send("hello");
 });
-
 io.on("connection", socket => {
   console.log("User Connected");
-
   socket.on("join room", async data => {
-    const { chat_id } = data;
-
+    console.log("join room", data);
+    const { room } = data;
     const db = app.get("db");
     console.log("Room joined", chat_id);
     let existingRoom = await db.chat.check_match(+chat_id);
@@ -95,10 +87,8 @@ io.on("connection", socket => {
     console.log(chat_id);
     io.to(+chat_id).emit("room joined", messages);
   });
-
   socket.on("message sent", async data => {
-    console.log("(index.js100) message sent:", data);
-
+    console.log("message sent", data);
     //USER_ID IS SENDER//
     const { room, message, sender} = data;
     //destructure and put proper values in and it should work
@@ -118,46 +108,33 @@ io.on("connection", socket => {
     io.to(+room).emit("message dispatched", {chat_id: +room, users_message: message, sender});
     console.log('ending send mess')
   });
-
   socket.on("disconnect", x => {
     console.log("User Disconnected", x);
   });
 });
 // ========= SOCKET.IO END ========== //
-
 massive(CONNECTION_STRING).then(db => {
   app.set("db", db);
   console.log(gradient.summer("db is super connected"));
 });
-
 // ===== ===== AUTH ===== =====
-
 app.get("/me", authCtrl.getMe);
 app.post("/api/login", authCtrl.login);
 app.post("/api/register", authCtrl.register);
 app.post("/api/logout", authCtrl.logout);
-
 // ===== ===== USER ===== =====
-
 app.post("/api/profileInfo", userCtrl.addUserInfo);
 app.put("/api/profileInfo", userCtrl.updateUserInfo);
 app.get("/api/activities", userCtrl.getActivities);
 app.post("/api/activities", userCtrl.saveActivities);
 app.get("/api/user-photos", userCtrl.getUserImgs);
 app.put("/api/photos", userCtrl.addUserImgs);
-
 // ===== ===== SWIPES ===== =====
-
 app.post("/api/swipe", swipeCtrl.addSwipe);
-
 // Profile Endpoints
 app.get("/api/potentials", profileCtrl.getPotentialsByZip);
 app.post("/api/addMatchInterest", profileCtrl.addMatchInterest);
-
 // === === MATCH === === //
-
-app.get('/api/messages/:chat_id', matchCtrl.getMessages);
 app.get("/api/matches", matchCtrl.getMatches);
 app.get("/api/chats/:chat_id", matchCtrl.getChats);
-
 // const port = 4040;
