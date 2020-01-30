@@ -33,7 +33,7 @@ const Matches = props => {
     <div className="Matches">
       <div className="">
         <div className="nav-top">
-          <Link to="/profile">
+          <Link to="/swipe">
             <i className="fas fa-angle-left"></i>
           </Link>
           <p>Matches</p>

@@ -16,9 +16,9 @@ class Chat extends Component {
 			messages: [],
 			// room: '',
 			// joined: false
-			room: 0,
+			room: 43,
 			joined: true,
-			sender: 57
+			sender: 77
 		  };
 		  this.joinRoom = this.joinRoom.bind(this);
 		  this.joinSuccess = this.joinSuccess.bind(this);
@@ -32,7 +32,7 @@ class Chat extends Component {
 			  this.joinSuccess(data)
 			})
 			this.socket.on('message dispatched', data => {
-			  console.log(data)
+			  console.log('data is:',data)
 			  this.updateMessages(data);
             })
             console.log('ROOM:', this.state.room);

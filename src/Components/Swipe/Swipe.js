@@ -32,15 +32,15 @@ const Swipe = (props) => {
         axios
             .post('/api/swipe', {their_id, interest_level})
             .then(()=>{
-                console.log('MOVE ON, JAY-Z!!')
                 if (i===potentials.length-1) {
                     setI(0);
                     console.log('OUT OF PEOPLE');
                 } else {
                     setI(i+1);
+                    console.log('i is greater now')
                 }
             })
-            .catch(console.log('swipe did not work'))
+            .catch(console.log('swipe failed'))
         // console.log('their id:', their_id)
         // console.log('swipe value:', interest_level);
 

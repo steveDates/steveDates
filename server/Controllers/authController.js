@@ -44,8 +44,8 @@ module.exports = {
     },
     getMe: async (req, res) => {
         const db = req.app.get('db');
-        const {users_email} = req.session.user;
-        let me = await db.auth.check_user(users_email);
+        const {users_id} = req.session.user;
+        let me = await db.profile.get_user(users_id);
         me = me[0];
         res.send(me).status(200);
     }
