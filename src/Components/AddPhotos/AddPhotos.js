@@ -108,10 +108,10 @@ const AddPhotos = props => {
 				}
 			});
 	};
-	const handleNxtBtn = () => {
-		// handleBtnActivation()
-		props.history.push('/');
-	};
+	// const handleNxtBtn = () => {
+	// 	// handleBtnActivation()
+	// 	props.history.push('/');
+	// };
 
 	const handleBtnActive = () => {
 		if (

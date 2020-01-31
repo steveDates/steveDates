@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import Axios from "axios";
 
 const Matches = props => {
-  console.log("global user is", global.user);
+  // console.log("global user is", global.user);
   const [users, setUsers] = useState([]);
   
 
@@ -46,7 +46,7 @@ const Matches = props => {
           <div onClick={() => goToChat(user.chat_id, user.users_id)} className="Matched-user">
             <div className="user">
               <img
-                className={`${user.type === "dating" ? "red" : "blue"}`}
+                className={`${user.friend_zone ? "blue" : "red"}`}
                 src={user.users_image}
                 alt={user.users_first_name}
               />
