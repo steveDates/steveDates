@@ -4,7 +4,7 @@ import logo from '../../img/logo.png';
 import Slider from 'react-slick';
 import axios from 'axios';
 import ProfileOverview from '../ProfileOverview/ProfileOverview';
-
+import {Link } from 'react-router-dom'
 const Swipe = (props) => {
     const [zipcodes, setZipcodes] = useState([]);
     const [potentials, setPotentials] = useState([]);
@@ -64,12 +64,12 @@ const Swipe = (props) => {
         }
     
     const photos = [potentials[i] && potentials[i].users_image, potentials[i] && potentials[i].users_image2, potentials[i] && potentials[i].users_image3, potentials[i] && potentials[i].users_image4, potentials[i] && potentials[i].users_image5, potentials[i] && potentials[i].users_image6];
-    // console.log('PHOTOS', photos);
+    console.log('PHOTOS', photos);
 
 	const overviewToggle = () => {
 		setUserInfo(!userInfo);
 	};
-	console.log('potentials', potentials)
+	console.log('user info', userInfo)
 	return (
 		<div className='Swipe'>
 			<div className=' Swipe-container'>
@@ -77,8 +77,7 @@ const Swipe = (props) => {
 					<i className='fas fa-ellipsis-h'
                         onClick={()=>props.history.push('/profile')}></i>
 					<img src={logo} alt='' />
-					<i className='far fa-comment-dots'
-                        onClick={()=>props.history.push('/matches')}></i>
+					<Link to='/matches'><i className='far fa-comment-dots'></i></Link>
 				</div>
 
 				<div className=''>
@@ -112,9 +111,8 @@ const Swipe = (props) => {
 								// onClick={() => {setHeartToggle(!heartToggle); handleClick(1); console.log('i:',i)}}
                                 className={`${heartToggle ? 'like' : 'unliked'} fas fa-heart`}
 							></i>
-                            <i className='fas fa-times' 
+                            <i className='fas fa-angle-right' 
                                 onClick={()=>handleClick(3)}></i>
-							
 						</div>
 					</div>
 
