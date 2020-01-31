@@ -6,6 +6,7 @@ import Axios from "axios";
 const Matches = props => {
   console.log("global user is", global.user);
   const [users, setUsers] = useState([]);
+  
 
   const getMatches = () => {
     Axios.get("/api/matches").then(res => {
@@ -18,8 +19,8 @@ const Matches = props => {
     getMatches();
   }, []);
 
-  const goToChat = id => {
-    props.history.push(`/chat/${id}`);
+  const goToChat = (id, users_id) => {
+    props.history.push(`/chat/${id}/${users_id}`);
   };
 
   // id: 1,
@@ -28,7 +29,7 @@ const Matches = props => {
   // type: 'dating',
   // message: 'Lorem ipsum dolor sit amet...'
 
-  console.log(users);
+  console.log('holaaaaaaaaaaaaaaaaaaaaa',users);
   return (
     <div className="Matches">
       <div className="">
@@ -42,7 +43,7 @@ const Matches = props => {
       </div>
       <div className="lg-container">
         {users.map(user => (
-          <div onClick={() => goToChat(user.chat_id)} className="Matched-user">
+          <div onClick={() => goToChat(user.chat_id, user.users_id)} className="Matched-user">
             <div className="user">
               <img
                 className={`${user.type === "dating" ? "red" : "blue"}`}

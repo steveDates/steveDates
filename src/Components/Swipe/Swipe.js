@@ -4,7 +4,7 @@ import logo from '../../img/logo.png';
 import Slider from 'react-slick';
 import axios from 'axios';
 import ProfileOverview from '../ProfileOverview/ProfileOverview';
-
+import {Link } from 'react-router-dom'
 const Swipe = (props) => {
     const [zipcodes, setZipcodes] = useState([]);
     const [potentials, setPotentials] = useState([]);
@@ -77,7 +77,7 @@ const Swipe = (props) => {
 					<i className='fas fa-ellipsis-h'
                         onClick={()=>props.history.push('/profile')}></i>
 					<img src={logo} alt='' />
-					<i className='far fa-comment-dots'></i>
+					<Link to='/matches'><i className='far fa-comment-dots'></i></Link>
 				</div>
 
 				<div className=''>

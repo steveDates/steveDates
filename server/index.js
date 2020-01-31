@@ -98,7 +98,8 @@ io.on("connection", socket => {
     const db = app.get("db");
     await db.chat.create_message({ chat_id: +room, message, users_id: sender });
     console.log("message", message);
-    // why are you sending all messages here?  Should you just send the message we are hanlding in this call? 
+    console.log('room', +room)
+    // why are you sending all messages here?  Should you just send the message we are hanlding in this call?
     // let messages = await db.chat.get_chat_history({
     //   chat_id: +room,
     //   users_id
@@ -134,5 +135,6 @@ app.get("/api/potentials", profileCtrl.getPotentialsByZip);
 app.post("/api/addMatchInterest", profileCtrl.addMatchInterest);
 // === === MATCH === === //
 app.get("/api/matches", matchCtrl.getMatches);
+app.get("/api/currentReceiver/:users_id", matchCtrl.getCurrentReceiver)
 app.get("/api/chats/:chat_id", matchCtrl.getChats);
 // const port = 4040;
