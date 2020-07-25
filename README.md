@@ -1,5 +1,8 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Steve Dates
+With Steve Dates, you can take your online dating experience to a whole new level! Rather than just pick a match based on your basic criteria, why not use Steve Dates to help you find better matches FASTER!!  With Steve Dates, we will find you matches not only by age, location and gender BUT we will futher find matches within your activity preferences. You like rock climbing?? Find a match who does as well.  Bowhunting?? No problem!  Art, nunchucks, anime?? We've got you covered!  With Steve Dates, you'll find your dream person quickly and easily and you'll already know that you have a passion for the same activities!
+
 ## Available Scripts
 
 In the project directory, you can run:
